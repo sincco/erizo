@@ -6,14 +6,14 @@
 		<company>sincco</company>
 	</app>
 	<front>
-		<url>http://127.0.0.1/sae/</url>
+		<url>http://127.0.0.1/userp/</url>
 	</front>
 	<bases>
 		<default>
 			<host>localhost</host>
-			<user>ventaruta</user>
+			<user>userp</user>
 			<password>aY2+zt7NkYEOeo8H81z40AyUwA0Z3f7jT913Xwss1Ik=</password>
-			<dbname>ventaruta</dbname>
+			<dbname>userp</dbname>
 			<type>mysql</type>
 		</default>
 	</bases>
@@ -24,7 +24,7 @@
 	</dev>
 	<sesion>
 		<type>DEFAULT</type>
-		<name>ventaruta</name>
+		<name>userp</name>
 		<ssl>0</ssl>
 		<inactivity>60</inactivity>
 	</sesion>
