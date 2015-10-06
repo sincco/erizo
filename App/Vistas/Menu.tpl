@@ -9,9 +9,13 @@
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="{BASE_URL}clientes"><i class="fa fa-users"></i> Clientes</a></li>
-			<li><a href="{BASE_URL}productos"><i class="fa fa-archive"></i> Productos</a></li>
-			<li><a href="{BASE_URL}ventas"><i class="fa fa-credit-card"></i> Ventas</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Clientes <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{BASE_URL}clientes">Catálogo</a></li>
+                    <li><a href="#">Ventas</a></li>
+                </ul>
+            </li>
 			<li><a href="{BASE_URL}inicio/salir"><i class="fa fa-sign-out"></i> Salir</a></li>
         </ul>
     </div>
