@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 06-10-2015 a las 15:37:18
+-- Tiempo de generación: 06-10-2015 a las 20:38:35
 -- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.13
 
@@ -36,15 +36,6 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de clientes' AUTO_INCREMENT=7 ;
 
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`cliente`, `rfc`, `razonSocial`, `direccionFiscal`, `activo`) VALUES
-(1, 'bbb', 'aaa', 'ccc', 1),
-(5, 'aaa', 'aaa', 'ccc', 1),
-(6, 'ccc', 'ccc', 'ccc', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -60,13 +51,6 @@ CREATE TABLE IF NOT EXISTS `clientesContactos` (
   PRIMARY KEY (`clienteContacto`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Contactos del cliente' AUTO_INCREMENT=3 ;
 
---
--- Volcado de datos para la tabla `clientesContactos`
---
-
-INSERT INTO `clientesContactos` (`clienteContacto`, `cliente`, `nombre`, `telefono`, `correo`) VALUES
-(1, 1, '', '', '');
-
 -- --------------------------------------------------------
 
 --
@@ -81,13 +65,6 @@ CREATE TABLE IF NOT EXISTS `clientesDirecciones` (
   `telefono` varchar(15) NOT NULL,
   PRIMARY KEY (`clienteDireccion`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Direcciones de clientes' AUTO_INCREMENT=3 ;
-
---
--- Volcado de datos para la tabla `clientesDirecciones`
---
-
-INSERT INTO `clientesDirecciones` (`clienteDireccion`, `cliente`, `alias`, `domicilio`, `telefono`) VALUES
-(1, 1, '', '', '');
 
 -- --------------------------------------------------------
 
@@ -144,8 +121,9 @@ CREATE TABLE IF NOT EXISTS `kardex` (
 CREATE TABLE IF NOT EXISTS `lineasProductos` (
   `lineaProducto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(75) NOT NULL,
+  `activo` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`lineaProducto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -194,8 +172,9 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `razonSocial` varchar(150) NOT NULL,
   `direccionFiscal` varchar(150) NOT NULL,
   `activo` int(1) NOT NULL,
-  PRIMARY KEY (`proveedor`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de proveedores' AUTO_INCREMENT=1 ;
+  PRIMARY KEY (`proveedor`),
+  UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de proveedores' AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -210,7 +189,7 @@ CREATE TABLE IF NOT EXISTS `proveedoresContactos` (
   `correo` varchar(150) NOT NULL,
   `telefono` varchar(150) NOT NULL,
   PRIMARY KEY (`proveedorContacto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Datos de contactos de proveedores' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Datos de contactos de proveedores' AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
