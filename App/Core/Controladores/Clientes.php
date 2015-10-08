@@ -32,4 +32,13 @@ class Controladores_Clientes extends Sfphp_Controlador
 		$data = Sfphp_Peticion::get()['_parametros'];
 		echo json_encode(array("respuesta"=>$this->modeloClientes->post($data)));
 	}
+
+	/**
+	 * Muestra el grid del catálogo de clientes
+	 * @return none
+	 */
+	public function apiGrid()
+	{
+		echo json_encode($this->modeloClientes->grid());
+	}
 }
