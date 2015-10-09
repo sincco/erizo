@@ -47,6 +47,8 @@ final class Sfphp_Peticion
 			$this->_previa = $_SERVER['HTTP_REFERER'];
 		else
 			$this->_previa = NULL;
+		if(!strpos(strtolower($_SERVER['SERVER_SIGNATURE']),"apache"))
+			$_GET['url'] = substr($_GET['url'], 1);
 		if(!isset($_GET['url'])) {
 			$this->_modulo = NULL;
 			$this->_control = "inicio";
