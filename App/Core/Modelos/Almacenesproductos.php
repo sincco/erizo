@@ -76,12 +76,32 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	{
 		$query = "
 		SELECT 
-			pro.clave, pro.descripcion, 
+			exi.almacenProducto,pro.clave, pro.descripcionCorta, 
 			exi.existencias, exi.costo
 		FROM
-			almacenesProductos exi,
+			almacenesProductos exi
+		INNER JOIN
 			productos pro
-		WHERE exi.almacen = '{$almacen}';";
+			USING (producto)
+		WHERE exi.almacen = '{$almacen}'
+		ORDER BY pro.clave ASC;";
 		return $this->db->query($query);
+	}
+
+	/**
+	 * Inserta un nuevo almacen
+	 * @param  array $data Datos del almacen
+	 * @return array
+	 */
+	public function apiPost($data)
+	{
+		$query = "
+		REPLACE INTO almacenesProductos
+		SET
+			almacen = '{$data['almacen']}',
+			producto = '{$data['producto']}',
+			existencias = '{$data['existencias']}',
+			costo = '{$data['costo']}';";
+		return $this->db->insert($query);
 	}
 }

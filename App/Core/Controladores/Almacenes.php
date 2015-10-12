@@ -62,4 +62,25 @@ class Controladores_Almacenes extends Sfphp_Controlador
 		$this->_vista->almacenes = $this->modeloAlmacenes->get();
 		$this->vistaAlmacenesManejoExistencias;
 	}
+
+	/**
+	 * Llamada AJAX para manejo de existencias
+	 * @return json
+	 */
+	public function apiPostExistencia()
+	{
+		$data = Sfphp_Peticion::get()['_parametros'];
+		$data['producto'] = $this->modeloProductos->getByClave($data['clave'])[0]['producto'];
+		echo json_encode(array("respuesta"=>$this->modeloAlmacenesproductos->apiPost($data)));
+	}
+
+	/**
+	 * Llamada AJAX para manejo de existencias
+	 * @return json
+	 */
+	public function apiHot()
+	{
+		$data = Sfphp_Peticion::get()['_parametros']['almacen'];
+		echo json_encode(array("respuesta"=>$this->modeloAlmacenesproductos->hot($data)));
+	}
 }
