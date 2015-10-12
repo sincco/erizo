@@ -48,6 +48,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			clave = '{$data['clave']}',
 			descripcion = '{$data['descripcion']}',
 			descripcionCorta = '{$data['descripcionCorta']}',
+			lineaProducto = '{$data['lineaProducto']}',
 			precio = '{$data['precio']}',
 			unidadMedida = '{$data['unidadMedida']}',
 			activo = 1;";
