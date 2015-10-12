@@ -15,6 +15,14 @@
                     <li><a href="{BASE_URL}clientes">Clientes</a></li>
                     <li><a href="{BASE_URL}proveedores">Proveedores</a></li>
                     <li><a href="{BASE_URL}lineasproductos">Líneas de Productos</a></li>
+                    <li><a href="{BASE_URL}almacenes">Almacenes</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Inventarios <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{BASE_URL}almacenes/existencias">Existencias</a></li>
                 </ul>
             </li>
 
