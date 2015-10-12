@@ -62,9 +62,9 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 			pro.clave Clave, pro.descripcion Producto, 
 			exi.existencias Existencia, exi.costo
 		FROM
-			almacenesProductos exi,
-			almacenes alm,
-			productos pro;";
+			almacenesProductos exi
+		INNER JOIN almacenes alm USING (almacen)
+		INNER JOIN productos pro USING (producto);";
 		return $this->db->query($query);
 	}
 
