@@ -19,6 +19,14 @@
 	<input type="text" class="form-control" name="descripcionCorta">
 	<label>Precio</label>
 	<input type="text" class="form-control" name="precio">
+	<label>Unidad de medida</label>
+	<select name="unidadMedida" class="form-control">
+		<option value="NA">No aplica</option>
+		<option value="KG">Kilogramos</option>
+		<option value="TON">Toneladas</option>
+		<option value="PZA">Piezas</option>
+		<option value="LT">Litros</option>
+	</select>
 </form>
 <br>
 <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="guardar()">Guardar</a></p>

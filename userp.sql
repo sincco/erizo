@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-10-2015 a las 14:59:07
+-- Tiempo de generación: 12-10-2015 a las 15:24:21
 -- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.13
 
@@ -198,6 +198,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `descripcion` varchar(150) NOT NULL,
   `descripcionCorta` varchar(50) NOT NULL,
   `precio` float NOT NULL,
+  `unidadMedida` char(3) NOT NULL DEFAULT 'NA',
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`producto`),
   UNIQUE KEY `clave` (`clave`)

@@ -49,6 +49,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			descripcion = '{$data['descripcion']}',
 			descripcionCorta = '{$data['descripcionCorta']}',
 			precio = '{$data['precio']}',
+			unidadMedida = '{$data['unidadMedida']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}
