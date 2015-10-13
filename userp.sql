@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-10-2015 a las 19:12:17
+-- Tiempo de generación: 13-10-2015 a las 00:12:25
 -- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
--- Versión de PHP: 5.5.9-1ubuntu4.13
+-- Versión de PHP: 5.6.13-1+deb.sury.org~trusty+3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -26,13 +26,12 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `almacenes`
 --
 
-DROP TABLE IF EXISTS `almacenes`;
 CREATE TABLE IF NOT EXISTS `almacenes` (
   `almacen` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(75) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`almacen`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de almacenes' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de almacenes' AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -40,7 +39,6 @@ CREATE TABLE IF NOT EXISTS `almacenes` (
 -- Estructura de tabla para la tabla `almacenesProductos`
 --
 
-DROP TABLE IF EXISTS `almacenesProductos`;
 CREATE TABLE IF NOT EXISTS `almacenesProductos` (
   `almacenProducto` int(11) NOT NULL AUTO_INCREMENT,
   `almacen` int(11) NOT NULL,
@@ -49,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `almacenesProductos` (
   `costo` int(11) NOT NULL,
   PRIMARY KEY (`almacenProducto`),
   UNIQUE KEY `almacenProducto` (`almacen`,`producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=23 ;
 
 -- --------------------------------------------------------
 
@@ -57,7 +55,6 @@ CREATE TABLE IF NOT EXISTS `almacenesProductos` (
 -- Estructura de tabla para la tabla `clientes`
 --
 
-DROP TABLE IF EXISTS `clientes`;
 CREATE TABLE IF NOT EXISTS `clientes` (
   `cliente` int(11) NOT NULL AUTO_INCREMENT,
   `rfc` char(13) NOT NULL,
@@ -66,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`cliente`),
   UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de clientes' AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de clientes' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -74,7 +71,6 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 -- Estructura de tabla para la tabla `clientesContactos`
 --
 
-DROP TABLE IF EXISTS `clientesContactos`;
 CREATE TABLE IF NOT EXISTS `clientesContactos` (
   `clienteContacto` int(11) NOT NULL AUTO_INCREMENT,
   `cliente` int(11) NOT NULL,
@@ -90,7 +86,6 @@ CREATE TABLE IF NOT EXISTS `clientesContactos` (
 -- Estructura de tabla para la tabla `clientesDirecciones`
 --
 
-DROP TABLE IF EXISTS `clientesDirecciones`;
 CREATE TABLE IF NOT EXISTS `clientesDirecciones` (
   `clienteDireccion` int(11) NOT NULL AUTO_INCREMENT,
   `cliente` int(11) NOT NULL,
@@ -106,7 +101,6 @@ CREATE TABLE IF NOT EXISTS `clientesDirecciones` (
 -- Estructura de tabla para la tabla `compras`
 --
 
-DROP TABLE IF EXISTS `compras`;
 CREATE TABLE IF NOT EXISTS `compras` (
   `compra` int(11) NOT NULL AUTO_INCREMENT,
   `proveedor` int(11) NOT NULL,
@@ -121,7 +115,6 @@ CREATE TABLE IF NOT EXISTS `compras` (
 -- Estructura de tabla para la tabla `comprasProductos`
 --
 
-DROP TABLE IF EXISTS `comprasProductos`;
 CREATE TABLE IF NOT EXISTS `comprasProductos` (
   `compra` int(11) NOT NULL,
   `producto` int(11) NOT NULL,
@@ -136,7 +129,6 @@ CREATE TABLE IF NOT EXISTS `comprasProductos` (
 -- Estructura de tabla para la tabla `kardex`
 --
 
-DROP TABLE IF EXISTS `kardex`;
 CREATE TABLE IF NOT EXISTS `kardex` (
   `kardex` int(11) NOT NULL AUTO_INCREMENT,
   `producto` int(11) NOT NULL,
@@ -155,13 +147,12 @@ CREATE TABLE IF NOT EXISTS `kardex` (
 -- Estructura de tabla para la tabla `lineasProductos`
 --
 
-DROP TABLE IF EXISTS `lineasProductos`;
 CREATE TABLE IF NOT EXISTS `lineasProductos` (
   `lineaProducto` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(75) NOT NULL,
   `activo` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`lineaProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -169,7 +160,6 @@ CREATE TABLE IF NOT EXISTS `lineasProductos` (
 -- Estructura de tabla para la tabla `logOperaciones`
 --
 
-DROP TABLE IF EXISTS `logOperaciones`;
 CREATE TABLE IF NOT EXISTS `logOperaciones` (
   `logOperacion` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` int(11) NOT NULL,
@@ -187,7 +177,6 @@ CREATE TABLE IF NOT EXISTS `logOperaciones` (
 -- Estructura de tabla para la tabla `perfiles`
 --
 
-DROP TABLE IF EXISTS `perfiles`;
 CREATE TABLE IF NOT EXISTS `perfiles` (
   `perfil` int(11) NOT NULL AUTO_INCREMENT,
   `descripcion` varchar(75) NOT NULL,
@@ -202,7 +191,6 @@ CREATE TABLE IF NOT EXISTS `perfiles` (
 -- Estructura de tabla para la tabla `productos`
 --
 
-DROP TABLE IF EXISTS `productos`;
 CREATE TABLE IF NOT EXISTS `productos` (
   `producto` int(11) NOT NULL AUTO_INCREMENT,
   `clave` char(10) NOT NULL,
@@ -214,7 +202,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`producto`),
   UNIQUE KEY `clave` (`clave`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de productos' AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de productos' AUTO_INCREMENT=20 ;
 
 -- --------------------------------------------------------
 
@@ -222,7 +210,6 @@ CREATE TABLE IF NOT EXISTS `productos` (
 -- Estructura de tabla para la tabla `proveedores`
 --
 
-DROP TABLE IF EXISTS `proveedores`;
 CREATE TABLE IF NOT EXISTS `proveedores` (
   `proveedor` int(11) NOT NULL AUTO_INCREMENT,
   `rfc` char(13) NOT NULL,
@@ -231,7 +218,7 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`proveedor`),
   UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de proveedores' AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de proveedores' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -239,7 +226,6 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
 -- Estructura de tabla para la tabla `proveedoresContactos`
 --
 
-DROP TABLE IF EXISTS `proveedoresContactos`;
 CREATE TABLE IF NOT EXISTS `proveedoresContactos` (
   `proveedorContacto` int(11) NOT NULL AUTO_INCREMENT,
   `proveedor` int(11) NOT NULL,
@@ -247,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `proveedoresContactos` (
   `correo` varchar(150) NOT NULL,
   `telefono` varchar(150) NOT NULL,
   PRIMARY KEY (`proveedorContacto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Datos de contactos de proveedores' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Datos de contactos de proveedores' AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -255,15 +241,14 @@ CREATE TABLE IF NOT EXISTS `proveedoresContactos` (
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `usuario` int(11) NOT NULL AUTO_INCREMENT,
   `clave` varchar(150) NOT NULL,
-  `password` mediumblob NOT NULL,
+  `password` varchar(150) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`usuario`),
   UNIQUE KEY `usuario_clave` (`clave`) COMMENT 'usuario_clave'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -271,7 +256,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
 -- Estructura de tabla para la tabla `usuariosPerfiles`
 --
 
-DROP TABLE IF EXISTS `usuariosPerfiles`;
 CREATE TABLE IF NOT EXISTS `usuariosPerfiles` (
   `usuarioPerfil` int(11) NOT NULL AUTO_INCREMENT,
   `usuario` int(11) NOT NULL,
@@ -286,7 +270,6 @@ CREATE TABLE IF NOT EXISTS `usuariosPerfiles` (
 -- Estructura de tabla para la tabla `ventas`
 --
 
-DROP TABLE IF EXISTS `ventas`;
 CREATE TABLE IF NOT EXISTS `ventas` (
   `venta` int(11) NOT NULL AUTO_INCREMENT,
   `cliente` int(11) NOT NULL,
@@ -301,7 +284,6 @@ CREATE TABLE IF NOT EXISTS `ventas` (
 -- Estructura de tabla para la tabla `ventasProductos`
 --
 
-DROP TABLE IF EXISTS `ventasProductos`;
 CREATE TABLE IF NOT EXISTS `ventasProductos` (
   `venta` int(11) NOT NULL,
   `producto` int(11) NOT NULL,
