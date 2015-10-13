@@ -1,3 +1,5 @@
 /Etc/Sesiones
 /Etc/Logs
 /Etc/Config/config_local.xml
+*.md
+*.md5
