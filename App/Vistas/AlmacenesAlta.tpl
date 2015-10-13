@@ -17,7 +17,7 @@ function guardarLinea() {
 			window.location = '{BASE_URL}almacenes'
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(errorThrown)
-	})	
+	})
 }
 </script>
 <incluir archivo="Footer">

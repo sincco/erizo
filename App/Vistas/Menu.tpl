@@ -10,6 +10,14 @@
     <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Seguridad <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{BASE_URL}usuarios">Usuarios</a></li>
+                    <li><a href="{BASE_URL}perfiles">Perfiles</a></li>
+                </ul>
+            </li>
+
+            <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Catálogos <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{BASE_URL}clientes">Clientes</a></li>

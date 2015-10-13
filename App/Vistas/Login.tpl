@@ -11,7 +11,7 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <form class="navbar-form navbar-left" id="acceso">
-                <input type="text" class="form-control col-lg-8" placeholder="usuario" name="correo">
+                <input type="text" class="form-control col-lg-8" placeholder="usuario" name="clave">
                 <input type="password" class="form-control col-lg-8" placeholder="contraseña" name="password">
                 <button type="button" class="btn btn-success" onclick="accesar()">entrar</button>
             </form>
@@ -39,25 +39,14 @@
         </div>
     </div>
 </div>
-<!--
 <script>
 function accesar() {
-	$.ajax({
-		type: "POST",
-		url: "{BASE_URL}inicio/acceder",
-		data: $("#acceso").serialize(),
-		success: function (data) {
-			console.log(data)
-			data = JSON.parse(data)
-			if(data.id > 0)
-				window.location = "{BASE_URL}inicio/inicio"
-			else
-				alert("Usuario no valido")
-		},
-		error: function (xhr) {
-			console.log(xhr)
-		}
-	})
+	sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
+    .done(function(data) {
+        if(data.respuesta[0].usuario)
+            window.location = '{BASE_URL}dashboard'
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(errorThrown)
+    })
 }
 </script>
--->
