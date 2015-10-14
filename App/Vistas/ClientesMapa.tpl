@@ -67,7 +67,7 @@ function geocodeResult(results, status) {
     } else {
         // En caso de no haber resultados o que haya ocurrido un error
         // lanzamos un mensaje con el error
-        alert("Geocoding no tuvo éxito debido a: " + status);
+        //alert("Geocoding no tuvo éxito debido a: " + status);
     }
 }
 </script>
