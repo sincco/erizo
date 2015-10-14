@@ -41,4 +41,19 @@ class Controladores_Clientes extends Sfphp_Controlador
 	{
 		echo json_encode($this->modeloClientes->grid());
 	}
+
+	/**
+	 * Devuelve las direcciones de los clientes para el mapa
+	 * @return json
+	 */
+	public function apiMapaDirecciones()
+	{
+		echo json_encode($this->modeloClientes->direcciones());
+	}
+
+	public function mapa()
+	{
+		$this->_vista->direcciones = json_encode($this->modeloClientes->direcciones());
+		$this->vistaClientesMapa;
+	}
 }

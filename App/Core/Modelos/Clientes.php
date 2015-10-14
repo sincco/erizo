@@ -93,4 +93,15 @@ class Modelos_Clientes extends Sfphp_Modelo
 			clientes cli;";
 		return $this->db->query($query);
 	}
+
+	public function direcciones()
+	{
+		$query = "
+		SELECT 
+			cli.cliente, cli.razonSocial, cli.rfc, cli.direccionFiscal, cli.activo Activo
+		FROM
+			clientes cli
+		WHERE activo = 1;";
+		return $this->db->query($query);
+	}
 }

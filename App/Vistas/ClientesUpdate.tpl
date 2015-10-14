@@ -1,4 +1,5 @@
 <incluir archivo="Header">
+<incluir archivo="Menu">
 <h3>Edicion de Clientes</h3>
 <div class="container">
 	<div class="bs-example">
