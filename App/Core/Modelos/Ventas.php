@@ -55,7 +55,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 					SET
 						existencias = existencias - {$value['cantidad']}
 					WHERE almacen = {$almacen['almacen']} AND
-						producto = {$value['producto']};"
+						producto = {$value['producto']};";
 					$this->db->query($query);
 				}
 				array_push($respuesta, $detalle);
