@@ -28,7 +28,7 @@ function editarElemento(fila) {
 		if(fila.Estatus == "Solicitud") {
 			$("#acciones").html("<a href='#'>Cotizar</a>")
 		}
-		$("#titulo").html("Detalle de compra "+fila.Venta + ' - ' + fila.Cliente)
+		$("#titulo").html("Detalle de venta "+fila.Venta + ' - ' + fila.Cliente)
 		$("#detalle").bootstrapTable('destroy')	
 		$('#detalle').bootstrapTable({
 			columns:[
