@@ -13,10 +13,23 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	{
 		$where = NULL;
 		$query = "
-		SELECT usuario, clave, activo
+		SELECT usuario, clave, nombre, activo
 		FROM usuarios ";
 		if(trim($id) != "")
 			$where = " WHERE usuario = {$id};";
+		return $this->db->query($query.$where);
+	}
+
+	/**
+	 * Obtiene los usuarios activos
+	 * @return array
+	 */
+	public function getActivos()
+	{
+		$where = NULL;
+		$query = "SELECT usuario, clave, nombre, activo
+		FROM usuarios
+		WHERE activo = 1;";
 		return $this->db->query($query.$where);
 	}
 

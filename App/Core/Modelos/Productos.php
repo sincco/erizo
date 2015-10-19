@@ -63,8 +63,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	 */
 	public function del($id)
 	{
-		$query = "
-		UPDATE productos
+		$query = "UPDATE productos
 		SET activo = 0 
 		WHERE lineaProducto = {$id};";
 		return $this->db->query($query.$where);
