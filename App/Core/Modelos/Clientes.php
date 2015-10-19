@@ -12,14 +12,10 @@ class Modelos_Clientes extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT 
-			cli.cliente, cli.razonSocial, cli.rfc, cli.direccionFiscal, cli.activo,
-			con.nombre, con.correo, con.telefono
+		$query = "SELECT 
+			cli.cliente, cli.razonSocial, cli.rfc, cli.direccionFiscal, cli.activo
 		FROM
-			clientes cli
-		LEFT JOIN
-			clientesContactos con USING cliente";
+			clientes cli";
 		if(trim($id) != "")
 			$where = " WHERE cliente = {$id};";
 		return $this->db->query($query.$where);

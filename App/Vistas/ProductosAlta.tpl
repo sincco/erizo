@@ -22,10 +22,20 @@
 	<label>Unidad de medida</label>
 	<select name="unidadMedida" class="form-control">
 		<option value="NA">No aplica</option>
+		<option value="PZA">Piezas</option>
 		<option value="KG">Kilogramos</option>
 		<option value="TON">Toneladas</option>
-		<option value="PZA">Piezas</option>
 		<option value="LT">Litros</option>
+	</select>
+	<label>Aplica IVA</label>
+	<select name="iva" class="form-control">
+		<option value="0">No</option>
+		<option value="1">Si</option>
+	</select>
+	<label>Aplica IEPS</label>
+	<select name="ieps" class="form-control">
+		<option value="0">No</option>
+		<option value="1">Si</option>
 	</select>
 </form>
 <br>
@@ -33,7 +43,6 @@
 </div>
 <script type="text/javascript">
 function guardar() {
-	//console.log($("#lineaProducto").val())
 	if(parseInt($("#lineaProducto").val()) > 0) {
 		sincco.consumirAPI('POST','{BASE_URL}productos/apiPost',$("#productos").serializeJSON())
 		.done(function(data) {

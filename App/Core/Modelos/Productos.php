@@ -29,7 +29,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$where = NULL;
 		$query = "
-		SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida
+		SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, ieps
 		FROM productos ";
 		$where = " WHERE clave = '{$clave}' AND activo = 1;";
 		return $this->db->query($query.$where);
@@ -42,8 +42,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		REPLACE INTO productos
+		$query = "REPLACE INTO productos
 		SET
 			clave = '{$data['clave']}',
 			descripcion = '{$data['descripcion']}',
@@ -51,6 +50,8 @@ class Modelos_Productos extends Sfphp_Modelo
 			lineaProducto = '{$data['lineaProducto']}',
 			precio = '{$data['precio']}',
 			unidadMedida = '{$data['unidadMedida']}',
+			iva = '{$data['iva']}',
+			ieps = '{$data['ieps']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}

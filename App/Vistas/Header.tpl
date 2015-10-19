@@ -35,6 +35,9 @@
     <link href="{BASE_URL}html/css/dropzone.css" rel="stylesheet">
     <script src="{BASE_URL}html/js/dropzone.js"></script>
 
+    <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js"></script>
+
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
     <script src="{BASE_URL}html/js/sincco.js"></script>

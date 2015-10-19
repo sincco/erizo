@@ -27,6 +27,8 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}lineasproductos">Líneas de Productos</a></li>
                     <li><a href="{BASE_URL}productos">Productos</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{BASE_URL}impuestos">Impuestos</a></li>
                 </ul>
             </li>
 
@@ -42,6 +44,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Operaciones <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{BASE_URL}compras">Compras</a></li>
+                    <li><a href="{BASE_URL}ventas">Ventas</a></li>
                 </ul>
             </li>
 
