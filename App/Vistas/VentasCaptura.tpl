@@ -8,12 +8,29 @@
       <option value="{cliente}">{razonSocial}</option>
     </ciclo clientes>
   </select><br>
+  <label>Vendedor</label>
+  <select id="vendedor" name="vendedor" class="form-control">
+    <option value="0">Selecciona un vendedor</option>
+    <ciclo vendedores>
+      <option value="{vendedor}">{nombre}</option>
+    </ciclo vendedores>
+  </select><br>
+  <label>Estatus de la venta</label>
+  <select id="estatus" name="estatus" class="form-control">
+    <option value="Cotizacion">Cotización</option>
+    <option value="En Proceso">En Proceso</option>
+    <option value="Pago">Pagada</option>
+    <option value="Entregada">Entregada</option>
+  </select><br>
   <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
   <input type="hidden" value="{ivaPorcentaje}" id="ivaPorcentaje">
   <input type="hidden" value="{iepsPorcentaje}" id="iepsPorcentaje">
+
   <div id="errores"></div>
 	<div id="gridVenta" class="handsontable"></div>
+  
 </div>
+
 <script>
 var
 data = [],
@@ -74,13 +91,13 @@ hot = new Handsontable(grid, {
       }
       $('#gridVenta td:nth-child(10),th:nth-child(10)').hide()
       $('#gridVenta td:nth-child(11),th:nth-child(11)').hide()
-      //$('#gridVenta td:nth-child(12),th:nth-child(12)').hide()
+      $('#gridVenta td:nth-child(12),th:nth-child(12)').hide()
     }
   }
 })
 
 function guardar() {
-  sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), productos: hot.getData()} )
+  sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), productos: hot.getData()} )
   .done(function(data) {
     if(data.respuesta.venta)
       window.location = '{BASE_URL}ventas'
@@ -90,6 +107,6 @@ function guardar() {
     console.log(errorThrown)
   })
 }
-
 </script>
+
 <incluir archivo="Footer">

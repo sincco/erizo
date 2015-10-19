@@ -24,6 +24,7 @@ class Controladores_Ventas extends Sfphp_Controlador
 		$this->_vista->ivaPorcentaje = $impuestos[0]['ivaPorcentaje'];
 		$this->_vista->iepsPorcentaje = $impuestos[0]['iepsPorcentaje'];
 		$this->_vista->clientes = $this->modeloClientes->get();
+		$this->_vista->vendedores = $this->modeloVendedores->get();
 		$this->vistaVentasCaptura;
 	}
 

@@ -27,11 +27,15 @@ class Modelos_Ventas extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
+		$query = "SELECT almacen FROM vendedores WHERE vendedor = '{$data['vendedor']}';";
+		$almacen = $this->db->query($query);
+		$almacen = $almacen[0];
 		$query = "INSERT INTO ventas
 		SET
 			fecha = CURDATE(),
 			cliente = '{$data['cliente']}',
-			estatus = 'En Proceso';";
+			vendedor = '{$data['vendedor']}',
+			estatus = '{$data['estatus']}';";
 		$venta = $this->db->insert($query);
 		$respuesta = array();
 		foreach ($data['productos'] as $key => $value) {
@@ -45,7 +49,17 @@ class Modelos_Ventas extends Sfphp_Modelo
 					iva = '{$value['iva']}',
 					ieps = '{$value['ieps']}',
 					subtotal = '{$value['subtotal']}';";
-				array_push($respuesta, $this->db->insert($query));
+				$detalle = $this->db->insert($query);
+				if($detalle && ($data['estatus'] == 'Pago' || $data['estatus'] == 'Entregada')) {
+					$query = "UPDATE almacenesProductos
+					SET
+						existencias = existencias - {$value['cantidad']}
+					WHERE almacen = {$almacen['almacen']} AND
+						producto = {$value['producto']};"
+					$this->db->query($query);
+				}
+				array_push($respuesta, $detalle);
+
 			}
 		}
 		return array("venta"=>$venta,"detalle"=>$respuesta);
