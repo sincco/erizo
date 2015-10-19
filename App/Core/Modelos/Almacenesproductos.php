@@ -104,4 +104,24 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 			costo = '{$data['costo']}';";
 		return $this->db->insert($query);
 	}
+
+	/**
+	 * Obtiene los datos de una existencia en almacen
+	 * @param  string $clave   Clave del producto
+	 * @param  string $almacen Clave del almacen
+	 * @return array
+	 */
+	public function getByClaveAlmacen($clave = '', $almacen = '')
+	{
+		$where = NULL;
+		$query = "
+		SELECT pro.producto, pro.clave, pro.lineaProducto, 
+			pro.descripcionCorta, pro.precio, pro.unidadMedida,
+			alm.existencias, alm.costo
+		FROM productos pro
+		INNER JOIN almacenesProductos alm
+			USING (producto)
+		WHERE pro.clave = '{$clave}' AND alm.almacen = '{$almacen}';";
+		return $this->db->query($query);
+	}
 }

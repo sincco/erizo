@@ -29,7 +29,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$where = NULL;
 		$query = "
-		SELECT producto, clave, lineaProducto, descripcionCorta, precio
+		SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida
 		FROM productos ";
 		$where = " WHERE clave = '{$clave}' AND activo = 1;";
 		return $this->db->query($query.$where);

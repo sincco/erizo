@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 12-10-2015 a las 19:11:45
+-- Tiempo de generación: 16-10-2015 a las 18:44:42
 -- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.13
 
@@ -85,9 +85,9 @@ CREATE TABLE IF NOT EXISTS `clientes` (
 --
 
 INSERT INTO `clientes` (`cliente`, `rfc`, `razonSocial`, `direccionFiscal`, `activo`) VALUES
-(1, 'bbb', 'aaa', 'ccc', 1),
-(5, 'aaa', 'aaa', 'ccc', 1),
-(6, 'ccc', 'ccc', 'ccc', 1);
+(1, 'bbb', 'aaa', 'Tuxpan 23, Colonia Roma, México DF.', 1),
+(5, 'aaa', 'aaa', 'Juan Escurtia 29, Colonia Condesa, México DF', 1),
+(6, 'ccc', 'ccc', 'Montesito 15, Colonia Napoles, México DF', 1);
 
 -- --------------------------------------------------------
 
@@ -318,11 +318,18 @@ INSERT INTO `proveedoresContactos` (`proveedorContacto`, `proveedor`, `nombre`, 
 CREATE TABLE IF NOT EXISTS `usuarios` (
   `usuario` int(11) NOT NULL AUTO_INCREMENT,
   `clave` varchar(150) NOT NULL,
-  `password` mediumblob NOT NULL,
+  `password` varchar(150) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`usuario`),
   UNIQUE KEY `usuario_clave` (`clave`) COMMENT 'usuario_clave'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`usuario`, `clave`, `password`, `activo`) VALUES
+(1, 'ivanmiranda', 'gSpVQYAUBLJoQD3Scjz4fb5+OtDvlNm1PyZ91m7AY9M=', 1);
 
 -- --------------------------------------------------------
 
