@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 18-10-2015 a las 19:13:18
+-- Tiempo de generación: 18-10-2015 a las 23:37:08
 -- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.13
 
@@ -105,9 +105,10 @@ CREATE TABLE IF NOT EXISTS `compras` (
   `compra` int(11) NOT NULL AUTO_INCREMENT,
   `proveedor` int(11) NOT NULL,
   `fecha` date NOT NULL,
-  `estatus` enum('Pendiente','Autorizada','En Proceso','Recibida','Cancelada') NOT NULL,
+  `descripcionCorta` varchar(75) NOT NULL,
+  `estatus` enum('Solicitud','Cotizada','Autorizada','En Proceso','Recibida','Cancelada') NOT NULL,
   PRIMARY KEY (`compra`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de compras' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de compras' AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -117,10 +118,13 @@ CREATE TABLE IF NOT EXISTS `compras` (
 
 CREATE TABLE IF NOT EXISTS `comprasProductos` (
   `compra` int(11) NOT NULL,
-  `producto` int(11) NOT NULL,
+  `producto` int(11) NOT NULL DEFAULT '0',
   `cantidad` float NOT NULL,
   `precio` float NOT NULL,
-  `subtotal` float NOT NULL
+  `subtotal` float NOT NULL,
+  `impuesto` float NOT NULL,
+  `autorizado` int(11) NOT NULL,
+  `fechaRecepcion` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Detalle de compras';
 
 -- --------------------------------------------------------
