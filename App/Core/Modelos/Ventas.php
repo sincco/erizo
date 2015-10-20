@@ -57,6 +57,16 @@ class Modelos_Ventas extends Sfphp_Modelo
 					WHERE almacen = {$almacen['almacen']} AND
 						producto = {$value['producto']};";
 					$this->db->query($query);
+					$query = "INSERT INTO kardex
+					SET producto = '{$value['producto']}',
+						fechaHora = CURRENT_TIMESTAMP,
+						movimiento = 'Salida',
+						tabla = 'ventas',
+						idTabla = '{$venta}',
+						cantidad = '{$value['cantidad']}',
+						precio = '{$value['precio']}',
+						costo = '0';";
+					$this->db->insert($query);
 				}
 				array_push($respuesta, $detalle);
 

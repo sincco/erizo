@@ -48,4 +48,19 @@ class Controladores_Ventas extends Sfphp_Controlador
 		echo json_encode(array("respuesta"=>$this->modeloVentas->gridDetalle($data['venta'])));
 	}
 
+	/**
+	 * Muestra la pantalla del POS
+	 * @return none
+	 */
+	public function pos()
+	{
+		$acceso = Sfphp_Sesion::get('acceso');
+		$impuestos = $this->modeloImpuestos->getActual();
+		$this->_vista->ivaPorcentaje = $impuestos[0]['ivaPorcentaje'];
+		$this->_vista->iepsPorcentaje = $impuestos[0]['iepsPorcentaje'];
+		$this->_vista->clientes = $this->modeloClientes->get();
+		$this->_vista->vendedor = $acceso['vendedor'];
+		$this->vistaPOS;
+	}
+
 }

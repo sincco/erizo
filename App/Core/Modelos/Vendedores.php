@@ -21,6 +21,17 @@ class Modelos_Vendedores extends Sfphp_Modelo
 	}
 
 	/**
+	 * Devuelve el id de vendedor en base al usuario
+	 * @param  int $usuario Id de usario
+	 * @return array
+	 */
+	public function getByUsuario($usuario)
+	{
+		$query = "SELECT vendedor FROM vendedores WHERE usuario = '{$usuario}';";
+		return $this->db->query($query);
+	}
+
+	/**
 	 * Inserta un nuevo vendedor
 	 * @param  array $data Datos del vendedor
 	 * @return array
