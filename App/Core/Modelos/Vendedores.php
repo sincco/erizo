@@ -68,7 +68,6 @@ class Modelos_Vendedores extends Sfphp_Modelo
 		FROM vendedores ven
 		INNER JOIN usuarios usr USING (usuario)
 		INNER JOIN almacenes alm USING (almacen);";
-		var_dump($query);
 		return $this->db->query($query);
 	}
 }

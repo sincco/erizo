@@ -8,6 +8,7 @@
 			<option value="{almacen}">{descripcion}</option>
 		</ciclo almacenes>
 	</select>
+  <br><p><a class="btn btn-primary btn-lg" href="{BASE_URL}almacenes/existencias" role="button">Terminar</a></p><br>
   <div id="errores"></div>
 	<div id="grid_movements" class="handsontable"></div>
 </div>
@@ -62,7 +63,7 @@ hot = new Handsontable(grid, {
           .done(function(data) {
             if(parseInt(data.respuesta) > 0) {
               hot.setDataAtCell(changes[0][0],0, data.respuesta)
-              $("#errores").html('<div class="alert alert-success" role="alert"><span class="sr-only">Guardado</span></div>')
+              $("#errores").html('<div class="alert alert-success" role="alert">Guardado</div>')
             } else {
               $("#errores").html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Error:</span>No se pudo guardar tu cambio, edita de nuevo la existencia</div>')
             }
@@ -72,7 +73,7 @@ hot = new Handsontable(grid, {
         }
       }
     } else {
-      $("#errores").html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Error:</span>Selecciona un almacen para trabajar esta plantilla</div>')
+      $("#errores").html('<div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span><span class="sr-only">Error:</span>Selecciona un almacen</div>')
     }
   }
 })

@@ -1,21 +1,39 @@
 <incluir archivo="Header">
-<!--<incluir archivo="Menu">-->
+<incluir archivo="Menu">
 <div class="container">
 	<h3>Punto de venta</h3>
-  <label>Cliente</label>
-	<select id="cliente" name="cliente" class="form-control">
-    <ciclo clientes>
-      <option value="{cliente}">{razonSocial}</option>
-    </ciclo clientes>
-  </select><br>
-  <input type="hidden" id="vendedor" name="vendedor" class="form-control" value="{vendedor}"><br>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label>Cliente</label>
+    	<select id="cliente" name="cliente" class="form-control">
+        <ciclo clientes>
+          <option value="{cliente}">{razonSocial}</option>
+        </ciclo clientes>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <div class="alert alert-info" role="alert">Total: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="totalVenta">0.00</span></div>
+    </div>
+  </div>
+
+  <input type="hidden" id="vendedor" name="vendedor" class="form-control" value="{vendedor}">
   <input type="hidden" id="estatus" name="estatus" class="form-control" value="Pago"><br>
-  <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Cobrar</a></p><br>
   <input type="hidden" value="{ivaPorcentaje}" id="ivaPorcentaje">
   <input type="hidden" value="{iepsPorcentaje}" id="iepsPorcentaje">
 
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Captura / Escanea el producto</label>
+      <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
+    </div>
+    <div class="col-sm-6">
+      <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Cobrar</a></p>
+    </div>
+  </div>
+
+  <br>
   <div id="errores"></div>
-  <div id="totalVenta"></div>
 	<div id="gridVenta" class="handsontable"></div>
 
 </div>
@@ -28,19 +46,35 @@
                 <h4 id="titulo" class="modal-title">Pago</h4>
             </div>
             <div class="modal-body">
-              <input type="text" id="total">
-              <input type="text" id="pago">
-              <select id="tipoPago" name="tipoPago" class="form-control">
-                <option value="Efectivo">Efectivo</option>
-                <option value="Tarjeta">Tarjeta</option>
-                <option value="Monedero">Monedero</option>
-              </select><br>
+              <label>Total a pagar</label>
+              <input type="text" id="total" class="form-control" disabled="true">
+              <label>En efectivo</label>
+              <input type="text" name="efectivo" id="efectivo" class="form-control">
+              <label>Con tarjeta</label>
+              <input type="text" name="tarjeta" id="tarjeta" class="form-control">
+              <label>Con monedero electrónico</label>
+              <input type="text" name="monedero" id="monedero" class="form-control">
             </div>
         </div>
     </div>
 </div>
 
 <script>
+$(function() {
+  $("#claveProducto").keypress(function(event) {
+    if(event.which == 13) {
+      if(hot.getDataAtCell(hot.countRows()-2,1) == 'NO EXISTE')
+        hot.setDataAtCell(hot.countRows()-2,0,$(this).val())
+      else
+        hot.setDataAtCell(hot.countRows()-1,0,$(this).val())
+      $(this).val('')
+      $(this).focus()
+    }
+  })
+})
+
+$("#claveProducto").focus()
+
 var
 data = [],
 grid = document.getElementById('gridVenta'),
@@ -114,21 +148,18 @@ function actualizaTotal() {
       totalVenta = totalVenta + parseFloat(element.subtotal)
     }
   })
-  $("#totalVenta").html('<div class="alert alert-info" role="alert"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span>'+totalVenta+'</div>')
+  $("#totalVenta").html(totalVenta)
   $("#total").val(totalVenta)
+  $("#efectivo").val(totalVenta)
+  $("#tarjeta").val('0.00')
+  $("#monedero").val('0.00')
   return true
 }
 
 function guardar() {
-  if(parseInt($("#vendedor").val()) == 0) {
-    $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Selecciona al vendedor</div>')
-    return false
-  }
-  if(parseInt($("#estatus").val()) == 0) {
-    $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-usd-sign" aria-hidden="true"></span>Selecciona el estatus</div>')
-    return false
-  }
+  $('#myModal').modal('show')
 
+  /*
   sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), productos: hot.getData()} )
   .done(function(data) {
     if(data.respuesta.venta)
@@ -138,6 +169,7 @@ function guardar() {
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log(errorThrown)
   })
+  */
 }
 </script>
 
