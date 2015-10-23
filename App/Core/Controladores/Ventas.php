@@ -35,7 +35,8 @@ class Controladores_Ventas extends Sfphp_Controlador
 	public function apiPost()
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
-		echo json_encode(array("respuesta"=>$this->modeloVentas->post($data)));
+		var_dump($data);
+		#echo json_encode(array("respuesta"=>$this->modeloVentas->post($data)));
 	}
 
 	/**

@@ -1,5 +1,4 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
 <div class="container">
 	<h3>Punto de venta</h3>
 
@@ -28,7 +27,7 @@
       <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
     </div>
     <div class="col-sm-6">
-      <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Cobrar</a></p>
+      <p><a class="btn btn-primary btn-lg" href="#" onclick="cobrar()" role="button">Cobrar</a></p>
     </div>
   </div>
 
@@ -46,6 +45,7 @@
                 <h4 id="titulo" class="modal-title">Pago</h4>
             </div>
             <div class="modal-body">
+              <div id="errorCobro"></div>
               <label>Total a pagar</label>
               <input type="text" id="total" class="form-control" disabled="true">
               <label>En efectivo</label>
@@ -54,6 +54,9 @@
               <input type="text" name="tarjeta" id="tarjeta" class="form-control">
               <label>Con monedero electrónico</label>
               <input type="text" name="monedero" id="monedero" class="form-control">
+              <div class="alert alert-info" role="alert">Cambio: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="cambio">0.00</span></div>
+              <hr>
+              <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Pago</a></p>
             </div>
         </div>
     </div>
@@ -71,6 +74,9 @@ $(function() {
       $(this).focus()
     }
   })
+  $("#efectivo").focusout(function(){ actualizaCambio() })
+  $("#tarjeta").focusout(function(){ actualizaCambio() })
+  $("#monedero").focusout(function(){ actualizaCambio() })
 })
 
 $("#claveProducto").focus()
@@ -141,6 +147,13 @@ hot = new Handsontable(grid, {
   }
 })
 
+function actualizaCambio() {
+  var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val())
+  var cambio = total - parseFloat($('#total').val())
+  cambio = (Math.round(cambio * 100) / 100)
+  $("#cambio").html(cambio)
+}
+
 function actualizaTotal() {
   var totalVenta = 0
   hot.getData().forEach(function(element, index, array) {
@@ -148,28 +161,37 @@ function actualizaTotal() {
       totalVenta = totalVenta + parseFloat(element.subtotal)
     }
   })
-  $("#totalVenta").html(totalVenta)
-  $("#total").val(totalVenta)
-  $("#efectivo").val(totalVenta)
-  $("#tarjeta").val('0.00')
-  $("#monedero").val('0.00')
+  $('#totalVenta').html(Math.round(totalVenta * 100) /100)
+  $('#total').val(Math.round(totalVenta * 100) /100)
+  $('#efectivo').val(Math.round(totalVenta * 100) /100)
+  $('#tarjeta').val('0.00')
+  $('#monedero').val('0.00')
+  $('#cambio').val('0.00')
   return true
 }
 
-function guardar() {
+function cobrar() {
   $('#myModal').modal('show')
+  $('#efectivo').select()
+  $('#efectivo').focus()
+}
 
-  /*
-  sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), productos: hot.getData()} )
-  .done(function(data) {
-    if(data.respuesta.venta)
-      window.location = '{BASE_URL}ventas'
-    else
-       $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    console.log(errorThrown)
-  })
-  */
+function guardar() {
+  var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) - parseFloat($('#cambio').html())
+  console.log(total,parseFloat($('#total').val()))
+  if(total !== parseFloat($('#total').val())) {
+    $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
+  } else {
+    sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: $("#efectivo").val(), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
+    .done(function(data) {
+      if(data.respuesta.venta)
+        window.location = '{BASE_URL}ventas'
+      else
+         $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log(errorThrown)
+    })
+  }
 }
 </script>
 
