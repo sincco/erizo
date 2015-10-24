@@ -30,15 +30,18 @@ class Modelos_Ventas extends Sfphp_Modelo
 		$query = "SELECT almacen FROM vendedores WHERE vendedor = '{$data['vendedor']}';";
 		$almacen = $this->db->query($query);
 		$almacen = $almacen[0];
+	#Cabecera de venta
 		$query = "INSERT INTO ventas
 		SET
 			fecha = CURDATE(),
+			hora = CURTIME(),
 			cliente = '{$data['cliente']}',
 			vendedor = '{$data['vendedor']}',
 			estatus = '{$data['estatus']}';";
 		$venta = $this->db->insert($query);
 		$respuesta = array();
 		foreach ($data['productos'] as $key => $value) {
+		#Detalle de venta
 			if(count($value)>2 && $venta > 0) {
 				$query = "INSERT INTO ventasProductos
 				SET
@@ -50,6 +53,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 					ieps = '{$value['ieps']}',
 					subtotal = '{$value['subtotal']}';";
 				$detalle = $this->db->insert($query);
+			#Salida de inventario
 				if($detalle && ($data['estatus'] == 'Pago' || $data['estatus'] == 'Entregada')) {
 					$query = "UPDATE almacenesProductos
 					SET
@@ -69,7 +73,35 @@ class Modelos_Ventas extends Sfphp_Modelo
 					$this->db->insert($query);
 				}
 				array_push($respuesta, $detalle);
-
+			}
+		}
+	#Insertar pagos
+		if($venta) {
+			if(isset($data['pagos'])) {
+				if(floatval($data['pagos']['efectivo']) > 0) {
+					$query = "INSERT INTO ventasPagos
+						SET venta = '{$venta}',
+						tipo = 'Efectivo',
+						monto = '{$data['pagos']['efectivo']}',
+						fecha = CURDATE();";
+					$this->db->insert($query);
+				}
+				if(floatval($data['pagos']['efectivo']) > 0) {
+					$query = "INSERT INTO ventasPagos
+						SET venta = '{$venta}',
+						tipo = 'Tarjeta',
+						monto = '{$data['pagos']['tarjeta']}',
+						fecha = CURDATE();";
+					$this->db->insert($query);
+				}
+				if(floatval($data['pagos']['efectivo']) > 0) {
+					$query = "INSERT INTO ventasPagos
+						SET venta = '{$venta}',
+						tipo = 'Monedero',
+						monto = '{$data['pagos']['monedero']}',
+						fecha = CURDATE();";
+					$this->db->insert($query);
+				}
 			}
 		}
 		return array("venta"=>$venta,"detalle"=>$respuesta);
@@ -84,7 +116,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 		$query = "SELECT vta.venta Venta, vta.fecha Fecha, cli.razonSocial Cliente, vta.estatus Estatus
 		FROM ventas vta 
 		INNER JOIN clientes cli USING (cliente)
-		ORDER BY vta.fecha DESC;";
+		ORDER BY vta.fecha, vta.hora DESC;";
 		return $this->db->query($query);
 	}
 

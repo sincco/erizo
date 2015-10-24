@@ -43,8 +43,13 @@
 function accesar() {
 	sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
     .done(function(data) {
-        if(data.respuesta[0].usuario)
-            window.location = '{BASE_URL}dashboard'
+        console.log(data)
+        if(data.respuesta[0].usuario) {
+            if(data.respuesta[0].vendedor)
+                window.location = '{BASE_URL}ventas/pos'
+            else
+                window.location = '{BASE_URL}dashboard'
+        }
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown)
     })

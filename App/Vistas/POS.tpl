@@ -1,4 +1,5 @@
 <incluir archivo="Header">
+  <incluir archivo="Menu">
 <div class="container">
 	<h3>Punto de venta</h3>
 
@@ -178,20 +179,34 @@ function cobrar() {
 
 function guardar() {
   var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) - parseFloat($('#cambio').html())
-  console.log(total,parseFloat($('#total').val()))
   if(total !== parseFloat($('#total').val())) {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
   } else {
     sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: $("#efectivo").val(), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
     .done(function(data) {
-      if(data.respuesta.venta)
-        window.location = '{BASE_URL}ventas'
+      if(data.respuesta.venta) {
+        limpiarDatos()
+      }
       else
          $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
     }).fail(function(jqXHR, textStatus, errorThrown) {
-      console.log(errorThrown)
+      console.log('Error',errorThrown)
     })
   }
+}
+
+function limpiarDatos() {
+  totalVenta = 0
+  total = 0
+  $("#efectivo").val('0.00')
+  $("#tarjeta").val('0.00')
+  $("#monedero").val('0.00')
+  $("#cambio").html('0.00')
+  $("#total").html('0.00')
+  hot.loadData({})
+  actualizaTotal()
+  $('#myModal').modal('toggle')
+  $("#claveProducto").focus()
 }
 </script>
 

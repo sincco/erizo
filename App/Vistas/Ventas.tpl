@@ -2,7 +2,7 @@
 <incluir archivo="Menu">
 <div class="container">
 	<h3>Ventas</h3>
-	<p><a class="btn btn-primary btn-lg" href="{BASE_URL}ventas/nuevo" role="button">Agregar</a></p>
+	<p><a class="btn btn-primary btn-lg" href="{BASE_URL}ventas/nuevo" role="button">Agregar</a> <a class="btn btn-primary btn-lg" href="{BASE_URL}ventas/pos" role="button">Punto de venta</a></p>
 	<tabla datos="ventas" pagina="10" exportar="true" buscar="true" clic="editarElemento">
 </div>
 

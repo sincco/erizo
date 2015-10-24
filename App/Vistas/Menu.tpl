@@ -5,7 +5,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="{BASE_URL}">{APP_NAME}</a>
+        <a class="navbar-brand" href="{BASE_URL}dashboard">{APP_NAME}</a>
     </div>
     <div class="navbar-collapse collapse navbar-responsive-collapse">
         <ul class="nav navbar-nav navbar-right">
@@ -47,6 +47,8 @@
                 <ul class="dropdown-menu">
                     <li><a href="{BASE_URL}compras">Compras</a></li>
                     <li><a href="{BASE_URL}ventas">Ventas</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{BASE_URL}ventas/pos">Punto de Venta</a></li>
                 </ul>
             </li>
 
