@@ -94,6 +94,7 @@ $(function() {
 
   $("#buscar").keypress(function(event) {
     if(event.which == 13) {
+      $("#productos").bootstrapTable('destroy') 
       sincco.consumirAPI('POST','{BASE_URL}productos/apiDescripcion', {descripcion: $("#buscar").val()})
         .done(function(data) {
             console.log(data.respuesta)
@@ -119,6 +120,7 @@ $(function() {
 
   $("#claveProducto").keydown(function(event) {
     if(event.keyCode == 113) {
+      $("#buscar").val('')
       $("#productos").bootstrapTable('destroy') 
       $('#buscarProducto').modal('show')
       $('#buscar').focus()
