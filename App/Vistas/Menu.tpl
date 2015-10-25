@@ -49,6 +49,8 @@
                     <li><a href="{BASE_URL}ventas">Ventas</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}ventas/pos">Punto de Venta</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{BASE_URL}planventas">Plan de ventas</a></li>
                 </ul>
             </li>
 

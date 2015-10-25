@@ -136,4 +136,15 @@ class Modelos_Ventas extends Sfphp_Modelo
 		WHERE vta.venta = {$id};";
 		return $this->db->query($query);
 	}
+
+	public function ventasRecientes()
+	{
+		$query = "SELECT vta.venta Venta, vta.fecha Fecha, cli.razonSocial Cliente, vta.estatus Estatus, det.subtotal Monto
+				FROM ventas vta 
+				INNER JOIN clientes cli USING (cliente)
+				INNER JOIN (SELECT venta,SUM(subtotal) subtotal FROM ventasProductos GROUP BY venta) det USING (venta)
+				ORDER BY vta.fecha, vta.hora DESC
+				LIMIT 5;";
+		return $this->db->query($query);
+	}
 }

@@ -75,12 +75,24 @@ class Modelos_Productos extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			clave Producto, descripcionCorta Descripcion, 
 			precio Precio, activo Activo
 		FROM
 			productos;";
+		return $this->db->query($query);
+	}
+
+	/**
+	 * Los productos con más ventas
+	 * @return array
+	 */
+	public function masVendidos()
+	{
+		$query = "SELECT det.producto, pro.descripcionCorta, COUNT(distinct det.venta) ventas
+			FROM ventasProductos det
+			INNER JOIN productos pro USING (producto)
+			LIMIT 5;";
 		return $this->db->query($query);
 	}
 }

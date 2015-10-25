@@ -31,7 +31,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12">
-            <!-- <img src="{BASE_URL}html/img/logo.jpg"> -->
+            <img src="{BASE_URL}html/img/logo.jpg">
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <h1>{APP_NAME}</h1>

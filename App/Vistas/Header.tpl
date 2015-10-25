@@ -42,6 +42,8 @@
 
     <script src="{BASE_URL}html/js/sincco.js"></script>
     <script type="text/javascript">Dropzone.autoDiscover = false</script>
+
+     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     
     <link rel="shortcut icon" href="{BASE_URL}html/ico/favicon.png">
 </head>

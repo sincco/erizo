@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 23-10-2015 a las 18:54:22
+-- Tiempo de generación: 25-10-2015 a las 14:55:58
 -- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.13
 
@@ -33,13 +33,6 @@ CREATE TABLE IF NOT EXISTS `almacenes` (
   PRIMARY KEY (`almacen`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de almacenes' AUTO_INCREMENT=6 ;
 
---
--- Volcado de datos para la tabla `almacenes`
---
-
-INSERT INTO `almacenes` (`almacen`, `descripcion`, `activo`) VALUES
-(5, 'Principal', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -54,14 +47,7 @@ CREATE TABLE IF NOT EXISTS `almacenesProductos` (
   `costo` int(11) NOT NULL,
   PRIMARY KEY (`almacenProducto`),
   UNIQUE KEY `almacenProducto` (`almacen`,`producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=13 ;
-
---
--- Volcado de datos para la tabla `almacenesProductos`
---
-
-INSERT INTO `almacenesProductos` (`almacenProducto`, `almacen`, `producto`, `existencias`, `costo`) VALUES
-(12, 5, 9, 80, 1);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=15 ;
 
 -- --------------------------------------------------------
 
@@ -78,13 +64,6 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   PRIMARY KEY (`cliente`),
   UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de clientes' AUTO_INCREMENT=1 ;
-
---
--- Volcado de datos para la tabla `clientes`
---
-
-INSERT INTO `clientes` (`cliente`, `rfc`, `razonSocial`, `direccionFiscal`, `activo`) VALUES
-(0, 'AAAA010101AAA', 'Venta en mostrador', '', 1);
 
 -- --------------------------------------------------------
 
@@ -163,13 +142,6 @@ CREATE TABLE IF NOT EXISTS `impuestos` (
   `iepsPorcentaje` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Control de impuestos';
 
---
--- Volcado de datos para la tabla `impuestos`
---
-
-INSERT INTO `impuestos` (`ivaPorcentaje`, `desde`, `hasta`, `iepsPorcentaje`) VALUES
-(16, '2000-01-01', NULL, 10);
-
 -- --------------------------------------------------------
 
 --
@@ -187,15 +159,7 @@ CREATE TABLE IF NOT EXISTS `kardex` (
   `precio` float NOT NULL DEFAULT '1',
   `costo` float NOT NULL DEFAULT '1',
   PRIMARY KEY (`kardex`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Kardex de inventario' AUTO_INCREMENT=7 ;
-
---
--- Volcado de datos para la tabla `kardex`
---
-
-INSERT INTO `kardex` (`kardex`, `producto`, `fechaHora`, `movimiento`, `tabla`, `idTabla`, `cantidad`, `precio`, `costo`) VALUES
-(5, 10, '2015-10-19 23:31:00', 'Salida', 'ventas', 2, 6, 126.2, 0),
-(6, 9, '2015-10-19 23:31:00', 'Salida', 'ventas', 2, 10, 150, 0);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Kardex de inventario' AUTO_INCREMENT=29 ;
 
 -- --------------------------------------------------------
 
@@ -209,13 +173,6 @@ CREATE TABLE IF NOT EXISTS `lineasProductos` (
   `activo` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`lineaProducto`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Volcado de datos para la tabla `lineasProductos`
---
-
-INSERT INTO `lineasProductos` (`lineaProducto`, `descripcion`, `activo`) VALUES
-(3, 'Genericos', 1);
 
 -- --------------------------------------------------------
 
@@ -251,6 +208,20 @@ CREATE TABLE IF NOT EXISTS `perfiles` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `planVentas`
+--
+
+CREATE TABLE IF NOT EXISTS `planVentas` (
+  `planVenta` int(11) NOT NULL AUTO_INCREMENT,
+  `desde` date NOT NULL,
+  `hasta` date NOT NULL,
+  `monto` float NOT NULL,
+  PRIMARY KEY (`planVenta`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Plan de ventas por periodo' AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `productos`
 --
 
@@ -268,14 +239,6 @@ CREATE TABLE IF NOT EXISTS `productos` (
   PRIMARY KEY (`producto`),
   UNIQUE KEY `clave` (`clave`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de productos' AUTO_INCREMENT=11 ;
-
---
--- Volcado de datos para la tabla `productos`
---
-
-INSERT INTO `productos` (`producto`, `clave`, `lineaProducto`, `descripcion`, `descripcionCorta`, `precio`, `unidadMedida`, `iva`, `ieps`, `activo`) VALUES
-(9, 'abc123', 3, 'Producto 1', 'Prod 1', 150, 'PZA', 1, 0, 1),
-(10, 'abc456', 3, 'Producto 2', 'Prod 2', 126.2, 'PZA', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -339,13 +302,6 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   UNIQUE KEY `usuario_clave` (`clave`) COMMENT 'usuario_clave'
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
---
--- Volcado de datos para la tabla `usuarios`
---
-
-INSERT INTO `usuarios` (`usuario`, `clave`, `password`, `nombre`, `activo`) VALUES
-(1, 'ivanmiranda', 'gSpVQYAUBLJoQD3Scjz4fb5+OtDvlNm1PyZ91m7AY9M=', 'Iván Miranda', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -373,13 +329,6 @@ CREATE TABLE IF NOT EXISTS `vendedores` (
   PRIMARY KEY (`vendedor`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de vendedores y relación con almacenes (Tiendas, Puntos de Venta)' AUTO_INCREMENT=3 ;
 
---
--- Volcado de datos para la tabla `vendedores`
---
-
-INSERT INTO `vendedores` (`vendedor`, `usuario`, `almacen`) VALUES
-(2, 1, 5);
-
 -- --------------------------------------------------------
 
 --
@@ -390,18 +339,28 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   `venta` int(11) NOT NULL AUTO_INCREMENT,
   `cliente` int(11) NOT NULL,
   `fecha` date NOT NULL,
+  `hora` time NOT NULL,
   `estatus` enum('Cotizacion','En Proceso','Pago','Entregada','Cancelada','Sin Pago') NOT NULL,
   `vendedor` int(11) NOT NULL,
   PRIMARY KEY (`venta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de ventas' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de ventas' AUTO_INCREMENT=9 ;
+
+-- --------------------------------------------------------
 
 --
--- Volcado de datos para la tabla `ventas`
+-- Estructura de tabla para la tabla `ventasDocumentos`
 --
 
-INSERT INTO `ventas` (`venta`, `cliente`, `fecha`, `estatus`, `vendedor`) VALUES
-(1, 0, '2015-10-19', 'Pago', 2),
-(2, 0, '2015-10-19', 'Pago', 2);
+CREATE TABLE IF NOT EXISTS `ventasDocumentos` (
+  `ventaDocumento` int(11) NOT NULL AUTO_INCREMENT,
+  `venta` int(11) NOT NULL,
+  `tipo` enum('Factura','Remision','Nota de venta') NOT NULL,
+  `identificador` varchar(32) NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `monto` float NOT NULL,
+  PRIMARY KEY (`ventaDocumento`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Documentos relacionados con la venta' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -410,11 +369,13 @@ INSERT INTO `ventas` (`venta`, `cliente`, `fecha`, `estatus`, `vendedor`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `ventasPagos` (
+  `ventaPago` int(11) NOT NULL AUTO_INCREMENT,
   `venta` int(11) NOT NULL,
   `tipo` enum('Efectivo','Tarjeta','Monedero') NOT NULL,
   `monto` float NOT NULL,
-  `fecha` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Histórico de pagos de clientes';
+  `fecha` date NOT NULL,
+  PRIMARY KEY (`ventaPago`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Histórico de pagos de clientes' AUTO_INCREMENT=19 ;
 
 -- --------------------------------------------------------
 
@@ -432,17 +393,7 @@ CREATE TABLE IF NOT EXISTS `ventasProductos` (
   `ieps` float NOT NULL,
   `subtotal` float NOT NULL,
   PRIMARY KEY (`ventaProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Detalle de ventas' AUTO_INCREMENT=5 ;
-
---
--- Volcado de datos para la tabla `ventasProductos`
---
-
-INSERT INTO `ventasProductos` (`ventaProducto`, `venta`, `producto`, `cantidad`, `precio`, `iva`, `ieps`, `subtotal`) VALUES
-(1, 1, 10, 6.2, 126.2, 125.19, 0, 907.63),
-(2, 1, 9, 10, 150, 240, 0, 1740),
-(3, 2, 10, 6.2, 126.2, 125.19, 0, 907.63),
-(4, 2, 9, 10, 150, 240, 0, 1740);
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Detalle de ventas' AUTO_INCREMENT=27 ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -8,63 +8,105 @@
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<h4>Últimas ventas</h4>
 				<ul class="list-group">
-				<ciclo facturasRecientes>
-					<li class="list-group-item list-group-item-success">
-						{CVE_DOC} - {RFC} - ${IMPORTE}
+				<ciclo ventasRecientes>
+					<li class="list-group-item list-group-item-success" onclick="window.location='{BASE_URL}ventas'">
+						{Fecha} - {Cliente} - ${Monto}
 					</li>
-				</ciclo facturasRecientes>
+				</ciclo ventasRecientes>
 				</ul>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4>Últimas ventas canceladas</h4>
+				<h4>Documentos recientes</h4>
 				<ul class="list-group">
-					<ciclo facturasCanceladas>
+					<ciclo documentosRecientes>
 						<li class="list-group-item list-group-item-success list-group-item-warning">
-							{CVE_DOC} - ${IMPORTE}
+							{Tipo} - {Clave} - ${Monto}
 						</li>
-					</ciclo facturasCanceladas>
+					</ciclo documentosRecientes>
 				</ul>
 			</div>
 		</div>
 		<div class="row">
-			<h3>Resumen</h3>
-			<div class="progress">
-				<div class="progress-bar progress-bar" style="width: {VENTAS_FACTURADAS}%">
-					{VENTAS_FACTURADAS}% Facturadas
-				</div>
-				<div class="progress-bar progress-bar-warning" style="width: {VENTAS_CANCELACIONES}%">
-					{VENTAS_CANCELACIONES}% Canceladas
-				</div>
-				<div class="progress-bar progress-bar-info" style="width: {VENTAS_ENPROCESO}%">
-					{VENTAS_ENPROCESO}% En proceso
-				</div>
+			<h3>Plan de ventas</h3>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<div id="planVentas" style="width: 100%"></div>
 			</div>
 		</div>
 	</div>
+
 	<div class="jumbotron">
 		<div class="row">
-			<h3>Inventarios</h3>
+			<h3>Productos</h3>
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4>Baja existencia</h4>
-				<div class="progress">
-				<div class="progress-bar progress-bar" style="width: {PRODUCTOS_RESURTIR}%">
-					<a href="{BASE_URL}productos/resurtir" style="color:#fff">{PRODUCTOS_RESURTIR}% Resurtir</a>
-				</div>
-			</div>
+				<h4>Los más vendidos</h4>
+				<div id="productosPopulares" style="width: 100%"></div>
 			</div>
 			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4>Ultimas compras</h4>
-				<ul class="list-group">
-					<ul class="list-group">
-					<ciclo comprasRecientes>
-						<li class="list-group-item list-group-item-success list-group-item-warning">
-							{CVE_DOC} - ${IMPORTE}
-						</li>
-					</ciclo comprasRecientes>
-				</ul>
-				</ul>
+				<h4>Bajas existencias</h4>
 			</div>
 		</div>
 	</div>
+
 </div>
+
+<script type="text/javascript">
+    google.load("visualization", "1", {packages:["corechart"]})
+    google.setOnLoadCallback(chartPlanVentas)
+    function chartPlanVentas() {
+		var data = google.visualization.arrayToDataTable([
+		["", "Monto", { role: "style" } ],
+		["Plan", {montoPlan}, "#ff851b"],
+		["Ventas", {montoVentas}, "#28b62c"]
+		])
+
+		var view = new google.visualization.DataView(data)
+		view.setColumns([0, 1,
+		               { calc: "stringify",
+		                 sourceColumn: 1,
+		                 type: "string",
+		                 role: "annotation" },
+		               2])
+
+		var options = {
+		title: "Cumplimiento de plan de ventas de {planDesde} a {planHasta}",
+		bar: {groupWidth: "95%"},
+		legend: { position: "none" },
+		}
+		var chart = new google.visualization.ColumnChart(document.getElementById("planVentas"))
+		chart.draw(view, options)
+  	}
+
+  	google.setOnLoadCallback(chartProductosPopulares)
+    function chartProductosPopulares() {
+		var data = google.visualization.arrayToDataTable([
+		["Producto", "Pedidos", { role: "style" } ],
+		<ciclo masVendidos>
+			["{descripcionCorta}", {ventas}, "#0066FF"],
+		</ciclo masVendidos>
+		])
+
+		var view = new google.visualization.DataView(data)
+		view.setColumns([0, 1,
+		               { calc: "stringify",
+		                 sourceColumn: 1,
+		                 type: "string",
+		                 role: "annotation" },
+		               2])
+
+		var options = {
+		title: "Productos más pedidos",
+		bar: {groupWidth: "95%"},
+		legend: { position: "none" },
+		}
+		var chart = new google.visualization.ColumnChart(document.getElementById("productosPopulares"))
+		chart.draw(view, options)
+  	}
+
+  	$(window).resize(function(){
+		chartPlanVentas()
+		chartProductosPopulares()
+	})
+
+  </script>
+
 <incluir archivo="Footer">
