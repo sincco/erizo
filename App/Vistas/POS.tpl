@@ -119,7 +119,9 @@ $(function() {
 
   $("#claveProducto").keydown(function(event) {
     if(event.keyCode == 113) {
+      $("#productos").bootstrapTable('destroy') 
       $('#buscarProducto').modal('show')
+      $('#buscar').focus()
       $('#buscar').select()
       $('#buscar').focus()
     }
