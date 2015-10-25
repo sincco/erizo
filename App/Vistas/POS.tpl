@@ -1,12 +1,12 @@
 <incluir archivo="Header">
   <incluir archivo="Menu">
 <div class="container">
-	<h3>Punto de venta</h3>
+  <h3>Punto de venta</h3>
 
   <div class="row">
     <div class="col-md-6">
       <label>Cliente</label>
-    	<select id="cliente" name="cliente" class="form-control">
+      <select id="cliente" name="cliente" class="form-control">
         <ciclo clientes>
           <option value="{cliente}">{razonSocial}</option>
         </ciclo clientes>
@@ -34,7 +34,7 @@
 
   <br>
   <div id="errores"></div>
-	<div id="gridVenta" class="handsontable"></div>
+  <div id="gridVenta" class="handsontable"></div>
 
 </div>
 
@@ -63,6 +63,22 @@
     </div>
 </div>
 
+<div id="buscarProducto" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title">Buscar producto</h4>
+            </div>
+            <div class="modal-body">
+              <label>Por descripcion</label>
+              <input type="text" name="buscar" id="buscar" class="form-control">
+              <table id="productos"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(function() {
   $("#claveProducto").keypress(function(event) {
@@ -73,6 +89,39 @@ $(function() {
         hot.setDataAtCell(hot.countRows()-1,0,$(this).val())
       $(this).val('')
       $(this).focus()
+    }
+  })
+
+  $("#buscar").keypress(function(event) {
+    if(event.which == 13) {
+      sincco.consumirAPI('POST','{BASE_URL}productos/apiDescripcion', {descripcion: $("#buscar").val()})
+        .done(function(data) {
+            console.log(data.respuesta)
+            $('#productos').bootstrapTable({
+              data: data.respuesta,
+              columns: [{
+                field: 'clave',
+                title: 'Clave'
+              }, {
+                field: 'descripcionCorta',
+                title: 'Descripcion'
+              }, ]
+            })
+        })
+    }
+  })
+
+  $("#productos").on("click-row.bs.table", function (e, row, $element) {
+    $("#claveProducto").val(row.clave)
+    $("#claveProducto").focus()
+    $("#buscarProducto").modal('hide')
+  })
+
+  $("#claveProducto").keydown(function(event) {
+    if(event.keyCode == 113) {
+      $('#buscarProducto').modal('show')
+      $('#buscar').select()
+      $('#buscar').focus()
     }
   })
   $("#efectivo").focusout(function(){ actualizaCambio() })

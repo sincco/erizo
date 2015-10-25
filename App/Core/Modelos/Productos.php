@@ -28,11 +28,24 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByClave($clave = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, ieps
+		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, ieps
 		FROM productos ";
 		$where = " WHERE clave = '{$clave}' AND activo = 1;";
 		return $this->db->query($query.$where);
+	}
+
+	/**
+	 * Obtiene los datos de un producto por su descripcion
+	 * @param  string $descripcion descripcion del producto
+	 * @return array
+	 */
+	public function getByDescripcion($descripcion = '')
+	{
+		$where = NULL;
+		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, ieps
+		FROM productos
+		WHERE descripcion like '%{$descripcion}%' AND activo = 1;";
+		return $this->db->query($query);
 	}
 
 	/**

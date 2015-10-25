@@ -43,4 +43,14 @@ class Controladores_Productos extends Sfphp_Controlador
 		$clave = Sfphp_Peticion::get()['_parametros']['clave'];
 		echo json_encode(array("respuesta"=>$this->modeloProductos->getByClave($clave)));	
 	}
+
+	/**
+	 * Regresa los datos del producto según su descripción
+	 * @return json
+	 */
+	public function apiDescripcion()
+	{
+		$descripcion = Sfphp_Peticion::get()['_parametros']['descripcion'];
+		echo json_encode(array("respuesta"=>$this->modeloProductos->getByDescripcion($descripcion)));	
+	}
 }
