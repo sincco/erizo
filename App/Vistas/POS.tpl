@@ -106,6 +106,9 @@ $(function() {
               }, {
                 field: 'descripcionCorta',
                 title: 'Descripcion'
+              },  {
+                field: 'precio',
+                title: 'Precio'
               }, ]
             })
         })
