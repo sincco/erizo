@@ -56,6 +56,16 @@ class Controladores_Productos extends Sfphp_Controlador
 	}
 
 	/**
+	 * Llamada AJAX para borrar producto
+	 * @return json
+	 */
+	public function apiDesactivar()
+	{
+		$data = Sfphp_Peticion::get()['_parametros'];
+		echo json_encode(array("respuesta"=>$this->modeloProductos->del($data)));
+	}
+
+	/**
 	 * Regresa los datos del producto según su clave
 	 * @return json
 	 */

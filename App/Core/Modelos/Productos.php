@@ -91,12 +91,12 @@ class Modelos_Productos extends Sfphp_Modelo
 	 * @param  string $id Id del producto
 	 * @return array
 	 */
-	public function del($id)
+	public function del($data)
 	{
 		$query = "UPDATE productos
 		SET activo = 0 
-		WHERE lineaProducto = {$id};";
-		return $this->db->query($query.$where);
+		WHERE clave = '{$data['clave']}';";
+		return $this->db->query($query);
 	}
 
 	/**
@@ -107,9 +107,10 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$query = "SELECT 
 			clave Producto, descripcionCorta Descripcion, 
-			precio Precio, activo Activo
+			precio Precio
 		FROM
-			productos;";
+			productos
+		WHERE activo = 1;";
 		return $this->db->query($query);
 	}
 

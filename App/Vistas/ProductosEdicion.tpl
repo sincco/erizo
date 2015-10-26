@@ -17,11 +17,21 @@
 	</ciclo producto>
 </form>
 <br>
-<p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="guardar()">Guardar</a></p>
+<p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="guardar()">Guardar</a> <a class="btn btn-danger btn-lg" href="#" role="button" onclick="dasactivar()">Borrar</a></p>
 </div>
 <script type="text/javascript">
 function guardar() {
 	sincco.consumirAPI('POST','{BASE_URL}productos/apiActualizar',$("#productos").serializeJSON())
+	.done(function(data) {
+		if(data.respuesta)
+			window.location = '{BASE_URL}productos'
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(errorThrown)
+	})
+}
+
+function dasactivar() {
+	sincco.consumirAPI('POST','{BASE_URL}productos/apiDesactivar',$("#productos").serializeJSON())
 	.done(function(data) {
 		if(data.respuesta)
 			window.location = '{BASE_URL}productos'
