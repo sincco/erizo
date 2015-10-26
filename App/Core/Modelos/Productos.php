@@ -28,9 +28,9 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByClave($clave = '')
 	{
 		$where = NULL;
-		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, ieps
+		$query = "SELECT producto, clave, lineaProducto, descripcion, descripcionCorta, precio, unidadMedida, iva, ieps
 		FROM productos ";
-		$where = " WHERE clave = '{$clave}' AND activo = 1;";
+		$where = " WHERE clave = '{$clave}';";
 		return $this->db->query($query.$where);
 	}
 
@@ -65,6 +65,23 @@ class Modelos_Productos extends Sfphp_Modelo
 			unidadMedida = '{$data['unidadMedida']}',
 			iva = '{$data['iva']}',
 			ieps = '{$data['ieps']}',
+			activo = 1;";
+		return $this->db->insert($query);
+	}
+
+	/**
+	 * Actualizar un producto
+	 * @param  array $data Datos del producto
+	 * @return array
+	 */
+	public function update($data)
+	{
+		$query = "REPLACE INTO productos
+		SET
+			clave = '{$data['clave']}',
+			descripcion = '{$data['descripcion']}',
+			descripcionCorta = '{$data['descripcionCorta']}',
+			precio = '{$data['precio']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}

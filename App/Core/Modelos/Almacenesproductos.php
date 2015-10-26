@@ -12,8 +12,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT almacen, producto, existencias, costo
+		$query = "SELECT almacen, producto, existencias, costo
 		FROM almacenesProductos ";
 		if(trim($id) != "")
 			$where = " WHERE almacen = {$id};";
@@ -27,8 +26,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO almacenesProductos
+		$query = "INSERT INTO almacenesProductos
 		SET
 			almacen = '{$data['almacen']}',
 			producto = '{$data['producto']}',
@@ -44,8 +42,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	 */
 	public function del($id)
 	{
-		$query = "
-		DELETE almacenesProductos
+		$query = "DELETE almacenesProductos
 		WHERE almacenProducto = {$id};";
 		return $this->db->query($query.$where);
 	}
@@ -56,8 +53,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			alm.almacen Almacen, alm.descripcion Descripcion, 
 			pro.clave Clave, pro.descripcion Producto, 
 			exi.existencias Existencia, exi.costo
@@ -74,15 +70,12 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	 */
 	public function hot($almacen = 0)
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			exi.almacenProducto,pro.clave, pro.descripcionCorta, 
 			exi.existencias, exi.costo
 		FROM
 			almacenesProductos exi
-		INNER JOIN
-			productos pro
-			USING (producto)
+		INNER JOIN productos pro USING (producto)
 		WHERE exi.almacen = '{$almacen}'
 		ORDER BY pro.clave ASC;";
 		return $this->db->query($query);
@@ -95,8 +88,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	 */
 	public function apiPost($data)
 	{
-		$query = "
-		REPLACE INTO almacenesProductos
+		$query = "REPLACE INTO almacenesProductos
 		SET
 			almacen = '{$data['almacen']}',
 			producto = '{$data['producto']}',
@@ -114,8 +106,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	public function getByClaveAlmacen($clave = '', $almacen = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT pro.producto, pro.clave, pro.lineaProducto, 
+		$query = "SELECT pro.producto, pro.clave, pro.lineaProducto, 
 			pro.descripcionCorta, pro.precio, pro.unidadMedida,
 			alm.existencias, alm.costo
 		FROM productos pro

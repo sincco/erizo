@@ -6,3 +6,9 @@
 	<tabla datos="catalogo" pagina="10" exportar="true" buscar="true" clic="editarElemento">
 </div>
 <incluir archivo="Footer">
+
+<script type="text/javascript">
+function editarElemento(registro) {
+	window.location = "{BASE_URL}productos/edicion/clave/" + registro.Producto
+}
+</script>
