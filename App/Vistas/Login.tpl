@@ -45,17 +45,17 @@ $(function(){
         if(event.which == 13) {
             accesar()
         }
-    }
+    })
 
     $("#usuario").keypress(function(event) {
         if(event.which == 13) {
             accesar()
         }
-    }
+    })
 })
 
 function accesar() {
-	sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
+    sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
     .done(function(data) {
         console.log(data)
         if(data.respuesta[0].usuario) {
