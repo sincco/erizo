@@ -32,18 +32,20 @@
     <script data-jsfiddle="common" src="{BASE_URL}html/js/handsontable.im.js"></script>
     <link data-jsfiddle="common" rel="stylesheet" media="screen" href="{BASE_URL}html/css/handsontable.full.css">
 
-    <link href="{BASE_URL}html/css/dropzone.css" rel="stylesheet">
-    <script src="{BASE_URL}html/js/dropzone.js"></script>
-
     <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js"></script>
 
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
+    <script src="{BASE_URL}html/js/jquery.sortable.min.js"></script>
     <script src="{BASE_URL}html/js/sincco.js"></script>
-    <script type="text/javascript">Dropzone.autoDiscover = false</script>
 
-     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <!--
+    <link href="{BASE_URL}html/css/dropzone.css" rel="stylesheet">
+    <script src="{BASE_URL}html/js/dropzone.js"></script>
+    <script type="text/javascript">Dropzone.autoDiscover = false</script>
+    -->
     
     <link rel="shortcut icon" href="{BASE_URL}html/ico/favicon.png">
 </head>

@@ -56,4 +56,5 @@ class Controladores_Clientes extends Sfphp_Controlador
 		$this->_vista->direcciones = json_encode($this->modeloClientes->direcciones());
 		$this->vistaClientesMapa;
 	}
+
 }
