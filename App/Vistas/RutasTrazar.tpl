@@ -19,8 +19,11 @@
     <p><a class="btn btn-primary btn-md" href="#" onclick="trazar()" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Trazar</a></p>
   </div>
   <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="col-lg-8 col-md-8 col-sm-8">
       <div id='map' style="width:100%; height:300px;"></div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <div id='ruta'></div>
     </div>
   </div>
 </div>
@@ -60,6 +63,7 @@ function trazar() {
     center: {lat: 41.85, lng: -87.65}
   })
   directionsDisplay.setMap(map)
+  directionsDisplay.setPanel(document.getElementById('ruta'))
 
   directionsService.route({
     origin: direcciones[0].direccion,
