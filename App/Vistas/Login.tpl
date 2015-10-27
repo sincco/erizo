@@ -45,13 +45,13 @@ $(function(){
         if(event.which == 13) {
             accesar()
         }
-    }
+    })
 
     $("#usuario").keypress(function(event) {
         if(event.which == 13) {
             accesar()
         }
-    }
+    })
 })
 function accesar() {
 	sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
