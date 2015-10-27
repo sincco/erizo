@@ -4,7 +4,7 @@
 	<h3>Solicitud de compra</h3>
   <label>Descripción</label>
 	<input type="text" name="descripcionCorta" value=""><br>
-  <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
+  <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
   <div id="errores"></div>
 	<div id="gridCompra" class="handsontable"></div>
 </div>

@@ -2,7 +2,7 @@
 <incluir archivo="Menu">
 <div class="container">
 	<h3>Clientes</h3>
-	<p><a class="btn btn-primary btn-lg" href="{BASE_URL}clientes/nuevo" role="button">Agregar</a></p>
+	<p><a class="btn btn-primary btn-md" href="{BASE_URL}clientes/nuevo" role="button">Agregar</a></p>
 
 
 <table data-toggle="table" data-url="{BASE_URL}clientes/apiGrid" data-show-columns="true" data-mobile-responsive="true"

@@ -22,7 +22,7 @@
     <option value="Pago">Finalizada</option>
     <option value="Cancelada">Cencelada</option>
   </select><br>
-  <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
+  <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
   <input type="hidden" value="{ivaPorcentaje}" id="ivaPorcentaje">
   <input type="hidden" value="{iepsPorcentaje}" id="iepsPorcentaje">
 

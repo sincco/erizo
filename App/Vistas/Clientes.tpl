@@ -3,10 +3,10 @@
 <div class="container">
 	<h3>Clientes</h3>
 	<p>
-		<a class="btn btn-primary btn-lg" href="{BASE_URL}clientes/nuevo" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</a>
 		<div class="btn-group">
-			<button type="button" class="btn btn-info" onclick="window.location='{BASE_URL}clientes/mapa'">Mapa</button>
-			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<a class="btn btn-primary btn-md" href="{BASE_URL}clientes/nuevo" role="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</a>
+			<a class="btn btn-success btn-md" href="{BASE_URL}clientes/mapa" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Mapa</a>
+			<button type="button" class="btn btn-success dropdown-toggle btn-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				<span class="caret"></span>
 				<span class="sr-only">Toggle Dropdown</span>
 			</button>

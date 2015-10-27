@@ -60,7 +60,7 @@
 	        </div>
 	    </div>
 	    <br>
-	    <p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="guardarCliente()">Guardar</a></p>
+	    <p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardarCliente()">Guardar</a></p>
 	</div>
 </div>
 <script type="text/javascript">

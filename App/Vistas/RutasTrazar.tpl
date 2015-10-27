@@ -15,7 +15,7 @@
       <ul class="visitas ruta"></ul>
     </div>
     <hr>
-    <p><a class="btn btn-primary btn-lg" href="#" onclick="trazar()" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Trazar</a></p>
+    <p><a class="btn btn-primary btn-md" href="#" onclick="trazar()" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Trazar</a></p>
   </div>
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-12">

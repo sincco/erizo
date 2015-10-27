@@ -16,7 +16,7 @@
       <option value="{almacen}">{descripcion}</option>
     </ciclo almacenes>
   </select><br>
-  <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
+  <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
   <div id="errores"></div>
 	<div id="grid_movements" class="handsontable"></div>
 </div>

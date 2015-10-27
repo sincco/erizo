@@ -39,7 +39,7 @@
 	</select>
 </form>
 <br>
-<p><a class="btn btn-primary btn-lg" href="#" role="button" onclick="guardar()">Guardar</a></p>
+<p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardar()">Guardar</a></p>
 </div>
 <script type="text/javascript">
 function guardar() {

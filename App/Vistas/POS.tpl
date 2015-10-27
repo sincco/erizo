@@ -28,7 +28,7 @@
       <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
     </div>
     <div class="col-sm-6">
-      <p><a class="btn btn-primary btn-lg" href="#" onclick="cobrar()" role="button">Cobrar</a></p>
+      <p><a class="btn btn-primary btn-md" href="#" onclick="cobrar()" role="button">Cobrar</a></p>
     </div>
   </div>
 
@@ -57,7 +57,7 @@
               <input type="text" name="monedero" id="monedero" class="form-control">
               <div class="alert alert-info" role="alert">Cambio: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="cambio">0.00</span></div>
               <hr>
-              <p><a class="btn btn-primary btn-lg" href="#" onclick="guardar()" role="button">Pago</a></p>
+              <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Pago</a></p>
             </div>
         </div>
     </div>

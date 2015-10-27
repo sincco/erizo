@@ -8,7 +8,7 @@
 			<option value="{almacen}">{descripcion}</option>
 		</ciclo almacenes>
 	</select>
-  <br><p><a class="btn btn-primary btn-lg" href="{BASE_URL}almacenes/existencias" role="button">Terminar</a></p><br>
+  <br><p><a class="btn btn-primary btn-md" href="{BASE_URL}almacenes/existencias" role="button">Terminar</a></p><br>
   <div id="errores"></div>
 	<div id="grid_movements" class="handsontable"></div>
 </div>
