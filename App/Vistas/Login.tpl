@@ -11,7 +11,7 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <form class="navbar-form navbar-left" id="acceso">
-                <input type="text" class="form-control col-lg-8" placeholder="usuario" name="clave">
+                <input type="text" class="form-control col-lg-8" placeholder="usuario" name="clave" id="usuario">
                 <input type="password" class="form-control col-lg-8" placeholder="contraseña" name="password" id="password">
                 <button type="button" class="btn btn-success" onclick="accesar()">entrar</button>
             </form>
@@ -45,6 +45,13 @@ $(function(){
         if(event.which == 13) {
             accesar()
         }
+    }
+
+    $("#usuario").keypress(function(event) {
+        if(event.which == 13) {
+            accesar()
+        }
+    }
 })
 
 function accesar() {
