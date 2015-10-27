@@ -14,8 +14,6 @@
 			<li><a href="{BASE_URL}rutas/trazar">Trazar ruta</a></li>
 			</ul>
 		</div>
-		<a class="btn btn-info btn-lg" href="{BASE_URL}clientes/mapa" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Mapas</a>
-		<a class="btn btn-info btn-lg" href="{BASE_URL}clientes/mapa" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Trazar ruta</a>
 	</p>
 	<tabla datos="catalogo" pagina="10" exportar="true" buscar="true" clic="editarElemento">
 </div>
