@@ -11,8 +11,8 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <form class="navbar-form navbar-left" id="acceso">
-                <input type="text" class="form-control col-lg-8" placeholder="usuario" name="clave">
-                <input type="password" class="form-control col-lg-8" placeholder="contraseña" name="password">
+                <input type="text" class="form-control col-lg-8" placeholder="usuario" name="clave" id="usuario">
+                <input type="password" class="form-control col-lg-8" placeholder="contraseña" name="password" id="password">
                 <button type="button" class="btn btn-success" onclick="accesar()">entrar</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
@@ -40,6 +40,19 @@
     </div>
 </div>
 <script>
+$(function(){
+    $("#password").keypress(function(event) {
+        if(event.which == 13) {
+            accesar()
+        }
+    }
+
+    $("#usuario").keypress(function(event) {
+        if(event.which == 13) {
+            accesar()
+        }
+    }
+})
 function accesar() {
 	sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
     .done(function(data) {
