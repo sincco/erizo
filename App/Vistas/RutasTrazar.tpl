@@ -5,15 +5,15 @@
     <div id="errores"></div>
     <div class="col-lg-6 col-md-6 col-sm-12">
       <h5>Clientes</h5>
-      <ul class="clientes ruta">
+      <ul id="clientes" class="clientes ruta list-group">
       <ciclo direcciones>
-        <li data-direccion="{direccionFiscal}">{razonSocial}</li>
+        <li class="list-group-item" data-direccion="{direccionFiscal}">{razonSocial}</li>
       </ciclo direcciones>
       </ul>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-12">
       <h5>Visitas</h5>
-      <ul class="visitas ruta"></ul>
+      <ul id="visitas" class="visitas ruta list-group"></ul>
     </div>
     <hr>
     <p><a class="btn btn-primary btn-md" href="#" onclick="trazar()" role="button"><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Trazar</a></p>
@@ -30,15 +30,17 @@
 
 <script type="text/javascript">
 $(function () {
-  $(".clientes, .visitas").sortable({
+  /**$(".clientes, .visitas").sortable({
     connectWith: ".ruta"
-  })
+  })*/
+  Sortable.create(clientes, { group: "ruta" })
+  Sortable.create(visitas, { group: "ruta" })
 })
 
 function trazar() {
   var direcciones = []
   var waypts = []
-  $("ul.visitas").children().each(function() {
+  $("#visitas").children().each(function() {
     var direccion = {cliente: $(this).text(), direccion: $(this).attr("data-direccion")}
     direcciones.push(direccion)
     waypts.push({
@@ -65,6 +67,8 @@ function trazar() {
   directionsDisplay.setMap(map)
   directionsDisplay.setPanel(document.getElementById('ruta'))
 
+  console.log(waypts,direcciones[0].direccion,direcciones[ultima].direccion)
+
   directionsService.route({
     origin: direcciones[0].direccion,
     destination: direcciones[ultima].direccion,
@@ -76,6 +80,7 @@ function trazar() {
       directionsDisplay.setDirections(response)
     } else {
       window.alert('Directions request failed due to ' + status)
+      console.log(response)
     }
   });
 

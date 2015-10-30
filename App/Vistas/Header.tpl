@@ -38,7 +38,11 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
-    <script src="{BASE_URL}html/js/jquery.sortable.min.js"></script>
+    <!--<script src="{BASE_URL}html/js/jquery.sortable.min.js"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
+
+
     <script src="{BASE_URL}html/js/sincco.js"></script>
 
     <!--
