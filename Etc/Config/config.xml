@@ -2,7 +2,7 @@
 <config>
 	<app>
 		<key>45db94b1e9222fdedcee4d7383b5b7ad</key>
-		<name>Venta en ruta</name>
+		<name>erizo</name>
 		<company>sincco</company>
 	</app>
 	<front>
@@ -19,8 +19,8 @@
 	</bases>
 	<dev>
 		<log>1</log>
-		<showerrors>1</showerrors>
-		<showphperrors>1</showphperrors>
+		<showerrors>0</showerrors>
+		<showphperrors>0</showphperrors>
 	</dev>
 	<sesion>
 		<type>DEFAULT</type>
