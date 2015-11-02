@@ -57,7 +57,7 @@ body {
 
 
 
-ul.clientes, ul.visitas {
+ul.productos, ul.recetas {
   min-height: 50px;
   margin: 0px 25px 10px 0px;
   padding: 2px;
@@ -69,13 +69,13 @@ ul.clientes, ul.visitas {
   list-style-type: none;
   list-style-position: inside;
 }
-ul.clientes {
+ul.productos {
   border-color: #f8e0b1;
 }
-ul.visitas {
+ul.recetas {
   border-color: #add38d;
 }
-.clientes li, .visitas li {
+.productos li, .recetas li {
   margin: 5px;
   padding: 5px;
   -webkit-border-radius: 4px;
@@ -83,12 +83,12 @@ ul.visitas {
   border-radius: 4px;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
 }
-.clientes li {
+.productos li {
   background-color: #fcf8e3;
   border: 1px solid #fbeed5;
   color: #c09853;
 }
-.visitas li {
+.recetas li {
   background-color: #ebf5e6;
   border: 1px solid #d6e9c6;
   color: #468847;
@@ -101,11 +101,11 @@ ul.visitas {
 .sortable-placeholder {
   height: 40px;
 }
-.clientes .sortable-placeholder {
+.productos .sortable-placeholder {
   border: 2px dashed #f8e0b1 !important;
   background-color: #fefcf5 !important;
 }
-.visitas .sortable-placeholder {
+.recetas .sortable-placeholder {
   border: 2px dashed #add38d !important;
   background-color: #f6fbf4 !important;
 }
