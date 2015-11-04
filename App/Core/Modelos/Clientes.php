@@ -66,7 +66,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 	 * @param  array $data Datos del cliente ['cliente']['contactos']['direcciones']
 	 * @return array
 	 */
-	public function update($data)
+	public function upd($data)
 	{
 		$query = "UPDATE clientes
 		SET
@@ -74,6 +74,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 			rfc = '{$data['cliente']['rfc']}',
 			direccionFiscal = '{$data['cliente']['direccionFiscal']}'
 		WHERE cliente = '{$data['cliente']['cliente']}';";
+		$this->db->query($query);
 		$idInsert = $data['cliente']['cliente'];
 		if($idInsert) 
 		{
