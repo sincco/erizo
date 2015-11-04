@@ -23,6 +23,13 @@ class Controladores_Clientes extends Sfphp_Controlador
 		$this->vistaClientesAlta;
 	}
 
+	public function editar()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+		$this->_vista->clientes = $this->modeloClientes->get($data['clave']);
+		$this->vistaClientesEdicion;
+	}
+
 	/**
 	 * Llamada AJAX para insertar cliente
 	 * @return json
@@ -30,7 +37,10 @@ class Controladores_Clientes extends Sfphp_Controlador
 	public function apiPost()
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
-		echo json_encode(array("respuesta"=>$this->modeloClientes->post($data)));
+		if(isset($data['cliente']))
+			echo json_encode(array("respuesta"=>$this->modeloClientes->update($data)));
+		else
+			echo json_encode(array("respuesta"=>$this->modeloClientes->post($data)));
 	}
 
 	/**

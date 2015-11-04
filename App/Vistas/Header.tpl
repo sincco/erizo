@@ -18,6 +18,7 @@
 
     
     <script src="{BASE_URL}html/js/jquery.min.js"></script>
+    <script src="{BASE_URL}html/js/jquery.redirect.js"></script>
     <script src="{BASE_URL}html/js/bootstrap.min.js"></script>
     <script src="{BASE_URL}html/js/wow.min.js"></script>
 

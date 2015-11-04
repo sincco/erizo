@@ -17,4 +17,10 @@
 	</p>
 	<tabla datos="catalogo" pagina="10" exportar="true" buscar="true" clic="editarElemento">
 </div>
+<script type="text/javascript">
+function editarElemento(registro) {
+	console.log(registro)
+	$.redirect('{BASE_URL}clientes/editar', {'clave': registro.Clave})
+}
+</script>
 <incluir archivo="Footer">

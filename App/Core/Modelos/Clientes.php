@@ -28,13 +28,52 @@ class Modelos_Clientes extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO clientes
+		$query = "INSERT INTO clientes
 		SET
 			razonSocial = '{$data['cliente']['razonSocial']}',
 			rfc = '{$data['cliente']['rfc']}',
 			direccionFiscal = '{$data['cliente']['direccionFiscal']}',
 			activo = 1;";
+		$idInsert = $this->db->insert($query);
+		if($idInsert) 
+		{
+			if(trim($data['contactos']['nombre']) != "") {
+				$query = "
+				INSERT INTO clientesContactos
+				SET
+					cliente = '$idInsert',
+					nombre = '{$data['contactos']['nombre']}',
+					correo = '{$data['contactos']['correo']}',
+					telefono = '{$data['contactos']['telefono']}';";
+				$this->db->insert($query);
+			}
+			if(trim($data['direcciones']['alias']) != "") {
+				$query = "
+				INSERT INTO clientesDirecciones
+				SET
+					cliente = '$idInsert',
+					alias = '{$data['direcciones']['alias']}',
+					domicilio = '{$data['direcciones']['domicilio']}',
+					telefono = '{$data['direcciones']['telefono']}';";
+				$this->db->insert($query);
+			}
+		}
+		return $idInsert;
+	}
+
+	/**
+	 * Inserta un nuevo cliente
+	 * @param  array $data Datos del cliente ['cliente']['contactos']['direcciones']
+	 * @return array
+	 */
+	public function update($data)
+	{
+		$query = "UPDATE clientes
+		SET
+			razonSocial = '{$data['cliente']['razonSocial']}',
+			rfc = '{$data['cliente']['rfc']}',
+			direccionFiscal = '{$data['cliente']['direccionFiscal']}'
+		WHERE cliente = '{$data['cliente']['cliente']}';";
 		$idInsert = $this->db->insert($query);
 		if($idInsert) 
 		{
