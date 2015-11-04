@@ -47,7 +47,7 @@
 		        </div>
 		    </div>
 		    <br>
-		    <p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardarCliente()">Guardar</a></p>
+		    <p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardarCliente()">Guardar</a> <a class="btn btn-danger btn-md" href="#" role="button" onclick="borrarCliente()">Borrar</a></p>
 		</div>
 	</ciclo clientes>
 </div>
@@ -59,6 +59,17 @@ $(document).ready(function(){
 function guardarCliente() {
 	var cliente = {cliente:$("#clientesGenerales").serializeJSON(), direcciones:$("#clientesDirecciones").serializeJSON(), contactos:$("#clientesContactos").serializeJSON()}
 	sincco.consumirAPI('POST','{BASE_URL}clientes/apiPost',cliente)
+	.done(function(data) {
+		if(data.respuesta)
+			window.location = '{BASE_URL}clientes'
+	}).fail(function(jqXHR, textStatus, errorThrown) {
+		console.log(errorThrown)
+	})	
+}
+
+function borrarCliente() {
+	var cliente = {cliente:$("#clientesGenerales").serializeJSON(), direcciones:$("#clientesDirecciones").serializeJSON(), contactos:$("#clientesContactos").serializeJSON()}
+	sincco.consumirAPI('POST','{BASE_URL}clientes/apiDel',cliente)
 	.done(function(data) {
 		if(data.respuesta)
 			window.location = '{BASE_URL}clientes'

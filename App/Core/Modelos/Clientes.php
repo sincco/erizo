@@ -74,12 +74,11 @@ class Modelos_Clientes extends Sfphp_Modelo
 			rfc = '{$data['cliente']['rfc']}',
 			direccionFiscal = '{$data['cliente']['direccionFiscal']}'
 		WHERE cliente = '{$data['cliente']['cliente']}';";
-		$idInsert = $this->db->insert($query);
+		$idInsert = $data['cliente']['cliente'];
 		if($idInsert) 
 		{
 			if(trim($data['contactos']['nombre']) != "") {
-				$query = "
-				INSERT INTO clientesContactos
+				$query = "REPLACE INTO clientesContactos
 				SET
 					cliente = '$idInsert',
 					nombre = '{$data['contactos']['nombre']}',
@@ -88,8 +87,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 				$this->db->insert($query);
 			}
 			if(trim($data['direcciones']['alias']) != "") {
-				$query = "
-				INSERT INTO clientesDirecciones
+				$query = "REPLACE INTO clientesDirecciones
 				SET
 					cliente = '$idInsert',
 					alias = '{$data['direcciones']['alias']}',
@@ -108,11 +106,10 @@ class Modelos_Clientes extends Sfphp_Modelo
 	 */
 	public function del($id)
 	{
-		$query = "
-		UPDATE clientes
+		$query = "UPDATE clientes
 		SET activo = 0 
 		WHERE cliente = {$id};";
-		return $this->db->query($query.$where);
+		return $this->db->query($query);
 	}
 
 	/**
@@ -121,8 +118,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			cli.cliente Clave, cli.razonSocial 'Razon Social', cli.rfc RFC, cli.direccionFiscal 'Direccion Fiscal', cli.activo Activo
 		FROM
 			clientes cli;";

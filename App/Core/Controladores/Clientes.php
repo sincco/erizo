@@ -36,11 +36,17 @@ class Controladores_Clientes extends Sfphp_Controlador
 	 */
 	public function apiPost()
 	{
-		$data = Sfphp_Peticion::get()['_parametros'];
-		if(isset($data['cliente']))
+		$data = Sfphp_Peticion::get('_parametros');
+		if(isset($data['cliente']['cliente']))
 			echo json_encode(array("respuesta"=>$this->modeloClientes->update($data)));
 		else
 			echo json_encode(array("respuesta"=>$this->modeloClientes->post($data)));
+	}
+
+	public function apiDel()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+			echo json_encode(array("respuesta"=>$this->modeloClientes->del($data['cliente']['cliente'])));
 	}
 
 	/**
