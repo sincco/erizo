@@ -1,9 +1,9 @@
 <incluir archivo="Header">
 <incluir archivo="Menu">
 <div class="container">
-	<h3>Ventas</h3>
-	<p><a class="btn btn-primary btn-md" href="{BASE_URL}ventas/nuevo" role="button">Agregar</a></p>
-	<tabla datos="ventas" pagina="10" exportar="true" buscar="true" clic="editarElemento">
+	<h3>Gastos</h3>
+	<p><a class="btn btn-primary btn-md" href="{BASE_URL}gastosdia/nuevo" role="button">Agregar</a></p>
+	<tabla datos="catalogo" pagina="10" exportar="true" buscar="true" clic="editarElemento">
 </div>
 
 <div id="myModal" class="modal fade">
@@ -23,12 +23,12 @@
 
 <script type="text/javascript">
 function editarElemento(fila) {
-	sincco.consumirAPI('POST','{BASE_URL}ventas/apiDetalleVenta',{venta:fila.Venta})
+	sincco.consumirAPI('POST','{BASE_URL}compras/apiDetalleCompra',{compra:fila.Compra})
 	.done(function(respuesta) {
 		if(fila.Estatus == "Solicitud") {
 			$("#acciones").html("<a href='#'>Cotizar</a>")
 		}
-		$("#titulo").html("Detalle de venta "+fila.Venta + ' - ' + fila.Cliente)
+		$("#titulo").html("Detalle de compra "+fila.Compra)
 		$("#detalle").bootstrapTable('destroy')	
 		$('#detalle').bootstrapTable({
 			columns:[
@@ -36,8 +36,7 @@ function editarElemento(fila) {
 				{field:'descripcionCorta',title:'Producto',sortable:false, visible:true},
 				{field:'cantidad',title:'Cantidad',sortable:false, visible:true},
 				{field:'precio',title:'Precio',sortable:false, visible:true},
-				{field:'iva',title:'IVA',sortable:false, visible:true},
-				{field:'ieps',title:'IEPS',sortable:false, visible:true},
+				{field:'impuesto',title:'Impuesto',sortable:false, visible:true},
 				{field:'subtotal',title:'Subtotal',sortable:false, visible:true}	
 			],
 			data:respuesta.respuesta

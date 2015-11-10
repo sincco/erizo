@@ -12,16 +12,16 @@ class Modelos_Proveedores extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			pro.proveedor, pro.razonSocial, pro.rfc, pro.direccionFiscal, pro.activo,
 			con.nombre, con.correo, con.telefono
 		FROM
 			proveedores pro
 		LEFT JOIN
-			proveedoresContactos con USING proveedor";
+			proveedoresContactos con USING proveedor ";
 		if(trim($id) != "")
-			$where = " WHERE proveedor = {$id};";
+			$where = " WHERE pro.proveedor = '{$id}';";
+		echo $query.$where;
 		return $this->db->query($query.$where);
 	}
 
@@ -32,8 +32,7 @@ class Modelos_Proveedores extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO proveedores
+		$query = "INSERT INTO proveedores
 		SET
 			razonSocial = '{$data['proveedor']['razonSocial']}',
 			rfc = '{$data['proveedor']['rfc']}',
@@ -53,6 +52,27 @@ class Modelos_Proveedores extends Sfphp_Modelo
 		return $idInsert;
 	}
 
+	public function upd($data)
+	{
+		$query = "UPDATE proveedores
+		SET
+			razonSocial = '{$data['proveedor']['razonSocial']}',
+			rfc = '{$data['proveedor']['rfc']}',
+			direccionFiscal = '{$data['proveedor']['direccionFiscal']}',
+		WHERE proveedor = '{$data['proveedor']['proveedor']}';";
+		$idInsert = $data['proveedor']['proveedor'];
+		if($idInsert AND count($data['contactos'])) {
+			$query = "REPLACE INTO proveedoresContactos
+			SET
+				proveedor = '$idInsert',
+				nombre = '{$data['contactos']['nombre']}',
+				correo = '{$data['contactos']['correo']}',
+				telefono = '{$data['contactos']['telefono']}';";
+			$this->db->insert($query);
+		}
+		return $idInsert;
+	}
+
 	/**
 	 * Elimina un proveedor en particular (desactiva)
 	 * @param  string $id Id del proveedor
@@ -60,8 +80,7 @@ class Modelos_Proveedores extends Sfphp_Modelo
 	 */
 	public function del($id)
 	{
-		$query = "
-		UPDATE proveedores
+		$query = "UPDATE proveedores
 		SET activo = 0 
 		WHERE proveedor = {$id};";
 		return $this->db->query($query.$where);
