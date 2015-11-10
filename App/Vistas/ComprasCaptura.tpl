@@ -3,6 +3,10 @@
 <div class="container">
 	<h3>Solicitud de compra</h3>
   <label>Descripción</label>
+  <select name="estatus">
+    <option value="Recibida">Recibida</option>
+    <option value="En Proceso">En Proceso</option>
+  </select>
 	<input type="text" name="descripcionCorta" value=""><br>
   <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
   <div id="errores"></div>

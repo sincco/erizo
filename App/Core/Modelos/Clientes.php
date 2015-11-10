@@ -74,6 +74,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 			rfc = '{$data['cliente']['rfc']}',
 			direccionFiscal = '{$data['cliente']['direccionFiscal']}'
 		WHERE cliente = '{$data['cliente']['cliente']}';";
+		$this->db->query($query);
 		$idInsert = $data['cliente']['cliente'];
 		if($idInsert) 
 		{
