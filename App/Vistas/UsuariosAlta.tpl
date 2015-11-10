@@ -5,6 +5,8 @@
 <form id="usuarios">
 	<label>Clave</label>
 	<input type="text" class="form-control" name="clave">
+	<label>Nombre</label>
+	<input type="text" class="form-control" name="nombre">
 	<label>Password</label>
 	<input type="text" class="form-control" name="password">
 
