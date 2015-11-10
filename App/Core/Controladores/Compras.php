@@ -29,7 +29,7 @@ class Controladores_Compras extends Sfphp_Controlador
 	 */
 	public function apiPostSolicitud()
 	{
-		$data = Sfphp_Peticion::get()['_parametros'];
+		$data = Sfphp_Peticion::get('_parametros');
 		echo json_encode(array("respuesta"=>$this->modeloCompras->solicitud($data)));
 	}
 
