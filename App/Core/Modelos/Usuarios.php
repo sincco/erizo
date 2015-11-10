@@ -44,6 +44,7 @@ class Modelos_Usuarios extends Sfphp_Modelo
 		INSERT INTO usuarios
 		SET
 			clave = '{$data['clave']}',
+			nombre = '{$data['nombre']}',
 			password = '".Sfphp::encrypt($data['password'],Sfphp_Config::get()['app']['key'])."',
 			activo = 1;";
 		return $this->db->insert($query);
@@ -71,7 +72,7 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	{
 		$query = "
 		SELECT 
-			usuario Usuario, clave Clave, activo Activo
+			usuario Usuario, clave Clave, nombre Nombre, activo Activo
 		FROM
 			usuarios;";
 		return $this->db->query($query);
