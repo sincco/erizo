@@ -38,7 +38,7 @@ class Controladores_Clientes extends Sfphp_Controlador
 	{
 		$data = Sfphp_Peticion::get('_parametros');
 		if(isset($data['cliente']['cliente']))
-			echo json_encode(array("respuesta"=>$this->modeloClientes->update($data)));
+			echo json_encode(array("respuesta"=>$this->modeloClientes->upd($data)));
 		else
 			echo json_encode(array("respuesta"=>$this->modeloClientes->post($data)));
 	}

@@ -66,7 +66,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 	 * @param  array $data Datos del cliente ['cliente']['contactos']['direcciones']
 	 * @return array
 	 */
-	public function update($data)
+	public function upd($data)
 	{
 		$query = "UPDATE clientes
 		SET
