@@ -28,7 +28,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByClave($clave = '')
 	{
 		$where = NULL;
-		$query = "SELECT producto, clave, lineaProducto, descripcion, descripcionCorta, precio, unidadMedida, iva, costo
+		$query = "SELECT producto, clave, lineaProducto, descripcion, descripcionCorta, precio, unidadMedida, iva, 0 ieps
 		FROM productos ";
 		$where = " WHERE clave = '{$clave}';";
 		return $this->db->query($query.$where);
@@ -42,7 +42,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByDescripcion($descripcion = '')
 	{
 		$where = NULL;
-		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, costo
+		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, 0 ieps
 		FROM productos
 		WHERE descripcion like '%{$descripcion}%' AND activo = 1;";
 		return $this->db->query($query);
