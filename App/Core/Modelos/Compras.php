@@ -26,8 +26,7 @@ class Modelos_compras extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO compras
+		$query = "INSERT INTO compras
 		SET
 			compra = '{$data['compra']}',
 			producto = '{$data['producto']}',

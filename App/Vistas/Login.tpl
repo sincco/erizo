@@ -59,10 +59,7 @@ function accesar() {
     .done(function(data) {
         console.log(data)
         if(data.respuesta[0].usuario) {
-            if(data.respuesta[0].vendedor)
-                window.location = '{BASE_URL}ventas/pos'
-            else
-                window.location = '{BASE_URL}dashboard'
+            window.location = '{BASE_URL}dashboard'
         }
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown)

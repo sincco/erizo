@@ -61,7 +61,7 @@
               <input type="text" name="efectivo" id="efectivo" class="form-control">
               <label>Con tarjeta</label>
               <input type="text" name="tarjeta" id="tarjeta" class="form-control">
-              <label>Con monedero electrónico</label>
+              <label>A crédito</label>
               <input type="text" name="monedero" id="monedero" class="form-control">
               <div class="alert alert-info" role="alert">Cambio: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="cambio">0.00</span></div>
               <hr>

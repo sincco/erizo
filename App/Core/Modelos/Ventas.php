@@ -97,7 +97,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 				if(floatval($data['pagos']['efectivo']) > 0) {
 					$query = "INSERT INTO ventasPagos
 						SET venta = '{$venta}',
-						tipo = 'Monedero',
+						tipo = 'Crédito',
 						monto = '{$data['pagos']['monedero']}',
 						fecha = CURDATE();";
 					$this->db->insert($query);
