@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 25-10-2015 a las 14:55:58
--- Versión del servidor: 5.5.44-0ubuntu0.14.04.1
--- Versión de PHP: 5.5.9-1ubuntu4.13
+-- Tiempo de generación: 09-11-2015 a las 23:39:41
+-- Versión del servidor: 5.5.46-0ubuntu0.14.04.2
+-- Versión de PHP: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `almacenes` (
   `descripcion` varchar(75) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`almacen`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de almacenes' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de almacenes' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `almacenesProductos` (
   `costo` int(11) NOT NULL,
   PRIMARY KEY (`almacenProducto`),
   UNIQUE KEY `almacenProducto` (`almacen`,`producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `clientes` (
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`cliente`),
   UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de clientes' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de clientes' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `clientesContactos` (
   `telefono` varchar(15) NOT NULL,
   `correo` varchar(150) NOT NULL,
   PRIMARY KEY (`clienteContacto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Contactos del cliente' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Contactos del cliente' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `clientesDirecciones` (
   `domicilio` varchar(150) NOT NULL,
   `telefono` varchar(15) NOT NULL,
   PRIMARY KEY (`clienteDireccion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Direcciones de clientes' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Direcciones de clientes' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `compras` (
   `descripcionCorta` varchar(75) NOT NULL,
   `estatus` enum('Solicitud','Cotizada','Autorizada','En Proceso','Recibida','Cancelada') NOT NULL,
   PRIMARY KEY (`compra`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de compras' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de compras' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -127,7 +127,46 @@ CREATE TABLE IF NOT EXISTS `comprasProductos` (
   `autorizado` int(11) NOT NULL,
   `fechaRecepcion` date DEFAULT NULL,
   PRIMARY KEY (`compraProducto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Detalle de compras' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Detalle de compras' AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gastos`
+--
+
+CREATE TABLE IF NOT EXISTS `gastos` (
+  `gasto` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(75) NOT NULL,
+  PRIMARY KEY (`gasto`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='catalogo de gastos' AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gastosRuta`
+--
+
+CREATE TABLE IF NOT EXISTS `gastosRuta` (
+  `gastoRuta` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
+  `vendedor` int(11) NOT NULL,
+  PRIMARY KEY (`gastoRuta`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='gastos de venta por día' AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `gastosRutasDetalle`
+--
+
+CREATE TABLE IF NOT EXISTS `gastosRutasDetalle` (
+  `gastoRutaDetalle` int(11) NOT NULL AUTO_INCREMENT,
+  `gastoRuta` int(11) NOT NULL,
+  `gasto` int(11) NOT NULL,
+  `monto` float NOT NULL,
+  PRIMARY KEY (`gastoRutaDetalle`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle de gastos por ruta' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -159,7 +198,7 @@ CREATE TABLE IF NOT EXISTS `kardex` (
   `precio` float NOT NULL DEFAULT '1',
   `costo` float NOT NULL DEFAULT '1',
   PRIMARY KEY (`kardex`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Kardex de inventario' AUTO_INCREMENT=29 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Kardex de inventario' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -172,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `lineasProductos` (
   `descripcion` varchar(75) NOT NULL,
   `activo` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`lineaProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -189,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `logOperaciones` (
   `campo` varchar(15) NOT NULL,
   `id` varchar(15) NOT NULL,
   PRIMARY KEY (`logOperacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Log de operaciones en el sistema (CRUD)' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Log de operaciones en el sistema (CRUD)' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -203,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `perfiles` (
   `permisos` varchar(250) NOT NULL,
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`perfil`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Perfiles de acceso al sistema' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Perfiles de acceso al sistema' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -217,7 +256,7 @@ CREATE TABLE IF NOT EXISTS `planVentas` (
   `hasta` date NOT NULL,
   `monto` float NOT NULL,
   PRIMARY KEY (`planVenta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Plan de ventas por periodo' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Plan de ventas por periodo' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -238,7 +277,7 @@ CREATE TABLE IF NOT EXISTS `productos` (
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`producto`),
   UNIQUE KEY `clave` (`clave`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de productos' AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de productos' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -254,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `proveedores` (
   `activo` int(1) NOT NULL,
   PRIMARY KEY (`proveedor`),
   UNIQUE KEY `rfc` (`rfc`) COMMENT 'rfc'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de proveedores' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de proveedores' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -269,7 +308,7 @@ CREATE TABLE IF NOT EXISTS `proveedoresContactos` (
   `correo` varchar(150) NOT NULL,
   `telefono` varchar(150) NOT NULL,
   PRIMARY KEY (`proveedorContacto`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Datos de contactos de proveedores' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Datos de contactos de proveedores' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -284,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `transferencias` (
   `almacenDestino` int(11) NOT NULL,
   `motivo` varchar(150) NOT NULL,
   PRIMARY KEY (`transferencia`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabecera de transferencia entre almacenes' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de transferencia entre almacenes' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -300,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `usuarios` (
   `activo` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`usuario`),
   UNIQUE KEY `usuario_clave` (`clave`) COMMENT 'usuario_clave'
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -314,7 +353,7 @@ CREATE TABLE IF NOT EXISTS `usuariosPerfiles` (
   `perfil` int(11) NOT NULL,
   PRIMARY KEY (`usuarioPerfil`),
   UNIQUE KEY `usuariosPerfiles` (`usuario`,`perfil`) COMMENT 'usuariosPerfiles'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Usuarios de perfiles' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Usuarios de perfiles' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -327,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `vendedores` (
   `usuario` int(11) NOT NULL,
   `almacen` int(11) NOT NULL,
   PRIMARY KEY (`vendedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de vendedores y relación con almacenes (Tiendas, Puntos de Venta)' AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de vendedores y relación con almacenes (Tiendas, Puntos de Venta)' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -343,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `ventas` (
   `estatus` enum('Cotizacion','En Proceso','Pago','Entregada','Cancelada','Sin Pago') NOT NULL,
   `vendedor` int(11) NOT NULL,
   PRIMARY KEY (`venta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de ventas' AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de ventas' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -360,7 +399,7 @@ CREATE TABLE IF NOT EXISTS `ventasDocumentos` (
   `hora` time NOT NULL,
   `monto` float NOT NULL,
   PRIMARY KEY (`ventaDocumento`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Documentos relacionados con la venta' AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Documentos relacionados con la venta' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -371,11 +410,11 @@ CREATE TABLE IF NOT EXISTS `ventasDocumentos` (
 CREATE TABLE IF NOT EXISTS `ventasPagos` (
   `ventaPago` int(11) NOT NULL AUTO_INCREMENT,
   `venta` int(11) NOT NULL,
-  `tipo` enum('Efectivo','Tarjeta','Monedero') NOT NULL,
+  `tipo` enum('Efectivo','Tarjeta','Monedero','Crédito') NOT NULL,
   `monto` float NOT NULL,
   `fecha` date NOT NULL,
   PRIMARY KEY (`ventaPago`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Histórico de pagos de clientes' AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Histórico de pagos de clientes' AUTO_INCREMENT=1;
 
 -- --------------------------------------------------------
 
@@ -393,7 +432,7 @@ CREATE TABLE IF NOT EXISTS `ventasProductos` (
   `ieps` float NOT NULL,
   `subtotal` float NOT NULL,
   PRIMARY KEY (`ventaProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Detalle de ventas' AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Detalle de ventas' AUTO_INCREMENT=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

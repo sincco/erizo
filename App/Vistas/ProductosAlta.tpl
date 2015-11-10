@@ -19,6 +19,8 @@
 	<input type="text" class="form-control" name="descripcionCorta">
 	<label>Precio</label>
 	<input type="text" class="form-control" name="precio">
+	<label>Costo</label>
+	<input type="text" class="form-control" name="costo">
 	<label>Unidad de medida</label>
 	<select name="unidadMedida" class="form-control">
 		<option value="NA">No aplica</option>
@@ -29,11 +31,6 @@
 	</select>
 	<label>Aplica IVA</label>
 	<select name="iva" class="form-control">
-		<option value="0">No</option>
-		<option value="1">Si</option>
-	</select>
-	<label>Aplica IEPS</label>
-	<select name="ieps" class="form-control">
 		<option value="0">No</option>
 		<option value="1">Si</option>
 	</select>
