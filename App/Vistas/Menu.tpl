@@ -53,6 +53,13 @@
                 </ul>
             </li>
 
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{BASE_URL}reportes/utilidades">Utilidades</a></li>
+                </ul>
+            </li>
+
 			<li><a href="{BASE_URL}inicio/salir"><i class="fa fa-sign-out"></i> Salir</a></li>
         </ul>
     </div>

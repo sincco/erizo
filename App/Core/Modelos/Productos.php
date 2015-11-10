@@ -42,7 +42,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByDescripcion($descripcion = '')
 	{
 		$where = NULL;
-		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, ieps
+		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, costo
 		FROM productos
 		WHERE descripcion like '%{$descripcion}%' AND activo = 1;";
 		return $this->db->query($query);
@@ -64,7 +64,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			precio = '{$data['precio']}',
 			unidadMedida = '{$data['unidadMedida']}',
 			iva = '{$data['iva']}',
-			ieps = '{$data['ieps']}',
+			costo = '{$data['costo']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}
@@ -82,6 +82,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			descripcion = '{$data['descripcion']}',
 			descripcionCorta = '{$data['descripcionCorta']}',
 			precio = '{$data['precio']}',
+			costo = '{$data['costo']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}
@@ -107,7 +108,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$query = "SELECT 
 			clave Producto, descripcionCorta Descripcion, 
-			precio Precio
+			precio Precio, costo Costo
 		FROM
 			productos
 		WHERE activo = 1;";

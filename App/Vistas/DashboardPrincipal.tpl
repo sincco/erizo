@@ -36,6 +36,22 @@
 
 	<div class="jumbotron">
 		<div class="row">
+			<h3>Gastos</h3>
+			<div class="col-lg-6 col-md-6 col-sm-12">
+				<h4>Últimos gastos</h4>
+				<ul class="list-group">
+				<ciclo gastosRecientes>
+					<li class="list-group-item list-group-item-success" onclick="window.location='{BASE_URL}ventas'">
+						{Fecha} - {Cliente} - ${Monto}
+					</li>
+				</ciclo gastosRecientes>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="jumbotron">
+		<div class="row">
 			<h3>Productos</h3>
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<h4>Los más vendidos</h4>

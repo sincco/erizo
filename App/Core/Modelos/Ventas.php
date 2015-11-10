@@ -86,7 +86,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 						fecha = CURDATE();";
 					$this->db->insert($query);
 				}
-				if(floatval($data['pagos']['efectivo']) > 0) {
+				if(floatval($data['pagos']['tarjeta']) > 0) {
 					$query = "INSERT INTO ventasPagos
 						SET venta = '{$venta}',
 						tipo = 'Tarjeta',
@@ -94,7 +94,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 						fecha = CURDATE();";
 					$this->db->insert($query);
 				}
-				if(floatval($data['pagos']['efectivo']) > 0) {
+				if(floatval($data['pagos']['monedero']) > 0) {
 					$query = "INSERT INTO ventasPagos
 						SET venta = '{$venta}',
 						tipo = 'Crédito',
