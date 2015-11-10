@@ -1,37 +1,151 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+  <incluir archivo="Menu">
 <div class="container">
-	<h3>Nueva venta</h3>
-  <label>Cliente</label>
-	<select id="cliente" name="cliente" class="form-control">
-    <ciclo clientes>
-      <option value="{cliente}">{razonSocial}</option>
-    </ciclo clientes>
-  </select><br>
-  <label>Vendedor</label>
-  <select id="vendedor" name="vendedor" class="form-control">
-    <option value="0">Selecciona un vendedor</option>
-    <ciclo vendedores>
-      <option value="{vendedor}">{nombre}</option>
-    </ciclo vendedores>
-  </select><br>
-  <label>Estatus de la venta</label>
-  <select id="estatus" name="estatus" class="form-control">
-    <option value="Cotizacion">Cotización</option>
-    <option value="En Proceso">En Proceso</option>
-    <option value="Pago">Finalizada</option>
-    <option value="Cancelada">Cencelada</option>
-  </select><br>
-  <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Guardar</a></p><br>
+  <h3>Punto de venta</h3>
+
+  <div class="row">
+    <div class="col-md-6">
+      <label>Cliente</label>
+      <select id="cliente" name="cliente" class="form-control">
+        <ciclo clientes>
+          <option value="{cliente}">{razonSocial}</option>
+        </ciclo clientes>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <label>Vendedor</label>
+      <select id="vendedor" name="vendedor" class="form-control">
+        <ciclo vendedores>
+          <option value="{vendedor}">{nombre}</option>
+        </ciclo vendedores>
+      </select>
+    </div>
+    <div class="col-md-6">
+      <div class="alert alert-info" role="alert">Total: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="totalVenta">0.00</span></div>
+    </div>
+  </div>
+
+  <input type="hidden" id="vendedor" name="vendedor" class="form-control" value="{vendedor}">
+  <input type="hidden" id="estatus" name="estatus" class="form-control" value="Pago"><br>
   <input type="hidden" value="{ivaPorcentaje}" id="ivaPorcentaje">
   <input type="hidden" value="{iepsPorcentaje}" id="iepsPorcentaje">
 
+  <div class="row">
+    <div class="col-sm-6">
+      <label>Captura / Escanea el producto</label>
+      <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
+    </div>
+    <div class="col-sm-6">
+      <p><a class="btn btn-primary btn-md" href="#" onclick="cobrar()" role="button">Cobrar</a></p>
+    </div>
+  </div>
+
+  <br>
   <div id="errores"></div>
-	<div id="gridVenta" class="handsontable"></div>
+  <div id="gridVenta" class="handsontable"></div>
 
 </div>
 
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title">Pago</h4>
+            </div>
+            <div class="modal-body">
+              <div id="errorCobro"></div>
+              <label>Total a pagar</label>
+              <input type="text" id="total" class="form-control" disabled="true">
+              <label>En efectivo</label>
+              <input type="text" name="efectivo" id="efectivo" class="form-control">
+              <label>Con tarjeta</label>
+              <input type="text" name="tarjeta" id="tarjeta" class="form-control">
+              <label>Con monedero electrónico</label>
+              <input type="text" name="monedero" id="monedero" class="form-control">
+              <div class="alert alert-info" role="alert">Cambio: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="cambio">0.00</span></div>
+              <hr>
+              <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Pago</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="buscarProducto" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="titulo" class="modal-title">Buscar producto</h4>
+            </div>
+            <div class="modal-body">
+              <label>Por descripcion</label>
+              <input type="text" name="buscar" id="buscar" class="form-control">
+              <table id="productos"></table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
+$(function() {
+  $("#claveProducto").keypress(function(event) {
+    if(event.which == 13) {
+      if(hot.getDataAtCell(hot.countRows()-2,1) == 'NO EXISTE')
+        hot.setDataAtCell(hot.countRows()-2,0,$(this).val())
+      else
+        hot.setDataAtCell(hot.countRows()-1,0,$(this).val())
+      $(this).val('')
+      $(this).focus()
+    }
+  })
+
+  $("#buscar").keypress(function(event) {
+    if(event.which == 13) {
+      $("#productos").bootstrapTable('destroy') 
+      sincco.consumirAPI('POST','{BASE_URL}productos/apiDescripcion', {descripcion: $("#buscar").val()})
+        .done(function(data) {
+            console.log(data.respuesta)
+            $('#productos').bootstrapTable({
+              data: data.respuesta,
+              columns: [{
+                field: 'clave',
+                title: 'Clave'
+              }, {
+                field: 'descripcionCorta',
+                title: 'Descripcion'
+              },  {
+                field: 'precio',
+                title: 'Precio'
+              }, ]
+            })
+        })
+    }
+  })
+
+  $("#productos").on("click-row.bs.table", function (e, row, $element) {
+    $("#claveProducto").val(row.clave)
+    $("#claveProducto").focus()
+    $("#buscarProducto").modal('hide')
+  })
+
+  $("#claveProducto").keydown(function(event) {
+    if(event.keyCode == 113) {
+      $("#buscar").val('')
+      $("#productos").bootstrapTable('destroy') 
+      $('#buscarProducto').modal('show')
+      $('#buscar').focus()
+      $('#buscar').select()
+      $('#buscar').focus()
+    }
+  })
+  $("#efectivo").focusout(function(){ actualizaCambio() })
+  $("#tarjeta").focusout(function(){ actualizaCambio() })
+  $("#monedero").focusout(function(){ actualizaCambio() })
+})
+
+$("#claveProducto").focus()
+
 var
 data = [],
 grid = document.getElementById('gridVenta'),
@@ -72,6 +186,7 @@ hot = new Handsontable(grid, {
             hot.setDataAtCell(changes[0][0],8,data.respuesta[0].iva)
             hot.setDataAtCell(changes[0][0],9,data.respuesta[0].ieps)
             hot.setDataAtCell(changes[0][0],10,data.respuesta[0].producto)
+            hot.setDataAtCell(changes[0][0],4,1)
           } else {
             hot.setDataAtCell(changes[0][0],1,'NO EXISTE')
           }
@@ -92,28 +207,70 @@ hot = new Handsontable(grid, {
       $('#gridVenta td:nth-child(10),th:nth-child(10)').hide()
       $('#gridVenta td:nth-child(11),th:nth-child(11)').hide()
       $('#gridVenta td:nth-child(12),th:nth-child(12)').hide()
+      actualizaTotal()
     }
   }
 })
 
-function guardar() {
-  if(parseInt($("#vendedor").val()) == 0) {
-    $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Selecciona al vendedor</div>')
-    return
-  }
-  if(parseInt($("#estatus").val()) == 0) {
-    $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Selecciona el estatus</div>')
-    return
-  }
-  sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), productos: hot.getData()} )
-  .done(function(data) {
-    if(data.respuesta.venta)
-      window.location = '{BASE_URL}ventas'
-    else
-       $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
-  }).fail(function(jqXHR, textStatus, errorThrown) {
-    console.log(errorThrown)
+function actualizaCambio() {
+  var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val())
+  var cambio = total - parseFloat($('#total').val())
+  cambio = (Math.round(cambio * 100) / 100)
+  $("#cambio").html(cambio)
+}
+
+function actualizaTotal() {
+  var totalVenta = 0
+  hot.getData().forEach(function(element, index, array) {
+    if(!isNaN(parseFloat(element.subtotal))) {
+      totalVenta = totalVenta + parseFloat(element.subtotal)
+    }
   })
+  $('#totalVenta').html(Math.round(totalVenta * 100) /100)
+  $('#total').val(Math.round(totalVenta * 100) /100)
+  $('#efectivo').val(Math.round(totalVenta * 100) /100)
+  $('#tarjeta').val('0.00')
+  $('#monedero').val('0.00')
+  $('#cambio').val('0.00')
+  return true
+}
+
+function cobrar() {
+  $('#myModal').modal('show')
+  $('#efectivo').select()
+  $('#efectivo').focus()
+}
+
+function guardar() {
+  var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) - parseFloat($('#cambio').html())
+  if(total !== parseFloat($('#total').val())) {
+    $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
+  } else {
+    sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: $("#efectivo").val(), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
+    .done(function(data) {
+      if(data.respuesta.venta) {
+        limpiarDatos()
+      }
+      else
+         $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
+    }).fail(function(jqXHR, textStatus, errorThrown) {
+      console.log('Error',errorThrown)
+    })
+  }
+}
+
+function limpiarDatos() {
+  totalVenta = 0
+  total = 0
+  $("#efectivo").val('0.00')
+  $("#tarjeta").val('0.00')
+  $("#monedero").val('0.00')
+  $("#cambio").html('0.00')
+  $("#total").html('0.00')
+  hot.loadData({})
+  actualizaTotal()
+  $('#myModal').modal('toggle')
+  $("#claveProducto").focus()
 }
 </script>
 
