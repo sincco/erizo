@@ -12,12 +12,21 @@ class Modelos_Lineasproductos extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT lineaProducto, descripcion, activo
+		$query = "SELECT lineaProducto, descripcion, activo
 		FROM lineasProductos ";
 		if(trim($id) != "")
 			$where = " WHERE lineaProducto = {$id};";
 		return $this->db->query($query.$where);
+	}
+
+	public function getByDesc($desc)
+	{
+		$where = NULL;
+		$query = "SELECT lineaProducto, descripcion, activo
+		FROM lineasProductos 
+		WHERE descripcion = '{$desc}'
+		ORDER BY descripcion;";
+		return $this->db->query($query);
 	}
 
 	/**
@@ -27,8 +36,7 @@ class Modelos_Lineasproductos extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO lineasProductos
+		$query = "INSERT INTO lineasProductos
 		SET
 			descripcion = '{$data['descripcion']}',
 			activo = 1;";

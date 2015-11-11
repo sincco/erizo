@@ -35,6 +35,33 @@ class Controladores_Productos extends Sfphp_Controlador
 		$this->vistaProductosEdicion;
 	}
 
+	public function masivo()
+	{
+		$lineas = $this->modeloLineasproductos->get();
+		$lineasProductos = array();
+		foreach ($lineas as $key => $value) {
+			 array_push($lineasProductos, "'{$value['descripcion']}'");
+		}
+		$this->_vista->lineasProductos = implode(",", $lineasProductos);
+		$impuestos = $this->modeloImpuestos->getActual();
+		$this->_vista->iva = $impuestos[0]['ivaPorcentaje'];
+		$this->_vista->productos = json_encode($this->modeloProductos->getMasivo());
+		$this->vistaProductosEdicionMasiva;
+	}
+
+	public function masiva()
+	{
+		$lineas = $this->modeloLineasproductos->get();
+		$lineasProductos = array();
+		foreach ($lineas as $key => $value) {
+			 array_push($lineasProductos, "'{$value['descripcion']}'");
+		}
+		$this->_vista->lineasProductos = implode(",", $lineasProductos);
+		$impuestos = $this->modeloImpuestos->getActual();
+		$this->_vista->iva = $impuestos[0]['ivaPorcentaje'];
+		$this->vistaProductosAltaMasiva;
+	}
+
 	/**
 	 * Llamada AJAX para insertar producto
 	 * @return json
@@ -42,6 +69,10 @@ class Controladores_Productos extends Sfphp_Controlador
 	public function apiPost()
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
+		if(intval($data['lineaProducto']) == 0) {
+			$lineaProducto = $this->modeloLineasproductos->getByDesc($data['lineaProducto']);
+			$data['lineaProducto'] = $lineaProducto[0]['lineaProducto'];
+		}
 		echo json_encode(array("respuesta"=>$this->modeloProductos->post($data)));
 	}
 
@@ -49,17 +80,21 @@ class Controladores_Productos extends Sfphp_Controlador
 	 * Llamada AJAX para insertar producto
 	 * @return json
 	 */
-	public function apiActualizar()
+	public function apiUpd()
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
-		echo json_encode(array("respuesta"=>$this->modeloProductos->update($data)));
+		if(intval($data['lineaProducto']) == 0) {
+			$lineaProducto = $this->modeloLineasproductos->getByDesc($data['lineaProducto']);
+			$data['lineaProducto'] = $lineaProducto[0]['lineaProducto'];
+		}
+		echo json_encode(array("respuesta"=>$this->modeloProductos->upd($data)));
 	}
 
 	/**
 	 * Llamada AJAX para borrar producto
 	 * @return json
 	 */
-	public function apiDesactivar()
+	public function apiDel()
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
 		echo json_encode(array("respuesta"=>$this->modeloProductos->del($data)));
