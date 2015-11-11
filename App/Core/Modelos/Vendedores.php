@@ -12,7 +12,7 @@ class Modelos_Vendedores extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "SELECT ven.vendedor, ven.almacen, usr.nombre
+		$query = "SELECT ven.vendedor, ven.almacen, usr.nombre, ven.comision
 		FROM vendedores ven
 		INNER JOIN usuarios usr USING (usuario)";
 		if(trim($id) != "")
@@ -46,6 +46,16 @@ class Modelos_Vendedores extends Sfphp_Modelo
 		return $this->db->insert($query);
 	}
 
+	public function upd($data)
+	{
+		$query = "UPDATE vendedores
+		SET
+			almacen = '{$data['almacen']}',
+			comision = '{$data['comision']}'
+		WHERE vendedor = '{$data['vendedor']}';";
+		return $this->db->query($query);
+	}
+
 	/**
 	 * Elimina un vendedor
 	 * @param  string $id Id del vendedor
@@ -65,7 +75,7 @@ class Modelos_Vendedores extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "SELECT ven.vendedor, usr.nombre, ven.almacen, alm.descripcion
+		$query = "SELECT ven.vendedor Vendedor, usr.nombre Nombre, alm.descripcion Almacen, ven.comision Comision
 		FROM vendedores ven
 		INNER JOIN usuarios usr USING (usuario)
 		INNER JOIN almacenes alm USING (almacen);";

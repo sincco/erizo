@@ -25,6 +25,14 @@ class Controladores_Vendedores extends Sfphp_Controlador
 		$this->vistaVendedoresAlta;
 	}
 
+	public function editar()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+		$this->_vista->vendedores = $this->modeloVendedores->get($data['vendedor']);
+		$this->_vista->almacenes = $this->modeloAlmacenes->get();
+		$this->vistaVendedoresEdicion;
+	}
+
 	/**
 	 * Llamada AJAX para insertar vendedor
 	 * @return json
@@ -33,6 +41,12 @@ class Controladores_Vendedores extends Sfphp_Controlador
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
 		echo json_encode(array("respuesta"=>$this->modeloVendedores->post($data)));
+	}
+
+	public function apiUpd()
+	{
+		$data = Sfphp_Peticion::get()['_parametros'];
+		echo json_encode(array("respuesta"=>$this->modeloVendedores->upd($data)));
 	}
 
 }
