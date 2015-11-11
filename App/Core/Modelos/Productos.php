@@ -59,8 +59,13 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByDescripcion($descripcion = '')
 	{
 		$where = NULL;
-		$query = "SELECT producto, clave, lineaProducto, descripcionCorta, precio, unidadMedida, iva, 0 ieps
-		FROM productos
+		$query = "SELECT 
+			producto, clave, lineaProducto, descripcionCorta, 
+			unidadMedida, iva, 0 ieps, costo,
+			ROUND(pro.precio * (1+(imp.ivaPorcentaje/100)),2) precio
+
+		FROM productos pro
+		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
 		WHERE descripcion like '%{$descripcion}%' AND activo = 1;";
 		return $this->db->query($query);
 	}
