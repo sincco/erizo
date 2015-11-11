@@ -29,7 +29,7 @@ class Controladores_Reportes extends Sfphp_Controlador
 	{
 		$data = Sfphp_Peticion::get('_parametros');
 		if(isset($data['accion'])) {
-			$data = $this->modeloReportes->ventasvededor($data['desde'],$data['hasta'],$data['vendedor']);
+			$data = $this->modeloReportes->ventasvendedor($data['desde'],$data['hasta'],$data['vendedor']);
 			echo json_encode(array("respuesta"=>$data));
 		} else {
 			$this->_vista->vendedores = $this->modeloVendedores->get();

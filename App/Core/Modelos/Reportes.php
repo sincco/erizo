@@ -32,7 +32,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 		INNER JOIN vendedores ven USING(vendedor)
 		INNER JOIN usuarios usr USING(usuario)
 		INNER JOIN productos pro USING(producto)
-		WHERE vta.fecha between '{$desde}' AND '{$hasta}' AND vta.vendedor = 
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}' AND vta.vendedor = '{$vendedor}'
 		GROUP BY vta.fecha, usr.nombre;";
 		return $this->db->query($query);
 	}
