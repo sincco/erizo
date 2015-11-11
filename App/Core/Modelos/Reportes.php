@@ -14,7 +14,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.30 socio1,
 			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.30 socio2,
 			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.30 socio3,
-			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.10 socio4,
+			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.10 socio4
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
