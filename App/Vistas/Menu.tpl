@@ -58,6 +58,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{BASE_URL}reportes/utilidades">Utilidades</a></li>
                     <li><a href="{BASE_URL}reportes/detalleventasvendedor">Detalle de Ventas por vendedor</a></li>
+                    <li><a href="{BASE_URL}reportes/comisionesvendedor">Comisiones</a></li>
                 </ul>
             </li>
 

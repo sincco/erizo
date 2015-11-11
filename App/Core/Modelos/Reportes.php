@@ -16,8 +16,8 @@ class Modelos_Reportes extends Sfphp_Modelo
 		LEFT JOIN (
 			SELECT rta.fecha, rta.vendedor, SUM(gto.monto) monto FROM gastosRuta rta
 			INNER JOIN gastosRutasDetalle gto USING(gastoRuta)
-            GROUP BY rta.fecha, rta.vendedor
-        ) gto ON(gto.fecha = vta.fecha AND gto.vendedor = vta.vendedor)
+			GROUP BY rta.fecha, rta.vendedor
+		) gto ON(gto.fecha = vta.fecha AND gto.vendedor = vta.vendedor)
 		WHERE vta.fecha between '{$desde}' AND '{$hasta}'
 		GROUP BY vta.fecha, usr.nombre;";
 		return $this->db->query($query);
@@ -36,6 +36,21 @@ class Modelos_Reportes extends Sfphp_Modelo
 		if(trim($vendedor) == "0")
 			$query .= " AND vta.vendedor = '{$vendedor}'";
 		$query .= " GROUP BY vta.fecha, usr.nombre, pro.descripcionCorta;";
+		return $this->db->query($query);
+	}
+
+	public function comisionesVendedor($desde, $hasta, $vendedor)
+	{
+		$query = "SELECT vta.fecha, usr.nombre, SUM(det.subtotal) venta, SUM(det.subtotal) * (ven.comision/100) comision
+		FROM ventas vta
+		INNER JOIN ventasProductos det USING(venta)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		INNER JOIN productos pro USING(producto)
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}'";
+		if(trim($vendedor) == "0")
+			$query .= " AND vta.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY vta.fecha, usr.nombre;";
 		return $this->db->query($query);
 	}
 }
