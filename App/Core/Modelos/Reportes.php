@@ -7,7 +7,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function utilidades($desde, $hasta)
 	{
-		$query = "SELECT vta.fecha, usr.nombre, SUM(det.subtotal) venta, NVL(MAX(gto.monto),0) gasto, SUM(pro.costo*det.cantidad) costo, SUM(det.subtotal) - NVL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad) utilidad
+		$query = "SELECT vta.fecha, usr.nombre, SUM(det.subtotal) venta, IFNULL(MAX(gto.monto),0) gasto, SUM(pro.costo*det.cantidad) costo, SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad) utilidad
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
