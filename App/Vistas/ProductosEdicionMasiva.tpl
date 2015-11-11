@@ -4,11 +4,13 @@
   <h3>Edicion masiva de productos</h3>
 
   <div class="row">
+    <!--
     <div class="col-sm-6">
       <label>Encuentra un producto</label>
       <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
       <input type="hidden" id="iva" value="{iva}">
     </div>
+    -->
   </div>
 
   <br>
