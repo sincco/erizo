@@ -28,7 +28,11 @@ function genera() {
         {field:'venta',title:'Venta',sortable:false, visible:true},
         {field:'gasto',title:'Gasto',sortable:false, visible:true},
         {field:'costo',title:'Costo',sortable:false, visible:true},
-        {field:'utilidad',title:'Utilidad',sortable:false, visible:true}
+        {field:'utilidad',title:'Utilidad',sortable:false, visible:true},
+        {field:'socio1',title:'Socio 1',sortable:false, visible:true},
+        {field:'socio2',title:'Socio 2',sortable:false, visible:true},
+        {field:'socio3',title:'Socio 3',sortable:false, visible:true},
+        {field:'socio4',title:'Socio 4',sortable:false, visible:true}
       ],
       data:respuesta.respuesta
     }).fail(function(jqXHR, textStatus, errorThrown) {
