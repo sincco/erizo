@@ -17,6 +17,8 @@
 			<option value="{almacen}">{descripcion}</option>
 		</ciclo almacenes>
 	</select>
+	<label>% Comisión</label>
+	<input type="text" name="comision" class="form-control">
 </form>
 <br>
 <p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardar()">Guardar</a></p>

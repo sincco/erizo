@@ -41,7 +41,8 @@ class Modelos_Vendedores extends Sfphp_Modelo
 		$query = "INSERT INTO vendedores
 		SET
 			usuario = '{$data['usuario']}',
-			almacen = '{$data['almacen']}';";
+			almacen = '{$data['almacen']}',
+			comision = '{$data['comision']}';";
 		return $this->db->insert($query);
 	}
 

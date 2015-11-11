@@ -43,10 +43,6 @@ function genera() {
       console.log(errorThrown)
     })
   })
-  /*
-  console.log('generar')
-  $("#frame").attr('src','{BASE_URL}reportes/utilidades/accion/csv/desde/' + $("#desde").val() + '/hasta/' + $("#hasta").val())
-  */
 }
 $('.input-daterange input').each(function() {
     $(this).datepicker("clearDates");
