@@ -12,6 +12,7 @@
       </div>
       <label>Vendedor</label>
         <select id="vendedor" name="vendedor" class="form-control">
+          <option value="0">Todos</option>
           <ciclo vendedores>
             <option value="{vendedor}">{nombre}</option>
           </ciclo vendedores>
