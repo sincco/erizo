@@ -57,7 +57,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reportes <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                     <li><a href="{BASE_URL}reportes/utilidades">Utilidades</a></li>
-                    <li><a href="{BASE_URL}reportes/ventasvendedor">Ventas por vendedor</a></li>
+                    <li><a href="{BASE_URL}reportes/detalleventasvendedor">Detalle de Ventas por vendedor</a></li>
                 </ul>
             </li>
 
