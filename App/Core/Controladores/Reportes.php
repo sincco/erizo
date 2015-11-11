@@ -17,17 +17,23 @@ class Controladores_Reportes extends Sfphp_Controlador
 	public function utilidades()
 	{
 		$data = Sfphp_Peticion::get('_parametros');
-		if($data['accion'] == 'csv') {
+		if(isset($data['accion'])) {
 			$data = $this->modeloReportes->utilidades($data['desde'],$data['hasta']);
-			$salida = array("Fecha,Vendedor,Venta,Gastos,Costos,Utilidad");
-			foreach ($data as $registro) {
-				$utilidad = doubleval($registro['venta'])-doubleval($registro['gasto'])-doubleval($registro['costo']);
-				array_push($salida, implode(",",$registro).",".$utilidad);
-			}
-			header('Content-Disposition: attachment; filename="utilidades.csv";');
-			echo implode("\n",$salida);
+			echo json_encode(array("respuesta"=>$data));
 		} else {
 			$this->vistaReporteUtilidades;
+		}
+	}
+
+	public function ventasvendedor()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+		if(isset($data['accion'])) {
+			$data = $this->modeloReportes->ventasvededor($data['desde'],$data['hasta'],$data['vendedor']);
+			echo json_encode(array("respuesta"=>$data));
+		} else {
+			$this->_vista->vendedores = $this->modeloVendedores->get();
+			$this->vistaReporteVentasVendedor;
 		}
 	}
 }
