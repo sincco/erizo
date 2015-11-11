@@ -2,8 +2,16 @@
 <incluir archivo="Menu">
 <div class="container">
 	<h3>Ventas</h3>
-	<p><a class="btn btn-primary btn-md" href="{BASE_URL}ventas/nuevo" role="button">Agregar</a> 
-		<a class="btn btn-primary btn-md" href="{BASE_URL}ventas/pos" role="button">Punto de venta</a></p>
+	<div class="btn-group">
+		<a class="btn btn-primary btn-md" href="{BASE_URL}ventas/nuevo" role="button">Agregar</a>
+		<button type="button" class="btn btn-primary dropdown-toggle btn-md" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<span class="caret"></span>
+			<span class="sr-only">Toggle Dropdown</span>
+		</button>
+		<ul class="dropdown-menu">
+			<li><a href="{BASE_URL}ventas/pos">POS</a></li>
+		</ul>
+	</div>
 	<tabla datos="ventas" pagina="10" exportar="true" buscar="true" clic="editarElemento">
 </div>
 
