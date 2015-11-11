@@ -23,7 +23,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 		return $this->db->query($query);
 	}
 
-	public function detalleVentasVendedor($desde, $hasta, $vendedor)
+	public function detalleVentasVendedor($desde, $hasta, $vendedor = "")
 	{
 		$query = "SELECT vta.fecha, usr.nombre, pro.descripcionCorta producto, 
 			det.cantidad, det.iva, det.subtotal
@@ -32,8 +32,10 @@ class Modelos_Reportes extends Sfphp_Modelo
 		INNER JOIN vendedores ven USING(vendedor)
 		INNER JOIN usuarios usr USING(usuario)
 		INNER JOIN productos pro USING(producto)
-		WHERE vta.fecha between '{$desde}' AND '{$hasta}' AND vta.vendedor = '{$vendedor}'
-		GROUP BY vta.fecha, usr.nombre, pro.descripcionCorta;";
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}'";
+		if(trim($vendedor) = "0")
+		$query .= " AND vta.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY vta.fecha, usr.nombre, pro.descripcionCorta;";
 		return $this->db->query($query);
 	}
 }
