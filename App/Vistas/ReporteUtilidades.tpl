@@ -27,7 +27,7 @@ function genera() {
         {field:'nombre',title:'Vendedor',sortable:false, visible:true},
         {field:'venta',title:'Venta',sortable:false, visible:true},
         {field:'gasto',title:'Gasto',sortable:false, visible:true},
-        {field:'costo',title:'Costo',sortable:false, visible:true}
+        {field:'costo',title:'Costo',sortable:false, visible:true},
         {field:'utilidad',title:'Utilidad',sortable:false, visible:true}
       ],
       data:respuesta.respuesta
