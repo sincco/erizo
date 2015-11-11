@@ -33,8 +33,8 @@ function genera() {
     $('#reporte').bootstrapTable({
       columns:[
         {field:'fecha',title:'Fecha',sortable:true, visible:true},
-        {field:'nombre',title:'Vendedor',sortable:false, visible:true},
-        {field:'producto',title:'Producto',sortable:false, visible:true},
+        {field:'nombre',title:'Vendedor',sortable:true, visible:true},
+        {field:'producto',title:'Producto',sortable:true, visible:true},
         {field:'cantidad',title:'Cantidad',sortable:false, visible:true},
         {field:'iva',title:'IVA',sortable:false, visible:true},
         {field:'subtotal',title:'Subtotal',sortable:false, visible:true}
