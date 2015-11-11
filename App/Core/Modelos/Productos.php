@@ -12,12 +12,29 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT producto, descripcion, descripcionCorta, precio, activo
+		$query = "SELECT 
+			producto, clave, descripcion, descripcionCorta, precio, unidadMedida, iva, costo
 		FROM productos ";
 		if(trim($id) != "")
 			$where = " WHERE producto = {$id};";
 		return $this->db->query($query.$where);
+	}
+
+	public function getMasivo()
+	{
+		$where = NULL;
+		$query = "SELECT 
+			pro.producto, pro.clave, pro.descripcion, 
+			lin.descripcion lineaProducto,
+			pro.descripcionCorta, ROUND(pro.precio,2) precio, 
+			pro.unidadMedida, pro.iva, pro.costo, 
+			ROUND(pro.precio * (1+(imp.ivaPorcentaje/100)),2) precioVenta
+		FROM productos pro
+		INNER JOIN lineasProductos lin USING(lineaProducto)
+		INNER JOIN impuestos imp ON (imp.desde <= CURDATE() AND (imp.hasta <= CURDATE() OR imp.hasta IS NULL))
+		WHERE pro.activo = 1
+		ORDER BY pro.descripcion;";
+		return $this->db->query($query);
 	}
 
 	/**
@@ -28,7 +45,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function getByClave($clave = '')
 	{
 		$where = NULL;
-		$query = "SELECT producto, clave, lineaProducto, descripcion, descripcionCorta, precio, unidadMedida, iva, 0 ieps
+		$query = "SELECT producto, clave, lineaProducto, descripcion, descripcionCorta, precio, unidadMedida, iva, 0 ieps, costo
 		FROM productos ";
 		$where = " WHERE clave = '{$clave}';";
 		return $this->db->query($query.$where);
@@ -55,7 +72,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "REPLACE INTO productos
+		$query = "INSERT INTO productos
 		SET
 			clave = '{$data['clave']}',
 			descripcion = '{$data['descripcion']}',
@@ -74,17 +91,20 @@ class Modelos_Productos extends Sfphp_Modelo
 	 * @param  array $data Datos del producto
 	 * @return array
 	 */
-	public function update($data)
+	public function upd($data)
 	{
-		$query = "REPLACE INTO productos
+		$query = "UPDATE productos
 		SET
-			clave = '{$data['clave']}',
 			descripcion = '{$data['descripcion']}',
 			descripcionCorta = '{$data['descripcionCorta']}',
+			lineaProducto = '{$data['lineaProducto']}',
 			precio = '{$data['precio']}',
-			costo = '{$data['costo']}',
-			activo = 1;";
-		return $this->db->insert($query);
+			unidadMedida = '{$data['unidadMedida']}',
+			iva = '{$data['iva']}',
+			costo = '{$data['costo']}'
+		WHERE 
+			clave = '{$data['clave']}';";
+		return $this->db->query($query);
 	}
 
 	/**
@@ -107,11 +127,11 @@ class Modelos_Productos extends Sfphp_Modelo
 	public function grid()
 	{
 		$query = "SELECT 
-			clave Producto, descripcionCorta Descripcion, 
-			precio Precio, costo Costo
-		FROM
-			productos
-		WHERE activo = 1;";
+			pro.clave Producto, pro.descripcionCorta Descripcion, 
+			ROUND(pro.precio*(1+(imp.ivaPorcentaje/100)),2) Precio, pro.costo Costo
+		FROM productos pro
+		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
+		WHERE pro.activo = 1;";
 		return $this->db->query($query);
 	}
 

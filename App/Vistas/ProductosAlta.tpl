@@ -17,7 +17,7 @@
 	<input type="text" class="form-control" name="descripcion">
 	<label>Descripcion Corta</label>
 	<input type="text" class="form-control" name="descripcionCorta">
-	<label>Precio</label>
+	<label>Precio (sin IVA)</label>
 	<input type="text" class="form-control" name="precio">
 	<label>Costo</label>
 	<input type="text" class="form-control" name="costo">

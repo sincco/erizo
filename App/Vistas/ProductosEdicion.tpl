@@ -8,11 +8,14 @@
 		<label>Clave</label>
 		<input type="text" class="form-control" name="clave1" disabled value="{clave}">
 		<input type="hidden" class="form-control" name="clave" value="{clave}">
+		<input type="hidden" class="form-control" name="unidadMedida" value="{unidadMedida}">
+		<input type="hidden" class="form-control" name="iva" value="{iva}">
+		<input type="hidden" class="form-control" name="lineaProducto" value="{lineaProducto}">
 		<label>Descripcion</label>
 		<input type="text" class="form-control" name="descripcion" value="{descripcion}">
 		<label>Descripcion Corta</label>
 		<input type="text" class="form-control" name="descripcionCorta" value="{descripcionCorta}">
-		<label>Precio</label>
+		<label>Precio (sin IVA)</label>
 		<input type="text" class="form-control" name="precio" value="{precio}">
 		<label>Costo</label>
 		<input type="text" class="form-control" name="costo" value="{costo}">
@@ -23,7 +26,7 @@
 </div>
 <script type="text/javascript">
 function guardar() {
-	sincco.consumirAPI('POST','{BASE_URL}productos/apiActualizar',$("#productos").serializeJSON())
+	sincco.consumirAPI('POST','{BASE_URL}productos/apiUpd',$("#productos").serializeJSON())
 	.done(function(data) {
 		if(data.respuesta)
 			window.location = '{BASE_URL}productos'
@@ -33,7 +36,7 @@ function guardar() {
 }
 
 function dasactivar() {
-	sincco.consumirAPI('POST','{BASE_URL}productos/apiDesactivar',$("#productos").serializeJSON())
+	sincco.consumirAPI('POST','{BASE_URL}productos/apiDel',$("#productos").serializeJSON())
 	.done(function(data) {
 		if(data.respuesta)
 			window.location = '{BASE_URL}productos'
