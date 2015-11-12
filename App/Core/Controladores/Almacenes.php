@@ -23,6 +23,13 @@ class Controladores_Almacenes extends Sfphp_Controlador
 		$this->vistaAlmacenesAlta;
 	}
 
+	public function editar()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+		$this->_vista->almacenes = $this->modeloAlmacenes->get($data['almacen']);
+		$this->vistaAlmacenesEditar;
+	}
+
 	/**
 	 * Llamada AJAX para insertar cliente
 	 * @return json
@@ -31,6 +38,12 @@ class Controladores_Almacenes extends Sfphp_Controlador
 	{
 		$data = Sfphp_Peticion::get()['_parametros'];
 		echo json_encode(array("respuesta"=>$this->modeloAlmacenes->post($data)));
+	}
+
+	public function apiUpd()
+	{
+		$data = Sfphp_Peticion::get()['_parametros'];
+		echo json_encode(array("respuesta"=>$this->modeloAlmacenes->upd($data)));
 	}
 
 	/**
