@@ -2,13 +2,14 @@
   <incluir archivo="Menu">
 <div class="container">
   <h3>Edicion masiva de productos</h3>
+  <input type="hidden" id="almacen" value="{almacen}">
+  <input type="hidden" id="iva" value="{iva}">
 
   <div class="row">
     <!--
     <div class="col-sm-6">
       <label>Encuentra un producto</label>
       <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
-      <input type="hidden" id="iva" value="{iva}">
     </div>
     -->
   </div>
@@ -16,6 +17,7 @@
   <br>
   <div id="errores"></div>
   <div id="gridProductos" class="handsontable"></div>
+
 
 </div>
 
@@ -106,7 +108,7 @@ hot = new Handsontable(grid, {
   rowHeaders: true,
   fixedRowsTop: 0,
   startCols: 4,
-  colHeaders: ['Clave', 'Descripcion', 'Descripcion Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio', 'Precio Venta'],
+  colHeaders: ['Clave', 'Descripcion', 'Descripcion Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Existencias'],
   columns: [
     {data:'clave', readOnly: true},
     {data:'descripcion'},
@@ -115,7 +117,8 @@ hot = new Handsontable(grid, {
     {data:'unidadMedida', type: 'dropdown', source: ['NA','PZA','KG','TON','LT']},
     {data:'iva', type: 'checkbox', checkedTemplate: '1', uncheckedTemplate: '0'},
     {data:'costo'},
-    {data:'precioVenta', format: '0,0.00', language: 'en'}
+    {data:'precioVenta', format: '0,0.00', language: 'en'},
+    {data:'existencias', format: '0,0.00', language: 'en'}
   ], 
   contextMenu: true,
   afterChange: function (changes, source) {
@@ -132,7 +135,9 @@ hot = new Handsontable(grid, {
         unidadMedida:registro[4],
         iva:registro[5],
         costo:registro[6],
-        precio:registro[7]
+        precio:registro[7],
+        existencias:registro[8],
+        almacen:$("#almacen").val()
       }
       actualiza(producto)
     }

@@ -12,12 +12,19 @@ class Modelos_Almacenes extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT almacen, descripcion, activo
+		$query = "SELECT almacen, descripcion, activo
 		FROM almacenes ";
 		if(trim($id) != "")
 			$where = " WHERE almacen = {$id};";
 		return $this->db->query($query.$where);
+	}
+
+	public function getPrincipal()
+	{
+		$query = "SELECT almacen, descripcion, activo
+		FROM almacenes 
+		WHERE principal = 1;";
+		return $this->db->query($query);
 	}
 
 	/**
@@ -27,8 +34,7 @@ class Modelos_Almacenes extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO almacenes
+		$query = "INSERT INTO almacenes
 		SET
 			descripcion = '{$data['descripcion']}',
 			activo = 1;";
@@ -42,8 +48,7 @@ class Modelos_Almacenes extends Sfphp_Modelo
 	 */
 	public function del($id)
 	{
-		$query = "
-		UPDATE almacenes
+		$query = "UPDATE almacenes
 		SET activo = 0 
 		WHERE lineaProducto = {$id};";
 		return $this->db->query($query.$where);
@@ -55,8 +60,7 @@ class Modelos_Almacenes extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			almacen Almacen, descripcion Descripcion, activo Activo
 		FROM
 			almacenes;";

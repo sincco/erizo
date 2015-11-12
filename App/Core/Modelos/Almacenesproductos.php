@@ -26,12 +26,11 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "INSERT INTO almacenesProductos
+		$query = "REPLACE INTO almacenesProductos
 		SET
 			almacen = '{$data['almacen']}',
 			producto = '{$data['producto']}',
-			existencias = '{$data['descripcion']}',
-			costo = '{$data['costo']}',;";
+			existencias = '{$data['existencias']}';";
 		return $this->db->insert($query);
 	}
 
