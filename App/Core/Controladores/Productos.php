@@ -45,6 +45,8 @@ class Controladores_Productos extends Sfphp_Controlador
 		$this->_vista->lineasProductos = implode(",", $lineasProductos);
 		$impuestos = $this->modeloImpuestos->getActual();
 		$this->_vista->iva = $impuestos[0]['ivaPorcentaje'];
+		$almacen = $this->modeloAlmacenes->getPrincipal();
+		$this->_vista->almacen = $almacen[0]['almacen'];
 		$this->_vista->productos = json_encode($this->modeloProductos->getMasivo());
 		$this->vistaProductosEdicionMasiva;
 	}
@@ -59,6 +61,8 @@ class Controladores_Productos extends Sfphp_Controlador
 		$this->_vista->lineasProductos = implode(",", $lineasProductos);
 		$impuestos = $this->modeloImpuestos->getActual();
 		$this->_vista->iva = $impuestos[0]['ivaPorcentaje'];
+		$almacen = $this->modeloAlmacenes->getPrincipal();
+		$this->_vista->almacen = $almacen[0]['almacen'];
 		$this->vistaProductosAltaMasiva;
 	}
 
@@ -73,7 +77,16 @@ class Controladores_Productos extends Sfphp_Controlador
 			$lineaProducto = $this->modeloLineasproductos->getByDesc($data['lineaProducto']);
 			$data['lineaProducto'] = $lineaProducto[0]['lineaProducto'];
 		}
-		echo json_encode(array("respuesta"=>$this->modeloProductos->post($data)));
+		$idProducto = $this->modeloProductos->post($data);
+		if(isset($data['almacen'])) {
+			$existencias = array(
+				"almacen"=>$data['almacen'],
+				"producto"=>$idProducto,
+				"existencias"=>$data['existencias']
+			);
+			$this->modeloAlmacenesproductos->post($existencias);
+		}
+		echo json_encode(array("respuesta"=>$idProducto));
 	}
 
 	/**
@@ -86,6 +99,15 @@ class Controladores_Productos extends Sfphp_Controlador
 		if(intval($data['lineaProducto']) == 0) {
 			$lineaProducto = $this->modeloLineasproductos->getByDesc($data['lineaProducto']);
 			$data['lineaProducto'] = $lineaProducto[0]['lineaProducto'];
+		}
+		if(isset($data['almacen'])) {
+			$producto = $this->modeloProductos->getByClave($data['clave']);
+			$existencias = array(
+				"almacen"=>$data['almacen'],
+				"producto"=>$producto[0]['producto'],
+				"existencias"=>$data['existencias']
+			);
+			$this->modeloAlmacenesproductos->post($existencias);
 		}
 		echo json_encode(array("respuesta"=>$this->modeloProductos->upd($data)));
 	}
