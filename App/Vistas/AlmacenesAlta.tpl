@@ -5,6 +5,11 @@
 <form id="almacenes">
 	<label>Descripcion</label>
 	<input type="text" class="form-control" name="descripcion">
+	<label>almacen principal</label>
+	<select name="principal" class="form-control">
+		<option value="0">No</option>
+		<option value="1">Si</option>
+	</select>
 </form>
 <br>
 <p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardarLinea()">Guardar</a></p>
