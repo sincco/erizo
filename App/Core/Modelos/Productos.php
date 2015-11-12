@@ -28,10 +28,13 @@ class Modelos_Productos extends Sfphp_Modelo
 			lin.descripcion lineaProducto,
 			pro.descripcionCorta, ROUND(pro.precio,2) precio, 
 			pro.unidadMedida, pro.iva, pro.costo, 
-			ROUND(pro.precio * (1+(imp.ivaPorcentaje/100)),2) precioVenta
+			ROUND(pro.precio * (1+(imp.ivaPorcentaje/100)),2) precioVenta,
+			IFNULL(exi.existencias,0) existencias
 		FROM productos pro
 		INNER JOIN lineasProductos lin USING(lineaProducto)
 		INNER JOIN impuestos imp ON (imp.desde <= CURDATE() AND (imp.hasta <= CURDATE() OR imp.hasta IS NULL))
+		LEFT JOIN almacenes alm ON (alm.principal = 1)
+		LEFT JOIN almacenesProductos exi ON (exi.producto = pro.producto AND exi.almacen = alm.almacen)
 		WHERE pro.activo = 1
 		ORDER BY pro.descripcion;";
 		return $this->db->query($query);
