@@ -39,7 +39,7 @@
 		            <h5>Contactos</h5>
 		            <form id="clientesContactos">
 						<label>Nombre</label>
-						<input type="text" class="form-control" name="clienteContacto" value="{clienteContacto}">
+						<input type="hidden" class="form-control" name="clienteContacto" value="{clienteContacto}">
 						<input type="text" class="form-control" name="nombre" value="{nombre}">
 						<label>Correo</label>
 						<input type="text" class="form-control" name="correo" value="{correo}">

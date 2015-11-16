@@ -10,14 +10,14 @@
 
 	<!-- core CSS -->
     <link href="{BASE_URL}html/css/bootstrap.css" rel="stylesheet">
-    <link href="{BASE_URL}html/fontawesome/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="{BASE_URL}html/css/animate.css" rel="stylesheet">
 
     <!-- estilo específico de la app -->
     <link href="{BASE_URL}html/css/tema.css" rel="stylesheet">
 
     
-    <script src="{BASE_URL}html/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="{BASE_URL}html/js/jquery.redirect.js"></script>
     <script src="{BASE_URL}html/js/bootstrap.min.js"></script>
     <script src="{BASE_URL}html/js/wow.min.js"></script>

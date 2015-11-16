@@ -60,12 +60,11 @@ class Modelos_Proveedores extends Sfphp_Modelo
 		WHERE proveedor = '{$data['proveedor']['proveedor']}';";
 		$this->db->query($query);
 		if(count($data['contactos'])) {
-			$query = "UPDATE proveedoresContactos
+			$query = "REPLACE INTO proveedoresContactos
 			SET
 				nombre = '{$data['contactos']['nombre']}',
 				correo = '{$data['contactos']['correo']}',
-				telefono = '{$data['contactos']['telefono']}'
-			WHERE proveedorContacto = '{proveedorContacto}';";
+				telefono = '{$data['contactos']['telefono']}';";
 			$this->db->query($query);
 		}
 		return $data['proveedor']['proveedor'];
@@ -91,7 +90,7 @@ class Modelos_Proveedores extends Sfphp_Modelo
 	public function grid()
 	{
 		$query = "SELECT 
-			pro.proveedor Clave, pro.razonSocial 'Razon Social', pro.rfc RFC, pro.direccionFiscal 'Direccion Fiscal', pro.activo Activo
+			pro.proveedor Clave, pro.razonSocial 'Razon Social', pro.rfc RFC, pro.direccionFiscal 'Direccion Fiscal'
 		FROM
 			proveedores pro
 		WHERE activo = 1;";
