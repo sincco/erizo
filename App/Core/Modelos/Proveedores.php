@@ -62,7 +62,7 @@ class Modelos_Proveedores extends Sfphp_Modelo
 		if(count($data['contactos'])) {
 			$query = "REPLACE INTO proveedoresContactos
 			SET
-				proveedor = '{$data['proveedor']['proveedor']}'
+				proveedor = '{$data['proveedor']['proveedor']}',
 				nombre = '{$data['contactos']['nombre']}',
 				correo = '{$data['contactos']['correo']}',
 				telefono = '{$data['contactos']['telefono']}';";
