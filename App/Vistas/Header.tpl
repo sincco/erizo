@@ -31,7 +31,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/mobile/bootstrap-table-mobile.min.js" type="text/javascript" type="text/javascript">></script>
 
     <script data-jsfiddle="common" src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.js"></script>
-    <link data-jsfiddle="common" rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.css">
+    <link data-jsfiddle="common" rel="stylesheet" media="screen" href="{BASE_URL}html/css/handsontable.full.css">
 
     <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js"></script>
