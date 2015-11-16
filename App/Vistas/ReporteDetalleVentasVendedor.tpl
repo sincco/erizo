@@ -40,9 +40,9 @@ function genera() {
         {field:'subtotal',title:'Subtotal',sortable:false, visible:true}
       ],
       data:respuesta.respuesta
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-      console.log(errorThrown)
     })
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log(errorThrown)
   })
 }
 $('.input-daterange input').each(function() {
