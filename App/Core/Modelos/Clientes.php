@@ -41,8 +41,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 		if($idInsert) 
 		{
 			if(trim($data['contactos']['nombre']) != "") {
-				$query = "
-				INSERT INTO clientesContactos
+				$query = "INSERT INTO clientesContactos
 				SET
 					cliente = '$idInsert',
 					nombre = '{$data['contactos']['nombre']}',
@@ -51,8 +50,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 				$this->db->insert($query);
 			}
 			if(trim($data['direcciones']['alias']) != "") {
-				$query = "
-				INSERT INTO clientesDirecciones
+				$query = "INSERT INTO clientesDirecciones
 				SET
 					cliente = '$idInsert',
 					alias = '{$data['direcciones']['alias']}',
