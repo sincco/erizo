@@ -24,19 +24,52 @@
   </table>
 </div>
   <br>
+
 <div class="panel panel-success">
   <div class="panel-heading">
     <h3 class="panel-title">Detalle de mermas</h3>
   </div>
   <table class="table">
     <tr style="font-size:1.2em;">
-      <td>Fecha</td><td>Producto</td><td style="text-align:right;">Cantidad</td>
+      <td>Fecha</td><td>Motivo</td><td>Producto</td><td style="text-align:right;">Cantidad</td>
     </tr>
   <ciclo mermas>
     <tr>
-      <td>{fecha}</td><td>{producto}</td><td>{cantidad}</td>
+      <td>{fecha}</td><td>{motivo}</td><td>{producto}</td><td style="text-align:right;">{cantidad}</td>
     </tr>
   </ciclo mermas>
+  </table>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Detalle de devoluciones</h3>
+  </div>
+  <table class="table">
+    <tr style="font-size:1.2em;">
+      <td>Fecha</td><td>Producto</td><td style="text-align:right;">Cantidad</td>
+    </tr>
+  <ciclo devoluciones>
+    <tr>
+      <td>{fecha}</td><td>{producto}</td><td style="text-align:right;">{cantidad}</td>
+    </tr>
+  </ciclo devoluciones>
+  </table>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Detalle de gastos</h3>
+  </div>
+  <table class="table">
+    <tr style="font-size:1.2em;">
+      <td>Fecha</td><td>Gasto</td><td style="text-align:right;">Cantidad</td>
+    </tr>
+  <ciclo gastos>
+    <tr>
+      <td>{fecha}</td><td>{descripcion}</td><td style="text-align:right;">{monto}</td>
+    </tr>
+  </ciclo gastos>
   </table>
 </div>
 <br>

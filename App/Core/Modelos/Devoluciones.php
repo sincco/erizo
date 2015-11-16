@@ -52,4 +52,19 @@ class Modelos_Devoluciones extends Sfphp_Modelo
 		INNER JOIN productos pro USING(producto);";
 		return $this->db->query($query);
 	}
+
+	public function detalleVendedor($desde, $hasta, $vendedor)
+	{
+		$query = "SELECT dev.fecha, usr.nombre, pro.descripcionCorta producto, 
+			dev.cantidad
+		FROM devoluciones dev
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		INNER JOIN productos pro USING(producto)
+		WHERE dev.fecha between '{$desde}' AND '{$hasta}'";
+		if(trim($vendedor) != "0")
+			$query .= " AND dev.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY dev.fecha, usr.nombre, pro.descripcionCorta;";
+		return $this->db->query($query);
+	}
 }

@@ -72,4 +72,20 @@ class Modelos_GastosDia extends Sfphp_Modelo
 		GROUP BY gto.vendedor, gto.fecha;";
 		return $this->db->query($query);
 	}
+
+	public function detalleVendedor($desde, $hasta, $vendedor)
+	{
+		$query = "SELECT mer.fecha, usr.nombre, gto.descripcion descripcion, 
+			SUM(det.monto) monto
+		FROM gastosRuta mer
+		INNER JOIN gastosRutasDetalle det USING (gastoRuta)
+		INNER JOIN gastos gto USING(gasto)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		WHERE mer.fecha between '{$desde}' AND '{$hasta}'";
+		if(trim($vendedor) != "0")
+			$query .= " AND mer.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY mer.fecha, usr.nombre;";
+		return $this->db->query($query);
+	}
 }

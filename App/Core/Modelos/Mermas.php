@@ -56,7 +56,7 @@ class Modelos_Mermas extends Sfphp_Modelo
 	public function detalleVendedor($desde, $hasta, $vendedor)
 	{
 		$query = "SELECT mer.fecha, usr.nombre, pro.descripcionCorta producto, 
-			mer.cantidad
+			mer.cantidad, mer.motivo
 		FROM mermas mer
 		INNER JOIN vendedores ven USING(vendedor)
 		INNER JOIN usuarios usr USING(usuario)
