@@ -122,7 +122,8 @@ class Modelos_Clientes extends Sfphp_Modelo
 		$query = "SELECT 
 			cli.cliente Clave, cli.razonSocial 'Razon Social', cli.rfc RFC, cli.direccionFiscal 'Direccion Fiscal', cli.activo Activo
 		FROM
-			clientes cli;";
+			clientes cli
+		WHERE activo = 1;";
 		return $this->db->query($query);
 	}
 
