@@ -12,9 +12,10 @@ class Modelos_Vendedores extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "SELECT ven.vendedor, ven.almacen, usr.nombre, ven.comision
+		$query = "SELECT ven.vendedor, ven.almacen, alm.descripcion, usr.nombre, ven.comision
 		FROM vendedores ven
-		INNER JOIN usuarios usr USING (usuario)";
+		INNER JOIN usuarios usr USING (usuario)
+		INNER JOIN almacenes alm USING (almacen)";
 		if(trim($id) != "")
 			$where = " WHERE ven.vendedor = {$id};";
 		return $this->db->query($query.$where);

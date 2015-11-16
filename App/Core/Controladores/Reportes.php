@@ -29,8 +29,14 @@ class Controladores_Reportes extends Sfphp_Controlador
 	{
 		$data = Sfphp_Peticion::get('_parametros');
 		if(isset($data['accion'])) {
-			$data = $this->modeloReportes->detalleVentasVendedor($data['desde'],$data['hasta'],$data['vendedor']);
-			echo json_encode(array("respuesta"=>$data));
+			$usuario = $this->modeloUsuarios->get($_SESSION['acceso']['usuario']);
+			$this->_vista->usuario = $usuario[0]['nombre'];
+			$this->_vista->detalle = $this->modeloReportes->detalleVentasVendedor($data['desde'],$data['hasta'],$data['vendedor']);
+			$this->_vista->mermas = $this->modeloMermas->detalleVendedor($data['desde'],$data['hasta'],$data['vendedor']);
+			$vendedor = $this->modeloVendedores->get($this->_vista->detalle[0]['vendedor']);
+			$this->_vista->vendedor = $vendedor[0]['nombre'];
+			$this->_vista->ruta = $vendedor[0]['descripcion'];
+			$this->vistaReporteDetalleVentasVendedorHTML;
 		} else {
 			$this->_vista->vendedores = $this->modeloVendedores->get();
 			$this->vistaReporteDetalleVentasVendedor;

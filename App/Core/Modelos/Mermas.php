@@ -52,4 +52,19 @@ class Modelos_Mermas extends Sfphp_Modelo
 		ORDER BY mer.merma DESC;";
 		return $this->db->query($query);
 	}
+
+	public function detalleVendedor($desde, $hasta, $vendedor)
+	{
+		$query = "SELECT mer.fecha, usr.nombre, pro.descripcionCorta producto, 
+			mer.cantidad
+		FROM mermas mer
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		INNER JOIN productos pro USING(producto)
+		WHERE mer.fecha between '{$desde}' AND '{$hasta}'";
+		if(trim($vendedor) != "0")
+			$query .= " AND mer.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY mer.fecha, usr.nombre, pro.descripcionCorta;";
+		return $this->db->query($query);
+	}
 }
