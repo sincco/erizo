@@ -31,7 +31,7 @@ class Modelos_Mermas extends Sfphp_Modelo
 		SET
 			vendedor = '{$data['vendedor']}',
 			producto = '{$data['producto']}',
-			motivo = 'Degustacion',
+			motivo = '{$data['motivo']}',
 			cantidad = '{$data['cantidad']}',
 			fecha = CURDATE();";
 		return $this->db->insert($query);

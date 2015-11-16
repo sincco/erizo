@@ -1,7 +1,7 @@
 <incluir archivo="Header">
   <incluir archivo="Menu">
 <div class="container">
-  <h3>Capturar muestras del día</h3>
+  <h3>Capturar mermas del día</h3>
   <label>Vendedor</label>
   <select id="vendedor" name="vendedor" class="form-control">
     <ciclo vendedores>
@@ -28,9 +28,10 @@ $(function() {
     colHeaders: true,
     rowHeaders: true,
     fixedRowsTop: 0,
-    colHeaders: ['Producto', 'Cantidad'],
-    colWidths: [350,75],
+    colHeaders: ['Motivo', 'Producto', 'Cantidad'],
+    colWidths: [150,350,75],
     columns: [
+      {data:'motivo', type: 'dropdown', source: ['Robo', 'Degustacion', 'Caducidad', 'Daño']},
       {data:'producto', type: 'dropdown', source: [{productos}]},
       {data:'cantidad', format: '0,0.00', language: 'en'}
     ], 
@@ -44,9 +45,9 @@ function guardar() {
     if(this[1]) {
       var devolucion = {
         vendedor:$("#vendedor").val(),
-        motivo:'Degustacion',
-        producto:this[0],
-        cantidad:this[1]
+        motivo:this[0],
+        producto:this[1],
+        cantidad:this[2]
       }
       sincco.consumirAPI('POST','{BASE_URL}mermas/apiPost', devolucion )
       .done(function(data) {
