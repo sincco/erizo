@@ -11,6 +11,8 @@
 </div>
 
 <script>
+var productos = {productos}
+
 var
 data = [],
 grid = document.getElementById('gridMermas'), hot
@@ -22,26 +24,45 @@ $(function() {
     colHeaders: true,
     rowHeaders: true,
     fixedRowsTop: 0,
-    colHeaders: ['Motivo', 'Producto', 'Cantidad'],
-    colWidths: [150,350,75],
+    colHeaders: ['Motivo', 'Producto', 'Descripcion', 'Cantidad'],
+    colWidths: [150,100, 350,75],
     columns: [
       {data:'motivo', type: 'dropdown', source: ['Robo', 'Degustacion', 'Caducidad', 'Daño']},
-      {data:'producto', type: 'dropdown', source: [{productos}]},
+      {data:'producto'},
+      {data:'descripcion'},
       {data:'cantidad', format: '0,0.00', language: 'en'}
     ], 
-    contextMenu: false
+    contextMenu: false,
+    afterChange: function (changes, source) {
+      if ((source == 'edit' || source == 'paste')) {
+        if(changes[0][1] == 'producto') {
+          var producto = buscarJSON(productos, 'clave', changes[0][3])
+          if(producto)
+            hot.setDataAtCell(changes[0][0], 2, producto.descripcionCorta)
+        }
+      }
+    }
   })
 })
+
+function buscarJSON(arreglo, elemento, valor) {
+  var respuesta = false
+  $(arreglo).each(function() {
+    if(this[elemento] == valor) {
+      respuesta = this
+    }
+  })
+  return respuesta
+}
 
 function guardar() {
   var mermas = hot.getData()
   $(mermas).each(function( index ) {
-    console.log(this)
     if(this[2]) {
       var devolucion = {
         motivo:this[0],
         producto:this[1],
-        cantidad:this[2]
+        cantidad:this[3]
       }
       sincco.consumirAPI('POST','{BASE_URL}mermas/apiPost', devolucion )
       .done(function(data) {
