@@ -20,8 +20,8 @@ class Modelos_Clientes extends Sfphp_Modelo
 		LEFT JOIN clientesContactos con USING(cliente)
 		LEFT JOIN clientesDirecciones dir USING (cliente)";
 		if(trim($id) != "")
-			$where = " WHERE cliente = {$id};";
-		return $this->db->query($query.$where);
+			$where = " WHERE cliente = {$id}";
+		return $this->db->query($query.$where." ORDER BY cli.razonSocial;");
 	}
 
 	public function getByRazon($razonSocial)
@@ -33,7 +33,8 @@ class Modelos_Clientes extends Sfphp_Modelo
 		FROM clientes cli
 		LEFT JOIN clientesContactos con USING(cliente)
 		LEFT JOIN clientesDirecciones dir USING (cliente)
-		WHERE razonSocial = '{$razonSocial}';";
+		WHERE razonSocial = '{$razonSocial}'
+		ORDER BY cli.razonSocial;";
 		return $this->db->query($query);
 	}
 
