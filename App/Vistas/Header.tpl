@@ -17,7 +17,7 @@
     <link href="{BASE_URL}html/css/tema.css" rel="stylesheet">
 
     
-    <script src="{BASE_URL}html/js/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="{BASE_URL}html/js/jquery.redirect.js"></script>
     <script src="{BASE_URL}html/js/bootstrap.min.js"></script>
     <script src="{BASE_URL}html/js/wow.min.js"></script>

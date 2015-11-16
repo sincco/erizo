@@ -62,8 +62,8 @@ function guardarCliente() {
 	var cliente = {cliente:$("#clientesGenerales").serializeJSON(), direcciones:$("#clientesDirecciones").serializeJSON(), contactos:$("#clientesContactos").serializeJSON()}
 	sincco.consumirAPI('POST','{BASE_URL}clientes/apiPost',cliente)
 	.done(function(data) {
-		//if(data.respuesta)
-			//window.location = '{BASE_URL}clientes'
+		if(data.respuesta)
+			window.location = '{BASE_URL}clientes'
 	}).fail(function(jqXHR, textStatus, errorThrown) {
 		console.log(errorThrown)
 	})	
