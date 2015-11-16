@@ -20,12 +20,7 @@ class Controladores_Mermas extends Sfphp_Controlador
 	 */
 	public function capturar()
 	{
-		$_productos = $this->modeloProductos->get();
-		$productos = array();
-		foreach ($_productos as $key => $value) {
-			 array_push($productos, "'{$value['descripcion']}'");
-		}
-		$this->_vista->productos = implode(",",$productos);
+		$this->_vista->productos = json_encode($this->modeloProductos->get());
 		$this->_vista->vendedores = $this->modeloVendedores->get();
 		$this->vistaMermasCapturar;
 	}
@@ -37,7 +32,7 @@ class Controladores_Mermas extends Sfphp_Controlador
 	public function apiPost()
 	{
 		$data = Sfphp_Peticion::get('_parametros');
-		$idProducto = $this->modeloProductos->getByDescripcion($data['producto']);
+		$idProducto = $this->modeloProductos->getByClave($data['producto']);
 		$data['producto'] = $idProducto[0]['producto'];
 		echo json_encode(array("respuesta"=>$this->modeloMermas->post($data)));
 	}
