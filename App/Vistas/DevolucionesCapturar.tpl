@@ -62,5 +62,4 @@ function guardar() {
   $("#boton").html('<a class="btn btn-success btn-md" href="{BASE_URL}devoluciones" role="button">Regresar</a>')
 }
 </script>
-
 <incluir archivo="Footer">
