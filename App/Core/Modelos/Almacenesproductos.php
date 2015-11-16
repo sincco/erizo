@@ -54,8 +54,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	{
 		$query = "SELECT 
 			alm.almacen Almacen, alm.descripcion Descripcion, 
-			pro.clave Clave, pro.descripcion Producto, 
-			exi.existencias Existencia, exi.costo
+			COUNT(DISTINCT pro.clave) Productos, sum(exi.existencias) Existencias
 		FROM
 			almacenesProductos exi
 		INNER JOIN almacenes alm USING (almacen)

@@ -13,6 +13,12 @@
 	<div id="grid_movements" class="handsontable"></div>
 </div>
 <script>
+$(function() {
+  var result = document.location.pathname.split('/')
+  $("#almacen").val(result[4])
+  $("#almacen").trigger("change")
+})
+
 var
 data = [],
 grid = document.getElementById('grid_movements'),

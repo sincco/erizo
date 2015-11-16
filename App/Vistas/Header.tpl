@@ -23,15 +23,15 @@
     <script src="{BASE_URL}html/js/wow.min.js"></script>
 
     <!-- Bootstrap Table -->
-    <link rel="stylesheet" href="{BASE_URL}html/css/bootstrap-table.min.css">
-    <script src="{BASE_URL}html/js/bootstrap-table.min.js" type="text/javascript">></script>
-    <script src="{BASE_URL}html/js/bootstrap-table-es-AR.min.js" type="text/javascript">></script>
-    <script src="{BASE_URL}html/js/bootstrap-table-export.min.js" type="text/javascript">></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/bootstrap-table.min.js" type="text/javascript">></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/locale/bootstrap-table-es-AR.js" type="text/javascript">></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/export/bootstrap-table-export.min.js" type="text/javascript">></script>
     <script src="{BASE_URL}html/js/tableExport.js" type="text/javascript" type="text/javascript">></script>
-    <script src="{BASE_URL}html/js/bootstrap-table-mobile.js" type="text/javascript" type="text/javascript">></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.9.1/extensions/mobile/bootstrap-table-mobile.min.js" type="text/javascript" type="text/javascript">></script>
 
-    <script data-jsfiddle="common" src="{BASE_URL}html/js/handsontable.im.js"></script>
-    <link data-jsfiddle="common" rel="stylesheet" media="screen" href="{BASE_URL}html/css/handsontable.full.css">
+    <script data-jsfiddle="common" src="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.js"></script>
+    <link data-jsfiddle="common" rel="stylesheet" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/handsontable/0.20.0/handsontable.full.min.css">
 
     <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     <script type="text/javascript" src="http://eternicode.github.io/bootstrap-datepicker/bootstrap-datepicker/js/locales/bootstrap-datepicker.ar.js"></script>
