@@ -16,8 +16,8 @@ class Modelos_Productos extends Sfphp_Modelo
 			producto, clave, descripcion, descripcionCorta, precio, unidadMedida, iva, costo
 		FROM productos ";
 		if(trim($id) != "")
-			$where = " WHERE producto = {$id};";
-		return $this->db->query($query.$where);
+			$where = " WHERE producto = {$id}";
+		return $this->db->query($query.$where." ORDER BY descripcion;");
 	}
 
 	public function getMasivo()
@@ -69,7 +69,8 @@ class Modelos_Productos extends Sfphp_Modelo
 
 		FROM productos pro
 		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
-		WHERE descripcion like '%{$descripcion}%' AND activo = 1;";
+		WHERE descripcion like '%{$descripcion}%' AND activo = 1
+		ORDER BY pro.descripcion;";
 		return $this->db->query($query);
 	}
 
