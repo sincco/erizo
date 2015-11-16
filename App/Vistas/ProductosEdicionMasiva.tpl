@@ -108,7 +108,7 @@ hot = new Handsontable(grid, {
   rowHeaders: true,
   fixedRowsTop: 0,
   startCols: 4,
-  colHeaders: ['Clave', 'Descripcion', 'Descripcion Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Existencias'],
+  colHeaders: ['Clave', 'Descripcion', 'Descripcion Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Precio2', 'Precio3', 'Precio4', 'Existencias'],
   columns: [
     {data:'clave', readOnly: true},
     {data:'descripcion'},
@@ -118,6 +118,9 @@ hot = new Handsontable(grid, {
     {data:'iva', type: 'checkbox', checkedTemplate: '1', uncheckedTemplate: '0'},
     {data:'costo'},
     {data:'precioVenta', format: '0,0.00', language: 'en'},
+    {data:'precio2', format: '0,0.00', language: 'en'},
+    {data:'precio3', format: '0,0.00', language: 'en'},
+    {data:'precio4', format: '0,0.00', language: 'en'},
     {data:'existencias', format: '0,0.00', language: 'en'}
   ], 
   contextMenu: true,
@@ -136,7 +139,10 @@ hot = new Handsontable(grid, {
         iva:registro[5],
         costo:registro[6],
         precio:registro[7],
-        existencias:registro[8],
+        precio2:registro[8],
+        precio3:registro[9],
+        precio4:registro[10],
+        existencias:registro[11],
         almacen:$("#almacen").val()
       }
       actualiza(producto)

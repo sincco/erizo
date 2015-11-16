@@ -20,6 +20,17 @@
         </ciclo vendedores>
       </select>
     </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <label>Lista de precios</label>
+      <select id="lista" name="lista" class="form-control">
+        <option value="" selected>Lista de precio 1</option>
+        <option value="2">Lista de precio 2</option>
+        <option value="3">Lista de precio 3</option>
+        <option value="4">Lista de precio 4</option>
+      </select>
+    </div>
     <div class="col-md-6">
       <div class="alert alert-info" role="alert">Total: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="totalVenta">0.00</span></div>
     </div>
@@ -182,7 +193,14 @@ hot = new Handsontable(grid, {
             $("#errores").html('')
             hot.setDataAtCell(changes[0][0],1,data.respuesta[0].descripcionCorta)
             hot.setDataAtCell(changes[0][0],2,data.respuesta[0].unidadMedida)
-            hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio)
+            if($("#lista").val() == "")
+              hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio)
+            if($("#lista").val() == "2")
+              hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio2)
+            if($("#lista").val() == "3")
+              hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio3)
+            if($("#lista").val() == "4")
+              hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio4)
             hot.setDataAtCell(changes[0][0],8,data.respuesta[0].iva)
             hot.setDataAtCell(changes[0][0],9,data.respuesta[0].ieps)
             hot.setDataAtCell(changes[0][0],10,data.respuesta[0].producto)
