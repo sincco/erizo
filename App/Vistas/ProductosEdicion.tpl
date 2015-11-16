@@ -19,12 +19,32 @@
 		<input type="text" class="form-control" name="costo" value="{costo}">
 		<label>Precio (sin IVA)</label>
 		<input type="text" class="form-control" name="precio" value="{precio}">
+		<label>% utilidad</label>
+	<input type="text" class="form-control" name="utilidad" disabled>
 	</ciclo producto>
 </form>
 <br>
 <p><a class="btn btn-primary btn-md" href="#" role="button" onclick="guardar()">Guardar</a> <a class="btn btn-danger btn-md" href="#" role="button" onclick="dasactivar()">Borrar</a></p>
 </div>
 <script type="text/javascript">
+$(function() {
+	actualizaUtilidad()
+})
+
+$("[name='precio']").change(function() {
+	actualizaUtilidad()
+})
+$("[name='costo']").change(function() {
+	actualizaUtilidad()
+})
+
+function actualizaUtilidad() {
+	var utilidad = Math.round(((parseFloat($("[name='precio']").val()) / parseFloat($("[name='costo']").val())) * 100) - 100)
+	if(parseFloat($("[name='costo']").val()) === 0)
+		utilidad = 100
+	$("[name='utilidad']").val(utilidad)
+}
+
 function guardar() {
 	sincco.consumirAPI('POST','{BASE_URL}productos/apiUpd',$("#productos").serializeJSON())
 	.done(function(data) {
