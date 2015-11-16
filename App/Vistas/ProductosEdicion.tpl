@@ -15,10 +15,10 @@
 		<input type="text" class="form-control" name="descripcion" value="{descripcion}">
 		<label>Descripcion Corta</label>
 		<input type="text" class="form-control" name="descripcionCorta" value="{descripcionCorta}">
-		<label>Precio (sin IVA)</label>
-		<input type="text" class="form-control" name="precio" value="{precio}">
 		<label>Costo</label>
 		<input type="text" class="form-control" name="costo" value="{costo}">
+		<label>Precio (sin IVA)</label>
+		<input type="text" class="form-control" name="precio" value="{precio}">
 	</ciclo producto>
 </form>
 <br>
