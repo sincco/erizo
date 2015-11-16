@@ -12,7 +12,6 @@
       </div>
       <label>Vendedor</label>
         <select id="vendedor" name="vendedor" class="form-control">
-          <option value="0">Todos</option>
           <ciclo vendedores>
             <option value="{vendedor}">{nombre}</option>
           </ciclo vendedores>
@@ -27,7 +26,7 @@
 </div>
 <script type="text/javascript">
 function genera() {
-  $.redirect('{BASE_URL}reportes/detalleventasvendedor', {accion: 'csv', desde:$("#desde").val(), hasta:$("#hasta").val(), vendedor: $("#vendedor").val()})
+  $.redirect('{BASE_URL}reportes/detalleventasvendedor', {accion: 'csv', desde:$("#desde").val(), hasta:$("#hasta").val(), vendedor: $("#vendedor").val()},'POST','_blank')
 }
 $('.input-daterange input').each(function() {
     $(this).datepicker("clearDates");

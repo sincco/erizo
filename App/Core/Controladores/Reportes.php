@@ -33,6 +33,8 @@ class Controladores_Reportes extends Sfphp_Controlador
 			$this->_vista->usuario = $usuario[0]['nombre'];
 			$this->_vista->detalle = $this->modeloReportes->detalleVentasVendedor($data['desde'],$data['hasta'],$data['vendedor']);
 			$this->_vista->mermas = $this->modeloMermas->detalleVendedor($data['desde'],$data['hasta'],$data['vendedor']);
+			$this->_vista->devoluciones = $this->modeloDevoluciones->detalleVendedor($data['desde'],$data['hasta'],$data['vendedor']);
+			$this->_vista->gastos = $this->modeloGastosdia->detalleVendedor($data['desde'],$data['hasta'],$data['vendedor']);
 			$vendedor = $this->modeloVendedores->get($this->_vista->detalle[0]['vendedor']);
 			$this->_vista->vendedor = $vendedor[0]['nombre'];
 			$this->_vista->ruta = $vendedor[0]['descripcion'];
