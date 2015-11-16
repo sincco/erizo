@@ -49,7 +49,7 @@
                     <li><a href="{BASE_URL}ventas">Ventas</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}devoluciones">Registrar devoluciones</a></li>
-                    <li><a href="{BASE_URL}mermas">Registrar mermas</a></li>
+                    <li><a href="{BASE_URL}mermas">Registrar mermas de productos</a></li>
                     <li><a href="{BASE_URL}gastosdia">Registrar gastos</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}planventas">Plan de ventas</a></li>
