@@ -9,7 +9,7 @@
     <meta name="copyright" content="Algunos Derechos Reservados - apsicat.com" />
 
 	<!-- core CSS -->
-    <link href="{BASE_URL}html/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="{BASE_URL}html/css/bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="{BASE_URL}html/css/animate.css" rel="stylesheet">
 
