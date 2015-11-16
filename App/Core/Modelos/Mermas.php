@@ -48,7 +48,8 @@ class Modelos_Mermas extends Sfphp_Modelo
 			pro.clave Producto, pro.descripcionCorta Descripcion,
 			mer.cantidad cantidad
 		FROM mermas mer
-		INNER JOIN productos pro USING(producto);";
+		INNER JOIN productos pro USING(producto)
+		ORDER BY mer.merma DESC;";
 		return $this->db->query($query);
 	}
 }
