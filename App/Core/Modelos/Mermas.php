@@ -29,8 +29,9 @@ class Modelos_Mermas extends Sfphp_Modelo
 	{
 		$query = "INSERT INTO mermas
 		SET
+			vendedor = '{$data['vendedor']}',
 			producto = '{$data['producto']}',
-			motivo = '{$data['motivo']}',
+			motivo = 'Degustacion',
 			cantidad = '{$data['cantidad']}',
 			fecha = CURDATE();";
 		return $this->db->insert($query);

@@ -26,12 +26,7 @@ class Controladores_Mermas extends Sfphp_Controlador
 			 array_push($productos, "'{$value['descripcion']}'");
 		}
 		$this->_vista->productos = implode(",",$productos);
-		$_clientes = $this->modeloClientes->get();
-		$clientes = array();
-		foreach ($_clientes as $key => $value) {
-			 array_push($clientes, "'{$value['razonSocial']}'");
-		}
-		$this->_vista->clientes = implode(",",$clientes);
+		$this->_vista->vendedores = $this->modeloVendedores->get();
 		$this->vistaMermasCapturar;
 	}
 
