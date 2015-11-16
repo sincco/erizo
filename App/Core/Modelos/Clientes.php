@@ -24,6 +24,19 @@ class Modelos_Clientes extends Sfphp_Modelo
 		return $this->db->query($query.$where);
 	}
 
+	public function getByRazon($razonSocial)
+	{
+		$query = "SELECT 
+			cli.cliente, cli.razonSocial, cli.rfc, cli.direccionFiscal, cli.activo,
+			dir.alias, dir.domicilio, dir.telefono,
+			con.nombre, con.telefono, con.correo
+		FROM clientes cli
+		LEFT JOIN clientesContactos con USING(cliente)
+		LEFT JOIN clientesDirecciones dir USING (cliente)
+		WHERE razonSocial = '{$razonSocial}';";
+		return $this->db->query($query);
+	}
+
 	/**
 	 * Inserta un nuevo cliente
 	 * @param  array $data Datos del cliente ['cliente']['contactos']['direcciones']
@@ -130,8 +143,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 
 	public function direcciones()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			cli.cliente, cli.razonSocial, cli.rfc, cli.direccionFiscal, cli.activo Activo
 		FROM
 			clientes cli
