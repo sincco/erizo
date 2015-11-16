@@ -14,14 +14,12 @@ class Modelos_Proveedores extends Sfphp_Modelo
 		$where = NULL;
 		$query = "SELECT 
 			pro.proveedor, pro.razonSocial, pro.rfc, pro.direccionFiscal, pro.activo,
-			con.nombre, con.correo, con.telefono
+			con.proveedorContacto,con.nombre, con.correo, con.telefono
 		FROM
 			proveedores pro
-		LEFT JOIN
-			proveedoresContactos con USING proveedor ";
+		LEFT JOIN proveedoresContactos con USING (proveedor) ";
 		if(trim($id) != "")
 			$where = " WHERE pro.proveedor = '{$id}';";
-		echo $query.$where;
 		return $this->db->query($query.$where);
 	}
 
@@ -58,19 +56,19 @@ class Modelos_Proveedores extends Sfphp_Modelo
 		SET
 			razonSocial = '{$data['proveedor']['razonSocial']}',
 			rfc = '{$data['proveedor']['rfc']}',
-			direccionFiscal = '{$data['proveedor']['direccionFiscal']}',
+			direccionFiscal = '{$data['proveedor']['direccionFiscal']}'
 		WHERE proveedor = '{$data['proveedor']['proveedor']}';";
-		$idInsert = $data['proveedor']['proveedor'];
-		if($idInsert AND count($data['contactos'])) {
-			$query = "REPLACE INTO proveedoresContactos
+		$this->db->query($query);
+		if(count($data['contactos'])) {
+			$query = "UPDATE proveedoresContactos
 			SET
-				proveedor = '$idInsert',
 				nombre = '{$data['contactos']['nombre']}',
 				correo = '{$data['contactos']['correo']}',
-				telefono = '{$data['contactos']['telefono']}';";
-			$this->db->insert($query);
+				telefono = '{$data['contactos']['telefono']}'
+			WHERE proveedorContacto = '{proveedorContacto}';";
+			$this->db->query($query);
 		}
-		return $idInsert;
+		return $data['proveedor']['proveedor'];
 	}
 
 	/**
@@ -83,7 +81,7 @@ class Modelos_Proveedores extends Sfphp_Modelo
 		$query = "UPDATE proveedores
 		SET activo = 0 
 		WHERE proveedor = {$id};";
-		return $this->db->query($query.$where);
+		return $this->db->query($query);
 	}
 
 	/**
@@ -92,11 +90,11 @@ class Modelos_Proveedores extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
-			cli.proveedor Clave, cli.razonSocial 'Razon Social', cli.rfc RFC, cli.direccionFiscal 'Direccion Fiscal', cli.activo Activo
+		$query = "SELECT 
+			pro.proveedor Clave, pro.razonSocial 'Razon Social', pro.rfc RFC, pro.direccionFiscal 'Direccion Fiscal', pro.activo Activo
 		FROM
-			proveedores cli;";
+			proveedores pro
+		WHERE activo = 1;";
 		return $this->db->query($query);
 	}
 }

@@ -79,22 +79,24 @@ class Modelos_Clientes extends Sfphp_Modelo
 		if($idInsert) 
 		{
 			if(trim($data['contactos']['nombre']) != "") {
-				$query = "REPLACE INTO clientesContactos
+				$query = "UPDATE clientesContactos
 				SET
 					cliente = '$idInsert',
 					nombre = '{$data['contactos']['nombre']}',
 					correo = '{$data['contactos']['correo']}',
-					telefono = '{$data['contactos']['telefono']}';";
-				$this->db->insert($query);
+					telefono = '{$data['contactos']['telefono']}'
+				WHERE clienteContacto = '{clienteContacto}';";
+				$this->db->query($query);
 			}
 			if(trim($data['direcciones']['alias']) != "") {
-				$query = "REPLACE INTO clientesDirecciones
+				$query = "UPDATE clientesDirecciones
 				SET
 					cliente = '$idInsert',
 					alias = '{$data['direcciones']['alias']}',
 					domicilio = '{$data['direcciones']['domicilio']}',
-					telefono = '{$data['direcciones']['telefono']}';";
-				$this->db->insert($query);
+					telefono = '{$data['direcciones']['telefono']}'
+				WHERE clienteDireccion = '{clienteDireccion}';";
+				$this->db->query($query);
 			}
 		}
 		return $idInsert;
