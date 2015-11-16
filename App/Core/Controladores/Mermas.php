@@ -1,11 +1,11 @@
 <?php
 /**
- * Operaciones con productos
+ * Operaciones con mermas
  */
 class Controladores_Mermas extends Sfphp_Controlador
 {
 	/**
-	 * Muestra el grid del catálogo de productos
+	 * Muestra el grid del catálogo de mermas
 	 * @return none
 	 */
 	public function inicio()
@@ -15,7 +15,7 @@ class Controladores_Mermas extends Sfphp_Controlador
 	}
 
 	/**
-	 * Muestra el formulario de captura de productos
+	 * Muestra el formulario de captura de mermas
 	 * @return none
 	 */
 	public function capturar()
@@ -31,7 +31,7 @@ class Controladores_Mermas extends Sfphp_Controlador
 	}
 
 	/**
-	 * Llamada AJAX para insertar producto
+	 * Llamada AJAX para insertar mermas
 	 * @return json
 	 */
 	public function apiPost()

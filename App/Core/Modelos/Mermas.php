@@ -5,7 +5,7 @@
 class Modelos_Mermas extends Sfphp_Modelo 
 {
 	/**
-	 * Obiene los datos de un producto
+	 * Obiene los datos de una merma
 	 * @param  string $id Id del producto
 	 * @return array
 	 */
@@ -21,7 +21,7 @@ class Modelos_Mermas extends Sfphp_Modelo
 	}
 
 	/**
-	 * Inserta un nuevo producto
+	 * Inserta una nueva merma
 	 * @param  array $data Datos del producto
 	 * @return array
 	 */
@@ -38,7 +38,7 @@ class Modelos_Mermas extends Sfphp_Modelo
 	}
 
 	/**
-	 * Devuelve todos los mermas para dibujar el grid
+	 * Devuelve todas los mermas para dibujar el grid
 	 * @return array
 	 */
 	public function grid()
