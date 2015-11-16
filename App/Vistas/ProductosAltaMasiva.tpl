@@ -25,7 +25,7 @@ $(function() {
     colHeaders: true,
     rowHeaders: true,
     fixedRowsTop: 0,
-    colHeaders: ['Clave', 'Descripción', 'Descripción Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Existencias'],
+    colHeaders: ['Clave', 'Descripción', 'Descripción Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Precio2', 'Precio3', 'Precio4', 'Existencias'],
     columns: [
       {data:'clave'},
       {data:'descripcion'},
@@ -35,6 +35,9 @@ $(function() {
       {data:'iva', type: 'dropdown', source: ['1','0']},
       {data:'costo'},
       {data:'precioVenta', format: '0,0.00', language: 'en'},
+      {data:'precio2', format: '0,0.00', language: 'en'},
+      {data:'precio3', format: '0,0.00', language: 'en'},
+      {data:'precio4', format: '0,0.00', language: 'en'},
       {data:'existencias', format: '0,0.00', language: 'en'}
     ], 
     contextMenu: false
@@ -58,6 +61,9 @@ function guardar() {
           iva:this.iva,
           costo:this.costo,
           precio:this.precioVenta,
+          precio2:this.precio3,
+          precio3:this.precio2,
+          precio4:this.precio4,
           existencias:this.existencias,
           almacen:$("#almacen").val()
         }
@@ -71,6 +77,9 @@ function guardar() {
           iva:this.iva,
           costo:this.costo,
           precio:this.precioVenta,
+          precio2:this.precio3,
+          precio3:this.precio2,
+          precio4:this.precio4,
           existencias:this.existencias
         }
       }
