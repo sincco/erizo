@@ -1,7 +1,7 @@
 <incluir archivo="Header">
 <incluir archivo="Menu">
 <div class="container">
-<h3>Alta de almacenes</h3>
+<h3>Alta de ruta</h3>
 <form id="almacenes">
 	<label>Descripcion</label>
 	<input type="text" class="form-control" name="descripcion">

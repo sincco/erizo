@@ -1,9 +1,9 @@
 <incluir archivo="Header">
   <incluir archivo="Menu">
 <div class="container">
-	<h3>Existencia en almacenes</h3>
+	<h3>Existencia en rutas</h3>
 	<select id="almacen" class="form-control">
-		<option value="0">Selecciona un almacen</option>
+		<option value="0">Selecciona una ruta</option>
 		<ciclo almacenes>
 			<option value="{almacen}">{descripcion}</option>
 		</ciclo almacenes>

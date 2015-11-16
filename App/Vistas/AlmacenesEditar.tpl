@@ -1,7 +1,7 @@
 <incluir archivo="Header">
 <incluir archivo="Menu">
 <div class="container">
-<h3>Edición de almacen</h3>
+<h3>Edición de ruta</h3>
 <form id="almacenes">
 	<label>Descripcion</label>
 	<ciclo almacenes>

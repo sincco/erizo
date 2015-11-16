@@ -23,7 +23,7 @@
                     <li><a href="{BASE_URL}clientes">Clientes</a></li>
                     <li><a href="{BASE_URL}proveedores">Proveedores</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="{BASE_URL}almacenes">Almacenes</a></li>
+                    <li><a href="{BASE_URL}almacenes">Rutas</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}lineasproductos">Líneas de Productos</a></li>
                     <li><a href="{BASE_URL}productos">Productos</a></li>
