@@ -58,7 +58,8 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 		FROM
 			almacenesProductos exi
 		INNER JOIN almacenes alm USING (almacen)
-		INNER JOIN productos pro USING (producto);";
+		INNER JOIN productos pro USING (producto)
+		GROUP BY alm.almacen;";
 		return $this->db->query($query);
 	}
 
