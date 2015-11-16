@@ -7,14 +7,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function utilidades($desde, $hasta)
 	{
-		$query = "SELECT 
-			vta.fecha, usr.nombre, SUM(det.subtotal) venta, 
-			IFNULL(MAX(gto.monto),0) gasto, SUM(pro.costo*det.cantidad) costo, 
-			SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad) utilidad,
-			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.30 socio1,
-			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.30 socio2,
-			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.30 socio3,
-			(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad)) * 0.10 socio4
+		$query = "SELECT vta.fecha, usr.nombre, SUM(det.subtotal) venta, IFNULL(MAX(gto.monto),0) gasto, SUM(pro.costo*det.cantidad) costo, SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad) utilidad
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
@@ -32,15 +25,16 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function detalleVentasVendedor($desde, $hasta, $vendedor)
 	{
-		$query = "SELECT vta.fecha, usr.nombre, pro.descripcionCorta producto, 
-			det.cantidad, det.iva, det.subtotal
+		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, pro.descripcionCorta producto, 
+			det.cantidad,  CONCAT('$', FORMAT(det.iva, 2)) iva,
+			CONCAT('$', FORMAT(det.subtotal, 2)) subtotal
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
 		INNER JOIN usuarios usr USING(usuario)
 		INNER JOIN productos pro USING(producto)
 		WHERE vta.fecha between '{$desde}' AND '{$hasta}'";
-		if(trim($vendedor) == "0")
+		if(trim($vendedor) != "0")
 			$query .= " AND vta.vendedor = '{$vendedor}'";
 		$query .= " GROUP BY vta.fecha, usr.nombre, pro.descripcionCorta;";
 		return $this->db->query($query);
@@ -48,7 +42,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function comisionesVendedor($desde, $hasta, $vendedor)
 	{
-		$query = "SELECT vta.fecha, usr.nombre, SUM(det.subtotal) venta, SUM(det.subtotal) * (ven.comision/100) comision
+		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, SUM(det.subtotal) venta, SUM(det.subtotal) * (ven.comision/100) comision
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)

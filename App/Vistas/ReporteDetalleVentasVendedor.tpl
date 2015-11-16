@@ -27,23 +27,7 @@
 </div>
 <script type="text/javascript">
 function genera() {
-  sincco.consumirAPI('POST','{BASE_URL}reportes/detalleventasvendedor/accion/csv/desde/' + $("#desde").val() + '/hasta/' + $("#hasta").val() + '/vendedor/' + $("#vendedor").val())
-  .done(function(respuesta) {
-    $("#reporte").bootstrapTable('destroy') 
-    $('#reporte').bootstrapTable({
-      columns:[
-        {field:'fecha',title:'Fecha',sortable:true, visible:true},
-        {field:'nombre',title:'Vendedor',sortable:true, visible:true},
-        {field:'producto',title:'Producto',sortable:true, visible:true},
-        {field:'cantidad',title:'Cantidad',sortable:false, visible:true},
-        {field:'iva',title:'IVA',sortable:false, visible:true},
-        {field:'subtotal',title:'Subtotal',sortable:false, visible:true}
-      ],
-      data:respuesta.respuesta
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-      console.log(errorThrown)
-    })
-  })
+  $.redirect('{BASE_URL}reportes/detalleventasvendedor', {accion: 'csv', desde:$("#desde").val(), hasta:$("#hasta").val(), vendedor: $("#vendedor").val()})
 }
 $('.input-daterange input').each(function() {
     $(this).datepicker("clearDates");

@@ -19,7 +19,6 @@
 </div>
 <script type="text/javascript">
 function editarElemento(registro) {
-	console.log(registro)
 	$.redirect('{BASE_URL}clientes/editar', {'clave': registro.Clave})
 }
 </script>
