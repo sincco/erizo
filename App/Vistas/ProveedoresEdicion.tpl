@@ -1,7 +1,7 @@
 <incluir archivo="Header">
 <incluir archivo="Menu">
 <div class="container">
-	<h3>Alta de Proveedores</h3>
+	<h3>Edición de Proveedores</h3>
 	<ciclo proveedores>
 	<div class="bs-example">
 	    <ul class="nav nav-tabs" id="tabs">
@@ -14,22 +14,23 @@
 	            <form id="proveedoresGenerales">
 	            	<input type="hidden" name="proveedor" value="{proveedor}">
 					<label>Razón Social</label>
-					<input type="text" class="form-control" name="razonSocial">
+					<input type="text" class="form-control" name="razonSocial" value="{razonSocial}">
 					<label>RFC</label>
-					<input type="text" class="form-control" name="rfc">
+					<input type="text" class="form-control" name="rfc" value="{rfc}">
 					<label>Dirección Fiscal</label>
-					<input type="text" class="form-control" name="direccionFiscal">
+					<input type="text" class="form-control" name="direccionFiscal" value="{direccionFiscal}"r>
 	            </form>
 	        </div>
 	        <div id="contactos" class="tab-pane fade">
 	            <h5>Contactos</h5>
 	            <form id="proveedoresContactos">
+	            	<input type="hidden" name="proveedor" value="{proveedorContacto}">
 					<label>Nombre</label>
-					<input type="text" class="form-control" name="nombre">
+					<input type="text" class="form-control" name="nombre" value="{nombre}">
 					<label>Correo</label>
-					<input type="text" class="form-control" name="correo">
+					<input type="text" class="form-control" name="correo" value="{correo}">
 					<label>Telefono</label>
-					<input type="text" class="form-control" name="telefono">
+					<input type="text" class="form-control" name="telefono" value="{telefono}">
 	            </form>
 	        </div>
 	    </div>

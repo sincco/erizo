@@ -27,22 +27,24 @@
 		            <h5>Direcciones</h5>
 		            <form id="clientesDirecciones">
 						<label>Alias</label>
-						<input type="text" class="form-control" name="alias">
+						<input type="hidden" name="clienteDireccion" value="{clienteDireccion}">
+						<input type="text" class="form-control" name="alias" value="{alias}">
 						<label>Domicilio</label>
-						<input type="text" class="form-control" name="domicilio">
+						<input type="text" class="form-control" name="domicilio" value="{domicilio}">
 						<label>Telefono</label>
-						<input type="text" class="form-control" name="telefono">
+						<input type="text" class="form-control" name="telefono" value="{telefono}">
 		            </form>
 		        </div>
 		        <div id="contactos" class="tab-pane fade">
 		            <h5>Contactos</h5>
 		            <form id="clientesContactos">
 						<label>Nombre</label>
-						<input type="text" class="form-control" name="nombre">
+						<input type="text" class="form-control" name="clienteContacto" value="{clienteContacto}">
+						<input type="text" class="form-control" name="nombre" value="{nombre}">
 						<label>Correo</label>
-						<input type="text" class="form-control" name="correo">
+						<input type="text" class="form-control" name="correo" value="{correo}">
 						<label>Telefono</label>
-						<input type="text" class="form-control" name="telefono">
+						<input type="text" class="form-control" name="telefono" value="{telefono}">
 		            </form>
 		        </div>
 		    </div>
