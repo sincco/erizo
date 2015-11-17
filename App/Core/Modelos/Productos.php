@@ -152,10 +152,10 @@ class Modelos_Productos extends Sfphp_Modelo
 		$query = "SELECT 
 			pro.clave Producto, pro.descripcionCorta Descripcion, 
 			ROUND(pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Precio, pro.costo Costo,
-			ROUND(((pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)) / pro.costo) * 100) -100, 2) Utilidad,
 			ROUND(pro.precio2*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Precio2,
 			ROUND(pro.precio3*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Precio3,
-			ROUND(pro.precio4*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Precio4
+			ROUND(pro.precio4*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Precio4,
+			ROUND(((pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)) / pro.costo) * 100) -100, 2) Utilidad
 		FROM productos pro
 		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
 		WHERE pro.activo = 1;";
