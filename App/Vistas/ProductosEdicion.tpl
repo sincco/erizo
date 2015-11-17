@@ -19,6 +19,12 @@
 		<input type="text" class="form-control" name="costo" value="{costo}">
 		<label>Precio (sin IVA)</label>
 		<input type="text" class="form-control" name="precio" value="{precio}">
+		<label>Precio 2(sin IVA)</label>
+		<input type="text" class="form-control" name="precio2" value="{precio2}">
+		<label>Precio 3(sin IVA)</label>
+		<input type="text" class="form-control" name="precio3" value="{precio3}">
+		<label>Precio 4(sin IVA)</label>
+		<input type="text" class="form-control" name="precio4" value="{precio4}">
 		<label>% utilidad</label>
 	<input type="text" class="form-control" name="utilidad" disabled>
 	</ciclo producto>

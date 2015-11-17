@@ -21,6 +21,12 @@
 	<input type="text" class="form-control" name="costo">
 	<label>Precio (sin IVA)</label>
 	<input type="text" class="form-control" name="precio">
+	<label>Precio 2 (sin IVA)</label>
+	<input type="text" class="form-control" name="precio2">
+	<label>Precio 3(sin IVA)</label>
+	<input type="text" class="form-control" name="precio3">
+	<label>Precio 4(sin IVA)</label>
+	<input type="text" class="form-control" name="precio4">
 	<label>Unidad de medida</label>
 	<select name="unidadMedida" class="form-control">
 		<option value="NA">No aplica</option>
