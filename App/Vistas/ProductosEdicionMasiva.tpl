@@ -108,7 +108,7 @@ hot = new Handsontable(grid, {
   rowHeaders: true,
   fixedRowsTop: 0,
   startCols: 4,
-  colHeaders: ['Clave', 'Descripcion', 'Descripcion Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Precio2', 'Precio3', 'Precio4', 'Existencias'],
+  colHeaders: ['Clave', 'Descripcion', 'Descripcion Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Mayorista 1', 'Mayorista 2', 'Detalle', 'Existencias'],
   columns: [
     {data:'clave', readOnly: true},
     {data:'descripcion'},

@@ -25,7 +25,7 @@ $(function() {
     colHeaders: true,
     rowHeaders: true,
     fixedRowsTop: 0,
-    colHeaders: ['Clave', 'Descripción', 'Descripción Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Precio2', 'Precio3', 'Precio4', 'Existencias'],
+    colHeaders: ['Clave', 'Descripción', 'Descripción Corta', 'Categoria', 'Unidad', 'Grava Iva', 'Costo', 'Precio Venta', 'Mayorista 1', 'Mayorista 2', 'Detalle', 'Existencias'],
     columns: [
       {data:'clave'},
       {data:'descripcion'},
