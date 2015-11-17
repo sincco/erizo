@@ -42,7 +42,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function comisionesVendedor($desde, $hasta, $vendedor)
 	{
-		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, SUM(det.subtotal) venta, SUM(det.subtotal) * (ven.comision/100) comision
+		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, CONCAT('$',FORMAT(SUM(det.subtotal),2)) venta, CONCAT('$',FORMAT(SUM(det.subtotal) * (ven.comision/100),2)) comision
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
@@ -52,6 +52,21 @@ class Modelos_Reportes extends Sfphp_Modelo
 		if(trim($vendedor) == "0")
 			$query .= " AND vta.vendedor = '{$vendedor}'";
 		$query .= " GROUP BY vta.fecha, usr.nombre;";
+		return $this->db->query($query);
+	}
+
+	public function comisionesTotalesVendedor($desde, $hasta, $vendedor)
+	{
+		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, CONCAT('$',FORMAT(SUM(det.subtotal),2)) venta, CONCAT('$',FORMAT(SUM(det.subtotal) * (ven.comision/100),2)) comision
+		FROM ventas vta
+		INNER JOIN ventasProductos det USING(venta)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		INNER JOIN productos pro USING(producto)
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}'";
+		if(trim($vendedor) == "0")
+			$query .= " AND vta.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY usr.nombre;";
 		return $this->db->query($query);
 	}
 }

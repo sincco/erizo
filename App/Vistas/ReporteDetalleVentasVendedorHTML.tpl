@@ -24,6 +24,22 @@
   </table>
 </div>
   <br>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Total de venta y comisión</h3>
+  </div>
+  <table class="table">
+    <tr style="font-size:1.2em;">
+      <td>Total</td><td>Comision</td>
+    </tr>
+  <ciclo comisiones>
+    <tr>
+      <td style="text-align:right;">{venta}</td><td style="text-align:right;">{comision}</td>
+    </tr>
+  </ciclo comisiones>
+  </table>
+</div>
+
 
 <div class="panel panel-success">
   <div class="panel-heading">
@@ -70,6 +86,22 @@
       <td>{fecha}</td><td>{descripcion}</td><td style="text-align:right;">{monto}</td>
     </tr>
   </ciclo gastos>
+  </table>
+</div>
+<br>
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Total de gastos</h3>
+  </div>
+  <table class="table">
+    <tr style="font-size:1.2em;">
+      <td>Total</td>
+    </tr>
+  <ciclo totalGastos>
+    <tr>
+      <td style="text-align:right;">{monto}</td>
+    </tr>
+  </ciclo totalGastos>
   </table>
 </div>
 <br>
