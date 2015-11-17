@@ -240,6 +240,7 @@ function actualizaCambio() {
 function actualizaTotal() {
   var totalVenta = 0
   hot.getData().forEach(function(element, index, array) {
+    console.log(element)
     if(!isNaN(parseFloat(element.subtotal))) {
       totalVenta = totalVenta + parseFloat(element.subtotal)
     }
