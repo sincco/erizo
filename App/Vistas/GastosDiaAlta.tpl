@@ -5,11 +5,7 @@
   <div class="row">
     <div class="col-md-6">
       <label>Vendedor</label>
-      <select id="vendedor" name="vendedor" class="form-control">
-        <ciclo vendedores>
-          <option value="{vendedor}">{nombre}</option>
-        </ciclo vendedores>
-      </select>
+      <input id="vendedor" name="vendedor" value="0" />
     </div>
   </div>
 
