@@ -5,7 +5,7 @@
   <div class="row">
     <div class="col-md-6">
       <label>Vendedor</label>
-      <input id="vendedor" name="vendedor" value="0" />
+      <input type="hidden" id="vendedor" name="vendedor" value="0" />
     </div>
   </div>
 
