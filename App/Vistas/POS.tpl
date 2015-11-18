@@ -81,6 +81,8 @@
 
 <script>
 $(function() {
+  $("#vendedor").val(0)
+
   $("#claveProducto").keypress(function(event) {
     if(event.which == 13) {
       if(hot.getDataAtCell(hot.countRows()-2,1) == 'NO EXISTE')

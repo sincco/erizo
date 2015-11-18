@@ -69,7 +69,8 @@ class Modelos_GastosDia extends Sfphp_Modelo
 		INNER JOIN gastosRutasDetalle det USING(gastoRuta)
 		LEFT JOIN vendedores ven USING(vendedor)
 		LEFT JOIN usuarios usr USING(usuario)
-		GROUP BY gto.fecha;";
+		GROUP BY gto.fecha
+		ORDER BY gto.fecha DESC;";
 		return $this->db->query($query);
 	}
 }
