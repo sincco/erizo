@@ -37,11 +37,11 @@ function guardar() {
   var devoluciones = hot.getData()
   $(devoluciones).each(function( index ) {
     console.log(this)
-    if(this[2]) {
+    if(this.cantidad) {
       var devolucion = {
-        cliente:this[0],
-        producto:this[1],
-        cantidad:this[2]
+        cliente:this.cliente,
+        producto:this.producto,
+        cantidad:this.cantidad
       }
       sincco.consumirAPI('POST','{BASE_URL}devoluciones/apiPost', devolucion )
       .done(function(data) {
