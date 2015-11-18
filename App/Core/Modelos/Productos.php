@@ -101,7 +101,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			costo = '{$data['costo']}',
 			precio2 = '{$data['precio2']}',
 			precio3 = '{$data['precio3']}',
-			precio4 = '{$data['precio4']}'
+			precio4 = '{$data['precio4']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}

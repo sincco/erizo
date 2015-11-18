@@ -116,7 +116,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 		$query = "SELECT vta.venta Venta, vta.fecha Fecha, cli.razonSocial Cliente, vta.estatus Estatus
 		FROM ventas vta 
 		INNER JOIN clientes cli USING (cliente)
-		ORDER BY vta.fecha, vta.hora DESC;";
+		ORDER BY vta.venta DESC;";
 		return $this->db->query($query);
 	}
 
