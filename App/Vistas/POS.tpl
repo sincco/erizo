@@ -81,7 +81,7 @@
 
 <script>
 $(function() {
-  $("#vendedor").val(0)
+  $("#cliente").val(0)
 
   $("#claveProducto").keypress(function(event) {
     if(event.which == 13) {
