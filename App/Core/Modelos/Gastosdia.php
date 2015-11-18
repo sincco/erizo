@@ -63,7 +63,7 @@ class Modelos_GastosDia extends Sfphp_Modelo
 	public function grid()
 	{
 		$query = "SELECT 
-			gto.gastoRuta Id, gto.fecha Fecha, usr.nombre Nombre, SUM(det.monto) Monto
+			gto.fecha Fecha, SUM(det.monto) Monto
 		FROM
 			gastosRuta gto
 		INNER JOIN gastosRutasDetalle det USING(gastoRuta)

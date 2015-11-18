@@ -69,4 +69,18 @@ class Modelos_Reportes extends Sfphp_Modelo
 		$query .= " GROUP BY usr.nombre;";
 		return $this->db->query($query);
 	}
+
+	public function ventasPagos($desde, $hasta, $tipo)
+	{
+		$query = "SELECT vta.fecha, usr.nombre, pag.tipo, pag.monto pago, sum(det.subtotal) venta
+		FROM ventas vta
+		INNER JOIN ventasProductos det USING(venta)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		INNER JOIN ventasPagos pag USING(venta)
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}'
+			AND pag.tipo = '{$tipo}'
+		GROUP BY vta.fecha, usr.nombre, pag.tipo;";
+		return $this->db->query($query);
+	}
 }
