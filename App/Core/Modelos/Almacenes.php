@@ -37,7 +37,7 @@ class Modelos_Almacenes extends Sfphp_Modelo
 		$query = "INSERT INTO almacenes
 		SET
 			descripcion = '{$data['descripcion']}',
-			principal = '{$data['principal']}'
+			principal = '{$data['principal']}',
 			activo = 1;";
 		return $this->db->insert($query);
 	}
