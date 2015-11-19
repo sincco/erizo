@@ -64,12 +64,12 @@ function buscarJSON(arreglo, elemento, valor) {
 function guardar() {
   var mermas = hot.getData()
   $(mermas).each(function( index ) {
-    if(this[2]) {
+    if(this.cantidad) {
       var devolucion = {
         vendedor:$("#vendedor").val(),
-        motivo:this[0],
-        producto:this[1],
-        cantidad:this[3]
+        motivo:this.motivo,
+        producto:this.producto,
+        cantidad:this.cantidad
       }
       sincco.consumirAPI('POST','{BASE_URL}mermas/apiPost', devolucion )
       .done(function(data) {

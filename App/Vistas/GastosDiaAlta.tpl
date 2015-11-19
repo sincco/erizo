@@ -5,7 +5,11 @@
   <div class="row">
     <div class="col-md-6">
       <label>Vendedor</label>
-      <input type="hidden" id="vendedor" name="vendedor" value="0" />
+      <select id="vendedor" name="vendedor" class="form-control">
+        <ciclo vendedores>
+          <option value="{vendedor}">{nombre}</option>
+        </ciclo vendedores>
+      </select>
     </div>
   </div>
 
@@ -59,6 +63,7 @@ function guardar() {
     detalle = new Object()
     detalle.gasto = $(this).attr('data-clave')
     detalle.monto = $(this).val()
+    detalle.vendedor = $("#vendedor").val()
     detalles.push(detalle)
   })
   sincco.consumirAPI('POST','{BASE_URL}gastosdia/apiPost',{vendedor:$("#vendedor").val(), detalle:detalles })
