@@ -25,7 +25,7 @@
 </div>
 <script type="text/javascript">
 function genera() {
-  sincco.consumirAPI('POST','{BASE_URL}reportes/comisionesvendedor/accion/csv/desde/' + $("#desde").val() + '/hasta/' + $("#hasta").val())
+  sincco.consumirAPI('POST','{BASE_URL}reportes/comisionesvendedor/accion/csv/desde/' + $("#desde").val() + '/hasta/' + $("#hasta").val() + '/vendedor/' + $("#vendedor").val())
   .done(function(respuesta) {
     $("#reporte").bootstrapTable('destroy') 
     $('#reporte').bootstrapTable({

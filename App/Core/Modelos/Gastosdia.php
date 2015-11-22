@@ -85,7 +85,7 @@ class Modelos_GastosDia extends Sfphp_Modelo
 		WHERE mer.fecha between '{$desde}' AND '{$hasta}'";
 		if(trim($vendedor) != "0")
 			$query .= " AND mer.vendedor = '{$vendedor}'";
-		$query .= " GROUP BY mer.fecha, usr.nombre;";
+		$query .= " GROUP BY mer.fecha, usr.nombre, gto.descripcion;";
 		return $this->db->query($query);
 	}
 
