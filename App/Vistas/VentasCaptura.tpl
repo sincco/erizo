@@ -25,10 +25,10 @@
     <div class="col-md-6">
       <label>Lista de precios</label>
       <select id="lista" name="lista" class="form-control">
-        <option value="" selected>Lista de precio 1</option>
-        <option value="2">Lista de precio 2</option>
-        <option value="3">Lista de precio 3</option>
-        <option value="4">Lista de precio 4</option>
+        <option value="" selected>Precio</option>
+        <option value="2">Mayorista 1</option>
+        <option value="3">Mayorista 2</option>
+        <option value="4">Detalle</option>
       </select>
     </div>
     <div class="col-md-6">
