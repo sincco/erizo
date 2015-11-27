@@ -29,7 +29,7 @@ hot = new Handsontable(grid, {
     {data:'clave'},
     {data:'descripcionCorta',readOnly: true},
     {data:'unidad', readOnly: true},
-    {data:'cantidad', type: 'numeric', format: '0,0.00', language: 'en'},
+    {data:'cantidad', type: 'numeric', format: '0,0.000', language: 'en'},
   ], 
   contextMenu: true,
   afterChange: function (changes, source) {

@@ -117,11 +117,11 @@ hot = new Handsontable(grid, {
     {data:'unidadMedida', type: 'dropdown', source: ['NA','PZA','KG','TON','LT']},
     {data:'iva', type: 'checkbox', checkedTemplate: '1', uncheckedTemplate: '0'},
     {data:'costo'},
-    {data:'precioVenta', format: '0,0.00', language: 'en'},
-    {data:'precio2', format: '0,0.00', language: 'en'},
-    {data:'precio3', format: '0,0.00', language: 'en'},
-    {data:'precio4', format: '0,0.00', language: 'en'},
-    {data:'existencias', format: '0,0.00', language: 'en'}
+    {data:'precioVenta', format: '0,0.000', language: 'en'},
+    {data:'precio2', format: '0,0.000', language: 'en'},
+    {data:'precio3', format: '0,0.000', language: 'en'},
+    {data:'precio4', format: '0,0.000', language: 'en'},
+    {data:'existencias', format: '0,0.000', language: 'en'}
   ], 
   contextMenu: true,
   afterChange: function (changes, source) {

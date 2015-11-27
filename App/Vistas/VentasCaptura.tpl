@@ -32,7 +32,7 @@
       </select>
     </div>
     <div class="col-md-6">
-      <div class="alert alert-info" role="alert">Total: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="totalVenta">0.00</span></div>
+      <div class="alert alert-info" role="alert">Total: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="totalVenta">0.000</span></div>
     </div>
   </div>
 
@@ -74,7 +74,7 @@
               <input type="text" name="tarjeta" id="tarjeta" class="form-control">
               <label>A crédito</label>
               <input type="text" name="monedero" id="monedero" class="form-control">
-              <div class="alert alert-info" role="alert">Cambio: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="cambio">0.00</span></div>
+              <div class="alert alert-info" role="alert">Cambio: <span class="glyphicon glyphicon-usd" aria-hidden="true"></span><span id="cambio">0.000</span></div>
               <hr>
               <p><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Pago</a></p>
             </div>
@@ -174,11 +174,11 @@ hot = new Handsontable(grid, {
     {data:'clave'},
     {data:'descripcionCorta',readOnly: true},
     {data:'unidad', readOnly: true},
-    {data:'precio', type: 'numeric', format: '0,0.00', language: 'en', readOnly: true},
-    {data:'cantidad', type: 'numeric', format: '0,0.00', language: 'en'},
-    {data:'iva', type: 'numeric', format: '0,0.00', language: 'en', readOnly: true},
-    {data:'ieps', type: 'numeric', format: '0,0.00', language: 'en', readOnly: true},
-    {data:'subtotal', type: 'numeric', format: '0,0.00', language: 'en', readOnly: true},
+    {data:'precio', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
+    {data:'cantidad', type: 'numeric', format: '0,0.000', language: 'en'},
+    {data:'iva', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
+    {data:'ieps', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
+    {data:'subtotal', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
     {data:'gravaIVA', readOnly: true},
     {data:'gravaIEPS', readOnly: true},
     {data:'producto', readOnly: true},
@@ -248,9 +248,9 @@ function actualizaTotal() {
   $('#totalVenta').html(Math.round(totalVenta * 100) /100)
   $('#total').val(Math.round(totalVenta * 100) /100)
   $('#efectivo').val(Math.round(totalVenta * 100) /100)
-  $('#tarjeta').val('0.00')
-  $('#monedero').val('0.00')
-  $('#cambio').val('0.00')
+  $('#tarjeta').val('0.000')
+  $('#monedero').val('0.000')
+  $('#cambio').val('0.000')
   return true
 }
 
@@ -281,11 +281,11 @@ function guardar() {
 function limpiarDatos() {
   totalVenta = 0
   total = 0
-  $("#efectivo").val('0.00')
-  $("#tarjeta").val('0.00')
-  $("#monedero").val('0.00')
-  $("#cambio").html('0.00')
-  $("#total").html('0.00')
+  $("#efectivo").val('0.000')
+  $("#tarjeta").val('0.000')
+  $("#monedero").val('0.000')
+  $("#cambio").html('0.000')
+  $("#total").html('0.000')
   hot.loadData({})
   actualizaTotal()
   $('#myModal').modal('toggle')
