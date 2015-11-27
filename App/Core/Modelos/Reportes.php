@@ -7,7 +7,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function utilidades($desde, $hasta)
 	{
-		$query = "SELECT vta.fecha, usr.nombre, SUM(det.subtotal) venta, IFNULL(MAX(gto.monto),0) gasto, SUM(pro.costo*det.cantidad) costo, SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad) utilidad
+		$query = "SELECT vta.fecha, usr.nombre, FORMAT(SUM(det.subtotal),3) venta, FORMAT(IFNULL(MAX(gto.monto),0),3) gasto, FORMAT(SUM(pro.costo*det.cantidad),3) costo, FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) utilidad
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
@@ -26,8 +26,8 @@ class Modelos_Reportes extends Sfphp_Modelo
 	public function detalleVentasVendedor($desde, $hasta, $vendedor)
 	{
 		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, pro.descripcionCorta producto, 
-			det.cantidad,  CONCAT('$', FORMAT(det.iva, 2)) iva,
-			CONCAT('$', FORMAT(det.subtotal, 2)) subtotal
+			det.cantidad,  CONCAT('$', FORMAT(det.iva, 3)) iva,
+			CONCAT('$', FORMAT(det.subtotal, 3)) subtotal
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
@@ -42,7 +42,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function comisionesVendedor($desde, $hasta, $vendedor)
 	{
-		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, CONCAT('$',FORMAT(SUM(det.subtotal),2)) venta, CONCAT('$',FORMAT(SUM(det.subtotal) * (ven.comision/100),2)) comision
+		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, CONCAT('$',FORMAT(SUM(det.subtotal),3)) venta, CONCAT('$',FORMAT(SUM(det.subtotal) * (ven.comision/100),3)) comision
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
@@ -57,7 +57,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function comisionesTotalesVendedor($desde, $hasta, $vendedor)
 	{
-		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, CONCAT('$',FORMAT(SUM(det.subtotal),2)) venta, CONCAT('$',FORMAT(SUM(det.subtotal) * (ven.comision/100),2)) comision
+		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, CONCAT('$',FORMAT(SUM(det.subtotal),3)) venta, CONCAT('$',FORMAT(SUM(det.subtotal) * (ven.comision/100),3)) comision
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
@@ -72,7 +72,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function ventasPagos($desde, $hasta, $tipo)
 	{
-		$query = "SELECT vta.fecha, usr.nombre, pag.tipo, pag.monto pago, sum(det.subtotal) venta
+		$query = "SELECT vta.fecha, usr.nombre, pag.tipo, pag.monto pago, FORMAT(SUM(det.subtotal),3) venta
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)

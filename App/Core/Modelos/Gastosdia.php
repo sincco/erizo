@@ -12,7 +12,7 @@ class Modelos_GastosDia extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "SELECT fecha, vendedor, gasto, monto
+		$query = "SELECT fecha, vendedor, gasto, CONCAT('$', FORMAT(SUM(det.monto),3)) monto
 		FROM gastosRuta ";
 		if(trim($id) != "")
 			$where = " WHERE gastoRuta = {$id};";
@@ -63,7 +63,7 @@ class Modelos_GastosDia extends Sfphp_Modelo
 	public function grid()
 	{
 		$query = "SELECT 
-			gto.fecha Fecha, SUM(det.monto) Monto
+			gto.fecha Fecha, CONCAT('$', FORMAT(SUM(det.monto),3)) Monto
 		FROM
 			gastosRuta gto
 		INNER JOIN gastosRutasDetalle det USING(gastoRuta)
@@ -76,7 +76,7 @@ class Modelos_GastosDia extends Sfphp_Modelo
 	public function detalleVendedor($desde, $hasta, $vendedor)
 	{
 		$query = "SELECT mer.fecha, usr.nombre, gto.descripcion descripcion, 
-			SUM(det.monto) monto
+			CONCAT('$', FORMAT(SUM(det.monto),3)) monto
 		FROM gastosRuta mer
 		INNER JOIN gastosRutasDetalle det USING (gastoRuta)
 		INNER JOIN gastos gto USING(gasto)
@@ -91,7 +91,7 @@ class Modelos_GastosDia extends Sfphp_Modelo
 
 	public function totalVendedor($desde, $hasta, $vendedor)
 	{
-		$query = "SELECT mer.fecha, usr.nombre,	CONCAT('$', FORMAT(SUM(det.monto),2)) monto
+		$query = "SELECT mer.fecha, usr.nombre,	CONCAT('$', FORMAT(SUM(det.monto),3)) monto
 		FROM gastosRuta mer
 		INNER JOIN gastosRutasDetalle det USING (gastoRuta)
 		INNER JOIN gastos gto USING(gasto)

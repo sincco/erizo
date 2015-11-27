@@ -99,8 +99,7 @@ class Modelos_Transferencias extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			trs.transferencia ID, trs.fecha Fecha, trs.motivo Motivo
 		FROM
 			transferencias trs;";

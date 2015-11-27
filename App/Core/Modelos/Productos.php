@@ -13,8 +13,8 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$where = NULL;
 		$query = "SELECT 
-			producto, clave, descripcion, descripcionCorta, precio, precio2, precio3, precio4,
-			unidadMedida, iva, costo
+			producto, clave, descripcion, descripcionCorta, FORMAT(SUM(precio),3) precio, FORMAT(SUM(precio2),3) precio2, FORMAT(SUM(precio3),3) precio3, FORMAT(SUM(precio4),3) precio4,
+			unidadMedida, iva, FORMAT(SUM(costo),3) costo
 		FROM productos ";
 		if(trim($id) != "")
 			$where = " WHERE producto = {$id}";
@@ -27,12 +27,12 @@ class Modelos_Productos extends Sfphp_Modelo
 		$query = "SELECT 
 			pro.producto, pro.clave, pro.descripcion, 
 			lin.descripcion lineaProducto,
-			pro.descripcionCorta, ROUND(pro.precio,2) precio, 
+			pro.descripcionCorta, ROUND(pro.precio,3) precio, 
 			pro.unidadMedida, pro.iva, pro.costo, 
-			ROUND(pro.precio * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precioVenta,
-			ROUND(pro.precio2 * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio2,
-			ROUND(pro.precio3 * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio3,
-			ROUND(pro.precio4 * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio4,
+			ROUND(pro.precio * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precioVenta,
+			ROUND(pro.precio2 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio2,
+			ROUND(pro.precio3 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio3,
+			ROUND(pro.precio4 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio4,
 			IFNULL(exi.existencias,0) existencias
 		FROM productos pro
 		INNER JOIN lineasProductos lin USING(lineaProducto)
@@ -70,10 +70,10 @@ class Modelos_Productos extends Sfphp_Modelo
 		$query = "SELECT 
 			producto, clave, lineaProducto, descripcionCorta, 
 			unidadMedida, iva, 0 ieps, costo,
-			ROUND(pro.precio * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio,
-			ROUND(pro.precio2 * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio2,
-			ROUND(pro.precio3 * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio3,
-			ROUND(pro.precio4 * (1+((imp.ivaPorcentaje * pro.iva) /100)),2) precio4
+			ROUND(pro.precio * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio,
+			ROUND(pro.precio2 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio2,
+			ROUND(pro.precio3 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio3,
+			ROUND(pro.precio4 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio4
 
 		FROM productos pro
 		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
@@ -152,11 +152,11 @@ class Modelos_Productos extends Sfphp_Modelo
 		$query = "SELECT 
 			pro.clave Producto, pro.descripcionCorta Descripcion, 
 			pro.costo Costo, 
-			ROUND(pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Precio,
+			ROUND(pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Precio,
 			ROUND(((pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)) / pro.costo) * 100) -100, 2) Utilidad,
-			ROUND(pro.precio2*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Mayorista1,
-			ROUND(pro.precio3*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Mayorista2,
-			ROUND(pro.precio4*(1+((imp.ivaPorcentaje * pro.iva) /100)),2) Detalle
+			ROUND(pro.precio2*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Mayorista1,
+			ROUND(pro.precio3*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Mayorista2,
+			ROUND(pro.precio4*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Detalle
 		FROM productos pro
 		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
 		WHERE pro.activo = 1;";
