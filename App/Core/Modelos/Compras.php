@@ -74,16 +74,22 @@ class Modelos_compras extends Sfphp_Modelo
 	 */
 	public function solicitud($data)
 	{
+
 		$respuesta = array();
 		$query = "INSERT INTO compras
 			SET	fecha = CURDATE(),
 			descripcionCorta = '{$data['descripcionCorta']}',
-			estatus = 'Solicitud';";
+			estatus = '{$data['estatus']}';";
 		$compra = $this->db->insert($query);
 		foreach ($data['productos'] as $key => $value) {
 			if(count($value) > 1) {
 				$query = "SELECT producto, precio FROM productos WHERE clave = '{$value['clave']}';";
 				$producto = $this->db->query($query);
+				$query = "UPDATE almacenesProductos SET
+					existencias = existencias + '{$value['cantidad']}'
+					WHERE almacen = '{$data['almacen']}' AND
+						producto = '{$producto[0]['producto']}';";
+				$this->query($query);
 				$query = "INSERT INTO comprasProductos
 					SET compra = '{$compra}',
 					producto = {$producto[0]['producto']},

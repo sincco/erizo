@@ -29,7 +29,9 @@ class Controladores_Compras extends Sfphp_Controlador
 	 */
 	public function apiPostSolicitud()
 	{
+		$almacen = $this->modeloAlmacenes->getPrincipal();
 		$data = Sfphp_Peticion::get('_parametros');
+		$data['almacen'] = $almacen[0]['almacen'];
 		echo json_encode(array("respuesta"=>$this->modeloCompras->solicitud($data)));
 	}
 
