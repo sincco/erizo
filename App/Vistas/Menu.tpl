@@ -61,6 +61,7 @@
                 <ul class="dropdown-menu">
                     <li><a href="{BASE_URL}reportes/utilidades">Utilidades</a></li>
                     <li><a href="{BASE_URL}reportes/detalleventasvendedor">Detalle de Ventas por vendedor</a></li>
+                    <li><a href="{BASE_URL}reportes/cxc">Cuentas por cobrar</a></li>
                     <li><a href="{BASE_URL}reportes/ventaspagos">Ventas por tipo pago</a></li>
                     <li><a href="{BASE_URL}reportes/comisionesvendedor">Comisiones</a></li>
                 </ul>

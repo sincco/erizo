@@ -83,4 +83,22 @@ class Modelos_Reportes extends Sfphp_Modelo
 		GROUP BY vta.fecha, usr.nombre, pag.tipo;";
 		return $this->db->query($query);
 	}
+
+	public function ventasCreditos($desde, $hasta)
+	{
+		$query = "SELECT 
+			vta.fecha, ADDDATE(vta.fecha, con.diasCredito) vigencia,
+			cli.razonSocial, pag.tipo,
+			FORMAT(SUM(pag.monto),3) saldo, FORMAT(SUM(det.subtotal) / count(pag.tipo),3) venta
+		FROM ventas vta
+		INNER JOIN ventasProductos det USING(venta)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN ventasPagos pag USING(venta)
+		INNER JOIN clientes cli USING(cliente)
+		INNER JOIN _configuracion con
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}' AND pag.tipo='Crédito' AND pag.monto > 0
+		GROUP BY vta.venta, pag.tipo
+		ORDER BY vta.fecha DESC, vta.venta DESC;";
+		return $this->db->query($query);
+	}
 }

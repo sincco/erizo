@@ -265,7 +265,7 @@ function guardar() {
   if(total !== parseFloat($('#total').val())) {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
   } else {
-    sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: $("#efectivo").val(), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
+    sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: parseFloat($("#efectivo").val()) - parseFloat($("#cambio").html()), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
     .done(function(data) {
       if(data.respuesta.venta) {
         limpiarDatos()
