@@ -264,7 +264,7 @@ function guardar() {
 function enviar() {
   sincco.consumirAPI('POST','{BASE_URL}cotizaciones/enviar', { id: $("#venta").val(), correo: $("#correo").val() } )
   .done(function(data) {
-    console.log(data)
+    alert('Correo enviado')
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('Error',errorThrown)
   })
