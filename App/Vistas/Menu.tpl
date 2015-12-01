@@ -54,6 +54,8 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}planventas">Plan de ventas</a></li>
                     <li><a href="{BASE_URL}cxc">Cuentas por cobrar</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{BASE_URL}cotizaciones">Cotizaciones</a></li>
                 </ul>
             </li>
 

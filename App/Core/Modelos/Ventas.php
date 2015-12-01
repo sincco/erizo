@@ -107,15 +107,53 @@ class Modelos_Ventas extends Sfphp_Modelo
 		return array("venta"=>$venta,"detalle"=>$respuesta);
 	}
 
+
+	/**
+	 * Inserta una cotizacion
+	 * @param  array $data Datos de la cotizacion
+	 * @return array
+	 */
+	public function postCotizacion($data)
+	{
+	#Cabecera de venta
+		$query = "INSERT INTO ventas
+		SET
+			fecha = CURDATE(),
+			hora = CURTIME(),
+			cliente = '{$data['cliente']}',
+			vendedor = '{$data['vendedor']}',
+			estatus = 'Cotización';";
+		$venta = $this->db->insert($query);
+		$respuesta = array();
+		foreach ($data['productos'] as $key => $value) {
+		#Detalle de venta
+			if(count($value)>2 && $venta > 0) {
+				$query = "INSERT INTO ventasProductos
+				SET
+					venta = '{$venta}',
+					producto = '{$value['producto']}',
+					cantidad = '{$value['cantidad']}',
+					precio = '{$value['precio']}',
+					iva = '{$value['iva']}',
+					ieps = '{$value['ieps']}',
+					subtotal = '{$value['subtotal']}';";
+				$detalle = $this->db->insert($query);
+				array_push($respuesta, $detalle);
+			}
+		}
+		return array("venta"=>$venta,"detalle"=>$respuesta);
+	}
+
 	/**
 	 * Devuelve el grid de ventas
 	 * @return array
 	 */
-	public function grid()
+	public function grid($estatus = "Pago")
 	{
 		$query = "SELECT vta.venta Venta, vta.fecha Fecha, cli.razonSocial Cliente, vta.estatus Estatus
 		FROM ventas vta 
 		INNER JOIN clientes cli USING (cliente)
+		WHERE estatus = '{$estatus}'
 		ORDER BY vta.venta DESC;";
 		return $this->db->query($query);
 	}

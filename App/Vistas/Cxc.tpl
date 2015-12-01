@@ -20,7 +20,7 @@
             	<label>Monto de pago</label><input type="text" id="pago" class="form-control">
             </div>
             <div class="modal-footer">
-            	<button type="button" class="btn btn-success" onclick="guardar()">Guardar</button>
+            	<button type="button" class="btn btn-success btn-md" onclick="guardar()">Guardar</button>
             </div>
         </div>
     </div>
