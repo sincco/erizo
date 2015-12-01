@@ -28,6 +28,7 @@
         </div>
     </div>
 </header>
+
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
@@ -39,6 +40,18 @@
         </div>
     </div>
 </div>
+
+<div class="modal hide" id="loading" data-backdrop="static" data-keyboard="false">
+    <div class="modal-header">
+        <h1>Cargando...</h1>
+    </div>
+    <div class="modal-body">
+        <div class="progress progress-striped active">
+            <div class="bar" style="width: 100%;"></div>
+        </div>
+    </div>
+</div>
+
 <script>
 $(function(){
     $("#password").keypress(function(event) {
@@ -55,14 +68,17 @@ $(function(){
 })
 
 function accesar() {
+    $("#loading").show()
     sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
     .done(function(data) {
         console.log(data)
         if(data.respuesta[0].usuario) {
             window.location = '{BASE_URL}dashboard'
+            $("#loading").hide()
         }
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown)
+        $("#loading").hide()
     })
 }
 </script>
