@@ -20,6 +20,25 @@ class Modelos_Ventas extends Sfphp_Modelo
 		return $this->db->query($query.$where);
 	}
 
+	public function getDetalle($id = '')
+	{
+		$where = NULL;
+		$query = "SELECT vta.venta, vta.fecha,
+			cli.razonSocial, con.correo, con.nombre contacto,
+			usr.nombre vendedor,
+			vta.estatus, prd.clave producto, prd.descripcionCorta,
+			FORMAT(det.cantidad,3) cantidad, FORMAT(det.precio,3) precio, FORMAT(det.iva,3) iva, FORMAT(det.subtotal,3) subtotal
+		FROM ventas vta
+		INNER JOIN clientes cli USING (cliente)
+		INNER JOIN ventasProductos det USING (venta)
+		INNER JOIN productos prd USING (producto)
+		INNER JOIN vendedores ven USING (vendedor)
+		INNER JOIN usuarios usr USING (usuario)
+		LEFT JOIN clientesContactos con USING (cliente)
+		WHERE vta.venta = {$id};";
+		return $this->db->query($query);
+	}
+
 	/**
 	 * Inserta un nuevo venta
 	 * @param  array $data Datos del venta

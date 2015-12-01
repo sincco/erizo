@@ -8,7 +8,7 @@
 class Seguridad extends Sfphp_Seguridad
 {
 	public function validarAcceso($controlador = "", $modelo = "") {
-		if($controlador != "Inicio") {
+		if($controlador != "Inicio" & $controlador != "Cotizaciones" & $modelo != "formatopublico") {
 			if(isset($_SESSION['acceso']))
 				return TRUE;
 		} else {

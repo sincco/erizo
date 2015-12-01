@@ -7,8 +7,9 @@
     <div class="col-md-6">
       <label>Cliente</label>
       <select id="cliente" name="cliente" class="form-control">
+        <option value="0" correo="contacto@nats.com.mx">Selecciona uno</option>
         <ciclo clientes>
-          <option value="{cliente}">{razonSocial}</option>
+          <option value="{cliente}" correo="{correo}">{razonSocial}</option>
         </ciclo clientes>
       </select>
     </div>
@@ -47,7 +48,7 @@
       <input type="text" id="claveProducto" name="claveProducto" class="form-control" value="">
     </div>
     <div class="col-sm-6">
-      <p><a class="btn btn-primary btn-md" href="#" onclick="notificar()" role="button">Guardar</a></p>
+      <p><span id="guardar"><a class="btn btn-primary btn-md" href="#" onclick="guardar()" role="button">Guardar</a></span><span id="notificar"></span></p>
     </div>
   </div>
 
@@ -67,8 +68,9 @@
             <div class="modal-body">
               <div id="errorCobro"></div>
               <label>Correo</label>
-              <input type="text" id="correo" class="form-control" disabled="true">
-              <p><a class="btn btn-success btn-md" href="#" onclick="guardar()" role="button">Enviar</a></p>
+              <input type="text" id="correo" class="form-control">
+              <input type="hidden" id="venta" class="form-control" disabled="true">
+              <p><a class="btn btn-success btn-md" href="#" onclick="enviar()" role="button">Enviar</a><a class="btn btn-info btn-md" href="#" onclick="window.location = '{BASE_URL}cotizaciones'" role="button">Regresar</a></p>
             </div>
         </div>
     </div>
@@ -101,6 +103,12 @@ $(function() {
       $(this).val('')
       $(this).focus()
     }
+  })
+
+  $("#cliente").change(function(event) {
+    $("#cliente option:selected" ).each(function() {
+       $("#correo").val($(this).attr("correo"))
+    })
   })
 
   $("#buscar").keypress(function(event) {
@@ -221,7 +229,6 @@ hot = new Handsontable(grid, {
 function actualizaTotal() {
   var totalVenta = 0
   hot.getData().forEach(function(element, index, array) {
-    console.log(element)
     if(!isNaN(parseFloat(element.subtotal))) {
       totalVenta = totalVenta + parseFloat(element.subtotal)
     }
@@ -243,7 +250,9 @@ function guardar() {
   sincco.consumirAPI('POST','{BASE_URL}cotizaciones/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: parseFloat($("#efectivo").val()) - parseFloat($("#cambio").html()), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
   .done(function(data) {
     if(data.respuesta.venta) {
-      limpiarDatos()
+      $("#venta").val(data.respuesta.venta)
+      $("#guardar").html(" ")
+      $("#notificar").html('&nbsp;<a class="btn btn-success btn-md" href="#" onclick="notificar()" role="button">Notificar</a>')
     }
     else
        $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
@@ -252,19 +261,15 @@ function guardar() {
   })
 }
 
-function limpiarDatos() {
-  totalVenta = 0
-  total = 0
-  $("#efectivo").val('0.000')
-  $("#tarjeta").val('0.000')
-  $("#monedero").val('0.000')
-  $("#cambio").html('0.000')
-  $("#total").html('0.000')
-  hot.loadData({})
-  actualizaTotal()
-  $('#myModal').modal('toggle')
-  $("#claveProducto").focus()
+function enviar() {
+  sincco.consumirAPI('POST','{BASE_URL}cotizaciones/enviar', { id: $("#venta").val(), correo: $("#correo").val() } )
+  .done(function(data) {
+    console.log(data)
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('Error',errorThrown)
+  })
 }
+
 </script>
 
 <incluir archivo="Footer">
