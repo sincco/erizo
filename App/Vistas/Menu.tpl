@@ -53,6 +53,7 @@
                     <li><a href="{BASE_URL}gastosdia">Registrar gastos</a></li>
                     <li role="separator" class="divider"></li>
                     <li><a href="{BASE_URL}planventas">Plan de ventas</a></li>
+                    <li><a href="{BASE_URL}cxc">Cuentas por cobrar</a></li>
                 </ul>
             </li>
 
