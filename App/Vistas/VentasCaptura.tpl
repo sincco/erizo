@@ -262,20 +262,28 @@ function cobrar() {
 
 function guardar() {
   var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) - parseFloat($('#cambio').html())
-  if(total !== parseFloat($('#total').val())) {
+  if(total < parseFloat($('#total').val())) {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
-  } else {
-    sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: parseFloat($("#efectivo").val()) - parseFloat($("#cambio").html()), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
-    .done(function(data) {
-      if(data.respuesta.venta) {
-        limpiarDatos()
-      }
-      else
-         $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-      console.log('Error',errorThrown)
-    })
+    return false
+  } 
+  if(parseFloat($('#monedero').val()) > parseFloat($('#total').val())) {
+    $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>El monto del crédito no debe exceder el total</div>')
+    return false
   }
+  if(parseFloat($('#tarjeta').val()) > parseFloat($('#total').val())) {
+    $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>El monto del pago en tarjeta no debe exceder el total</div>')
+    return false
+  }
+  sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: parseFloat($("#efectivo").val()) - parseFloat($("#cambio").html()), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
+  .done(function(data) {
+    if(data.respuesta.venta) {
+      limpiarDatos()
+    }
+    else
+       $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    console.log('Error',errorThrown)
+  })
 }
 
 function limpiarDatos() {
