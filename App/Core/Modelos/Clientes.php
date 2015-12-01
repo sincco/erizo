@@ -15,7 +15,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 		$query = "SELECT 
 			cli.cliente, cli.razonSocial, cli.rfc, cli.direccionFiscal, cli.activo,
 			dir.alias, dir.domicilio, dir.telefono,
-			con.nombre, con.telefono, con.correo
+			con.nombre, con.telefono, con.correo, cli.diasCredito
 		FROM clientes cli
 		LEFT JOIN clientesContactos con USING(cliente)
 		LEFT JOIN clientesDirecciones dir USING (cliente)";
@@ -50,6 +50,7 @@ class Modelos_Clientes extends Sfphp_Modelo
 			razonSocial = '{$data['cliente']['razonSocial']}',
 			rfc = '{$data['cliente']['rfc']}',
 			direccionFiscal = '{$data['cliente']['direccionFiscal']}',
+			diasCredito = '{$data['diasCredito']}',
 			activo = 1;";
 		$idInsert = $this->db->insert($query);
 		if($idInsert) 
@@ -87,7 +88,8 @@ class Modelos_Clientes extends Sfphp_Modelo
 		SET
 			razonSocial = '{$data['cliente']['razonSocial']}',
 			rfc = '{$data['cliente']['rfc']}',
-			direccionFiscal = '{$data['cliente']['direccionFiscal']}'
+			direccionFiscal = '{$data['cliente']['direccionFiscal']}',
+			diasCredito = '{$data['cliente']['diasCredito']}'
 		WHERE cliente = '{$data['cliente']['cliente']}';";
 		$this->db->query($query);
 		$idInsert = $data['cliente']['cliente'];

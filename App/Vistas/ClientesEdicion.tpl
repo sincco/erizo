@@ -21,6 +21,8 @@
 						<input type="text" class="form-control" name="rfc" value="{rfc}">
 						<label>Dirección Fiscal</label>
 						<input type="text" class="form-control" name="direccionFiscal" value="{direccionFiscal}">
+						<label>Días de Cŕedito</label>
+						<input type="text" class="form-control" name="diasCredito" value="{diasCredito}">
 		            </form>
 		        </div>
 		        <div id="direcciones" class="tab-pane fade">

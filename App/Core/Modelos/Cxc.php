@@ -7,7 +7,7 @@ class Modelos_Cxc extends Sfphp_Modelo
 	public function grid()
 	{
 		$query = "SELECT 
-			vta.venta clave, vta.fecha, ADDDATE(vta.fecha, con.diasCredito) vigencia,
+			vta.venta clave, vta.fecha, ADDDATE(vta.fecha, cli.diasCredito) vigencia,
 			cli.razonSocial, pag.tipo,
 			FORMAT(SUM(pag.monto),3) saldo, FORMAT(SUM(det.subtotal) / count(pag.tipo),3) venta
 		FROM ventas vta
