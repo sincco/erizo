@@ -271,7 +271,7 @@ function enviar() {
   sincco.consumirAPI('POST','{BASE_URL}cotizaciones/enviar', { id: $("#venta").val(), correo: $("#correo").val() } )
   .done(function(data) {
     loader.hide()
-    alert('Correo enviado')
+    msgModal.show('info','Correo enviado')
   }).fail(function(jqXHR, textStatus, errorThrown) {
     loader.hide()
     console.log('Error',errorThrown)
