@@ -21,7 +21,7 @@
     </tr>
   <ciclo cotizacion>
     <tr>
-      <td>{producto}</td><td style="text-align:right;">{cantidad}</td><td style="text-align:right;">{precio}</td><td style="text-align:right;">{iva}</td><td style="text-align:right;">{subtotal}</td>
+      <td>{descripcionCorta}</td><td style="text-align:right;">{cantidad}</td><td style="text-align:right;">{precio}</td><td style="text-align:right;">{iva}</td><td style="text-align:right;">{subtotal}</td>
     </tr>
   </ciclo cotizacion>
   </table>
