@@ -13,7 +13,7 @@
             <form class="navbar-form navbar-left" id="acceso">
                 <input type="text" class="form-control col-lg-8" placeholder="usuario" name="clave" id="usuario">
                 <input type="password" class="form-control col-lg-8" placeholder="contraseña" name="password" id="password">
-                <button type="button" class="btn btn-success" onclick="accesar()">entrar</button>
+                <button type="button" class="btn btn-success loader" onclick="accesar()">Entrar</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
@@ -41,17 +41,6 @@
     </div>
 </div>
 
-<div class="modal hide" id="loading" data-backdrop="static" data-keyboard="false">
-    <div class="modal-header">
-        <h1>Cargando...</h1>
-    </div>
-    <div class="modal-body">
-        <div class="progress progress-striped active">
-            <div class="bar" style="width: 100%;"></div>
-        </div>
-    </div>
-</div>
-
 <script>
 $(function(){
     $("#password").keypress(function(event) {
@@ -68,17 +57,16 @@ $(function(){
 })
 
 function accesar() {
-    $("#loading").show()
+    loader.show()
     sincco.consumirAPI('POST','{BASE_URL}inicio/apiLogin',$("#acceso").serializeJSON())
     .done(function(data) {
-        console.log(data)
         if(data.respuesta[0].usuario) {
             window.location = '{BASE_URL}dashboard'
-            $("#loading").hide()
+            loader.hide()
         }
     }).fail(function(jqXHR, textStatus, errorThrown) {
         console.log(errorThrown)
-        $("#loading").hide()
+        loader.hide()
     })
 }
 </script>

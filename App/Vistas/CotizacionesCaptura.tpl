@@ -247,25 +247,33 @@ function notificar() {
 }
 
 function guardar() {
+  loader.show()
   sincco.consumirAPI('POST','{BASE_URL}cotizaciones/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: parseFloat($("#efectivo").val()) - parseFloat($("#cambio").html()), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
   .done(function(data) {
     if(data.respuesta.venta) {
       $("#venta").val(data.respuesta.venta)
       $("#guardar").html(" ")
       $("#notificar").html('&nbsp;<a class="btn btn-success btn-md" href="#" onclick="notificar()" role="button">Notificar</a>')
+      loader.hide()
     }
-    else
+    else{
        $("#errores").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Hubo un error al guardar los datos, intenta de nuevo</div>')
+       loader.hide()
+     }
   }).fail(function(jqXHR, textStatus, errorThrown) {
     console.log('Error',errorThrown)
+    loader.hide()
   })
 }
 
 function enviar() {
+  loader.show()
   sincco.consumirAPI('POST','{BASE_URL}cotizaciones/enviar', { id: $("#venta").val(), correo: $("#correo").val() } )
   .done(function(data) {
+    loader.hide()
     alert('Correo enviado')
   }).fail(function(jqXHR, textStatus, errorThrown) {
+    loader.hide()
     console.log('Error',errorThrown)
   })
 }

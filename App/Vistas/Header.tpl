@@ -9,14 +9,12 @@
     <meta name="copyright" content="Algunos Derechos Reservados - apsicat.com" />
 
 	<!-- core CSS -->
-    <!--<link href="{BASE_URL}html/css/bootstrap.css" rel="stylesheet">-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="{BASE_URL}html/css/animate.css" rel="stylesheet">
 
     <!-- estilo específico de la app -->
     <link href="{BASE_URL}html/css/tema.css" rel="stylesheet">
 
-    
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="{BASE_URL}html/js/jquery.redirect.js"></script>
     <script src="{BASE_URL}html/js/bootstrap.min.js"></script>
@@ -39,19 +37,11 @@
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
-    <!--<script src="{BASE_URL}html/js/jquery.sortable.min.js"></script>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
     <script src="http://rubaxa.github.io/Sortable/Sortable.js"></script>
 
-
     <script src="{BASE_URL}html/js/sincco.js"></script>
 
-    <!--
-    <link href="{BASE_URL}html/css/dropzone.css" rel="stylesheet">
-    <script src="{BASE_URL}html/js/dropzone.js"></script>
-    <script type="text/javascript">Dropzone.autoDiscover = false</script>
-    -->
-    
     <link rel="shortcut icon" href="{BASE_URL}html/ico/favicon.png">
 </head>
 <body>
