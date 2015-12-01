@@ -95,7 +95,7 @@ class Controladores_Cotizaciones extends Sfphp_Controlador
 		}
 		$this->_vista->total = number_format($_total,3);
 		$this->_vista->iva = number_format($_iva,3);
-		$this->_vista->url = BASE_URL."cotizaciones/formato/id/".$data['id'];
+		$this->_vista->url = BASE_URL."cotizaciones/formatopublico/id/".$data['id'];
 		$this->vistaCotizacionesFormato;
 	}
 
