@@ -12,7 +12,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Detalle de ventas</h3>
   </div>
-  <table class="table">
+  <table class="table table-bordered">
     <tr style="font-size:1.2em;">
       <td>Fecha</td><td>Producto</td><td>Cantidad</td><td>IVA</td><td>Subtotal</td>
     </tr>
@@ -28,7 +28,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Total de venta y comisión</h3>
   </div>
-  <table class="table">
+  <table class="table table-bordered">
     <tr style="font-size:1.2em;">
       <td>Total</td><td>Comision</td>
     </tr>
@@ -45,7 +45,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Detalle de mermas</h3>
   </div>
-  <table class="table">
+  <table class="table table-bordered">
     <tr style="font-size:1.2em;">
       <td>Fecha</td><td>Motivo</td><td>Producto</td><td style="text-align:right;">Cantidad</td>
     </tr>
@@ -61,7 +61,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Detalle de devoluciones</h3>
   </div>
-  <table class="table">
+  <table class="table table-bordered">
     <tr style="font-size:1.2em;">
       <td>Fecha</td><td>Producto</td><td style="text-align:right;">Cantidad</td>
     </tr>
@@ -77,7 +77,7 @@
   <div class="panel-heading">
     <h3 class="panel-title">Detalle de gastos</h3>
   </div>
-  <table class="table">
+  <table class="table table-bordered">
     <tr style="font-size:1.2em;">
       <td>Fecha</td><td>Gasto</td><td style="text-align:right;">Cantidad</td>
     </tr>

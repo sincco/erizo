@@ -116,7 +116,7 @@ $(function() {
       $("#productos").bootstrapTable('destroy') 
       sincco.consumirAPI('POST','{BASE_URL}productos/apiDescripcion', {descripcion: $("#buscar").val()})
         .done(function(data) {
-            console.log(data.respuesta)
+            //console.log(data.respuesta)
             $('#productos').bootstrapTable({
               data: data.respuesta,
               columns: [{
@@ -231,6 +231,7 @@ hot = new Handsontable(grid, {
 })
 
 function actualizaCambio() {
+  $("#efectivo").val(parseFloat($("#total").val()) - ( parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ))
   var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val())
   var cambio = total - parseFloat($('#total').val())
   cambio = (Math.round(cambio * 100) / 100)
@@ -240,7 +241,7 @@ function actualizaCambio() {
 function actualizaTotal() {
   var totalVenta = 0
   hot.getData().forEach(function(element, index, array) {
-    console.log(element)
+    //console.log(element)
     if(!isNaN(parseFloat(element.subtotal))) {
       totalVenta = totalVenta + parseFloat(element.subtotal)
     }
@@ -261,7 +262,7 @@ function cobrar() {
 }
 
 function guardar() {
-  var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) - parseFloat($('#cambio').html())
+  var total = ( parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ) - parseFloat($('#cambio').html())
   if(total < parseFloat($('#total').val())) {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
     return false

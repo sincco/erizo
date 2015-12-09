@@ -151,7 +151,7 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$query = "SELECT 
 			pro.clave Producto, pro.descripcionCorta Descripcion, 
-			pro.costo Costo, 
+			FORMAT(pro.costo,3) Costo, 
 			ROUND(pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Precio,
 			ROUND(((pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)) / pro.costo) * 100) -100, 2) Utilidad,
 			ROUND(pro.precio2*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Mayorista1,

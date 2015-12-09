@@ -185,6 +185,19 @@ class Modelos_Ventas extends Sfphp_Modelo
 	{
 		$query = "SELECT vta.venta, vta.fecha,
 			cli.razonSocial, vta.estatus, prd.clave, prd.descripcionCorta,
+			det.cantidad, FORMAT(det.precio,3) precio, FORMAT(det.subtotal,3) subtotal
+		FROM ventas vta
+		INNER JOIN clientes cli USING (cliente)
+		INNER JOIN ventasProductos det USING (venta)
+		INNER JOIN productos prd USING (producto)
+		WHERE vta.venta = {$id};";
+		return $this->db->query($query);
+	}
+
+	public function gridDetalleCotizacion($id)
+	{
+		$query = "SELECT vta.venta, vta.fecha,
+			cli.razonSocial, vta.estatus, prd.clave, prd.descripcionCorta,
 			det.cantidad, FORMAT(det.precio,3) precio, FORMAT(det.iva,3) iva, det.ieps, FORMAT(det.subtotal,3) subtotal
 		FROM ventas vta
 		INNER JOIN clientes cli USING (cliente)

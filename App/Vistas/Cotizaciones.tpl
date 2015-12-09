@@ -36,8 +36,6 @@ function editarElemento(fila) {
 				{field:'descripcionCorta',title:'Producto',sortable:false, visible:true},
 				{field:'cantidad',title:'Cantidad',sortable:false, visible:true},
 				{field:'precio',title:'Precio',sortable:false, visible:true},
-				{field:'iva',title:'IVA',sortable:false, visible:true},
-				{field:'ieps',title:'IEPS',sortable:false, visible:true},
 				{field:'subtotal',title:'Subtotal',sortable:false, visible:true}	
 			],
 			data:respuesta.respuesta

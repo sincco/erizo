@@ -48,6 +48,12 @@ class Controladores_Cotizaciones extends Sfphp_Controlador
 		echo json_encode(array("respuesta"=>$this->modeloVentas->gridDetalle($data['venta'])));
 	}
 
+	public function apiDetalleCotizacion()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+		echo json_encode(array("respuesta"=>$this->modeloVentas->gridDetalleCotizacion($data['venta'])));
+	}
+
 	/**
 	 * Muestra la pantalla del POS
 	 * @return none
