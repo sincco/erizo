@@ -28,7 +28,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			pro.producto, pro.clave, pro.descripcion, 
 			lin.descripcion lineaProducto,
 			pro.descripcionCorta, ROUND(pro.precio,3) precio, 
-			pro.unidadMedida, pro.iva, pro.costo, 
+			pro.unidadMedida, pro.iva, FORMAT(pro.costo,3) costo, 
 			ROUND(pro.precio * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precioVenta,
 			ROUND(pro.precio2 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio2,
 			ROUND(pro.precio3 * (1+((imp.ivaPorcentaje * pro.iva) /100)),3) precio3,
@@ -153,7 +153,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			pro.clave Producto, pro.descripcionCorta Descripcion, 
 			FORMAT(pro.costo,3) Costo, 
 			ROUND(pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Precio,
-			ROUND(((pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)) / pro.costo) * 100) -100, 2) Utilidad,
+			ROUND(((pro.precio*(1+((imp.ivaPorcentaje * pro.iva) /100)) / pro.costo) * 100) -100, 3) Utilidad,
 			ROUND(pro.precio2*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Mayorista1,
 			ROUND(pro.precio3*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Mayorista2,
 			ROUND(pro.precio4*(1+((imp.ivaPorcentaje * pro.iva) /100)),3) Detalle
