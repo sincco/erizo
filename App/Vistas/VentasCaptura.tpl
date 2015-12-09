@@ -231,7 +231,9 @@ hot = new Handsontable(grid, {
 })
 
 function actualizaCambio() {
-  $("#efectivo").val(parseFloat($("#total").val()) - ( parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ))
+  if(parseFloat($('#monedero').val()) > 0 || parseFloat($('#tarjeta').val()) > 0) {
+    $("#efectivo").val(parseFloat($("#total").val()) - ( parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ))
+  }
   var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val())
   var cambio = total - parseFloat($('#total').val())
   cambio = (Math.round(cambio * 100) / 100)
