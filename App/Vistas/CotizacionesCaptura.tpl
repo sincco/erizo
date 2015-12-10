@@ -165,19 +165,19 @@ hot = new Handsontable(grid, {
   rowHeaders: true,
   fixedRowsTop: 0,
   startCols: 4,
-  colHeaders: ['Clave', 'Descripcion', 'Unidad', 'Precio', 'Cantidad', 'IVA', 'IEPS', 'Subtotal', 'Grava IVA', 'Grava IEPS', 'Producto'],
+  colHeaders: ['Clave', 'Descripcion', 'Unidad', 'Precio', 'Cantidad', 'Subtotal', 'Grava IVA', 'Grava IEPS', 'Producto'],
   columns: [
     {data:'clave'},
     {data:'descripcionCorta',readOnly: true},
     {data:'unidad', readOnly: true},
     {data:'precio', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
     {data:'cantidad', type: 'numeric', format: '0,0.000', language: 'en'},
-    {data:'iva', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
-    {data:'ieps', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
     {data:'subtotal', type: 'numeric', format: '0,0.000', language: 'en', readOnly: true},
     {data:'gravaIVA', readOnly: true},
     {data:'gravaIEPS', readOnly: true},
     {data:'producto', readOnly: true},
+    {data:'iva', readOnly: true},
+    {data:'ieps', readOnly: true},
   ], 
   contextMenu: true,
   afterChange: function (changes, source) {
@@ -197,9 +197,9 @@ hot = new Handsontable(grid, {
               hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio3)
             if($("#lista").val() == "4")
               hot.setDataAtCell(changes[0][0],3,data.respuesta[0].precio4)
-            hot.setDataAtCell(changes[0][0],8,data.respuesta[0].iva)
-            hot.setDataAtCell(changes[0][0],9,data.respuesta[0].ieps)
-            hot.setDataAtCell(changes[0][0],10,data.respuesta[0].producto)
+            hot.setDataAtCell(changes[0][0],8,data.respuesta[0].producto)
+            hot.setDataAtCell(changes[0][0],7,data.respuesta[0].ieps)
+            hot.setDataAtCell(changes[0][0],6,data.respuesta[0].iva)
             hot.setDataAtCell(changes[0][0],4,1)
           } else {
             hot.setDataAtCell(changes[0][0],1,'NO EXISTE')
@@ -210,14 +210,16 @@ hot = new Handsontable(grid, {
       }
       if(changes[0][1] == "cantidad") {
         var subtotal = parseFloat(hot.getDataAtCell(changes[0][0],4))*parseFloat(hot.getDataAtCell(changes[0][0],3))
-        var iva = parseInt(hot.getDataAtCell(changes[0][0],8)) * (parseInt($("#ivaPorcentaje").val())/100)
+        var iva = parseInt(hot.getDataAtCell(changes[0][0],6)) * (parseInt($("#ivaPorcentaje").val())/100)
         iva = subtotal * iva
         ieps = subtotal * ieps
-        var ieps = parseInt(hot.getDataAtCell(changes[0][0],9)) * (parseInt($("#iepsPorcentaje").val())/100)
-        hot.setDataAtCell(changes[0][0],5, iva)
-        hot.setDataAtCell(changes[0][0],6, ieps)
-        hot.setDataAtCell(changes[0][0],7, subtotal + iva + ieps)
+        var ieps = parseInt(hot.getDataAtCell(changes[0][0],7)) * (parseInt($("#iepsPorcentaje").val())/100)
+        hot.setDataAtCell(changes[0][0],9, iva)
+        hot.setDataAtCell(changes[0][0],10, ieps)
+        hot.setDataAtCell(changes[0][0],5, subtotal + iva + ieps)
       }
+      $('#gridVenta td:nth-child(9),th:nth-child(9)').hide()
+      $('#gridVenta td:nth-child(8),th:nth-child(8)').hide()
       $('#gridVenta td:nth-child(10),th:nth-child(10)').hide()
       $('#gridVenta td:nth-child(11),th:nth-child(11)').hide()
       $('#gridVenta td:nth-child(12),th:nth-child(12)').hide()
