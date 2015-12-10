@@ -25,6 +25,14 @@
 		<input type="text" class="form-control" name="precio3" value="{precio3}">
 		<label>Detalle(sin IVA)</label>
 		<input type="text" class="form-control" name="precio4" value="{precio4}">
+		<label>Unidad de medida</label>
+		<select name="unidadMedida" class="form-control">
+			<option value="NA">No aplica</option>
+			<option value="PZA">Piezas</option>
+			<option value="KG">Kilogramos</option>
+			<option value="TON">Toneladas</option>
+			<option value="LT">Litros</option>
+		</select>
 		<label>% utilidad</label>
 	<input type="text" class="form-control" name="utilidad" disabled>
 	</ciclo producto>

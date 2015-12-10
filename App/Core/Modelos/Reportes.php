@@ -26,7 +26,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 	public function detalleVentasVendedor($desde, $hasta, $vendedor)
 	{
 		$query = "SELECT vta.fecha, ven.vendedor, usr.nombre, pro.descripcionCorta producto, 
-			det.cantidad,  CONCAT('$', FORMAT(det.iva, 3)) iva,
+			det.cantidad, pro.unidadMedida, CONCAT('$', FORMAT(det.iva, 3)) iva,
 			CONCAT('$', FORMAT(det.subtotal, 3)) subtotal
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)

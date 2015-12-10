@@ -185,7 +185,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 	{
 		$query = "SELECT vta.venta, vta.fecha,
 			cli.razonSocial, vta.estatus, prd.clave, prd.descripcionCorta,
-			det.cantidad, FORMAT(det.precio,3) precio, FORMAT(det.subtotal,3) subtotal
+			det.cantidad, pro.unidadMedida, FORMAT(det.precio,3) precio, FORMAT(det.subtotal,3) subtotal
 		FROM ventas vta
 		INNER JOIN clientes cli USING (cliente)
 		INNER JOIN ventasProductos det USING (venta)
