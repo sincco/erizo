@@ -103,4 +103,18 @@ class Modelos_GastosDia extends Sfphp_Modelo
 		$query .= " GROUP BY usr.nombre;";
 		return $this->db->query($query);
 	}
+
+	public function recientes()
+	{
+		$query = "SELECT mer.fecha, usr.nombre, gto.descripcion descripcion, 
+			CONCAT('$', FORMAT(SUM(det.monto),3)) monto
+		FROM gastosRuta mer
+		INNER JOIN gastosRutasDetalle det USING (gastoRuta)
+		INNER JOIN gastos gto USING(gasto)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		GROUP BY mer.fecha, usr.nombre, gto.descripcion
+		ORDER BY mer.fecha DESC LIMIT 5;";
+		return $this->db->query($query);
+	}	
 }

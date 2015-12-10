@@ -15,22 +15,6 @@
 				</ciclo ventasRecientes>
 				</ul>
 			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4>Documentos recientes</h4>
-				<ul class="list-group">
-					<ciclo documentosRecientes>
-						<li class="list-group-item list-group-item-success list-group-item-warning">
-							{Tipo} - {Clave} - ${Monto}
-						</li>
-					</ciclo documentosRecientes>
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<h3>Plan de ventas</h3>
-			<div class="col-lg-6 col-md-6 col-sm-12">
-				<div id="planVentas" style="width: 100%"></div>
-			</div>
 		</div>
 	</div>
 
@@ -41,8 +25,8 @@
 				<h4>Últimos gastos</h4>
 				<ul class="list-group">
 				<ciclo gastosRecientes>
-					<li class="list-group-item list-group-item-success" onclick="window.location='{BASE_URL}ventas'">
-						{Fecha} - {Cliente} - ${Monto}
+					<li class="list-group-item list-group-item-success" onclick="window.location='{BASE_URL}gastosdia'">
+						{fecha} - {descripcion} - {monto}
 					</li>
 				</ciclo gastosRecientes>
 				</ul>
@@ -56,9 +40,6 @@
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<h4>Los más vendidos</h4>
 				<div id="productosPopulares" style="width: 100%"></div>
-			</div>
-			<div class="col-lg-6 col-md-6 col-sm-12">
-				<h4>Bajas existencias</h4>
 			</div>
 		</div>
 	</div>
