@@ -35,8 +35,8 @@ hot = new Handsontable(grid, {
     {data:'almacenProducto',readOnly: true},
     {data:'clave'},
     {data:'descripcionCorta',readOnly: true},
-    {data:'existencias', type: 'numeric', format: '0,0.00', language: 'en'},
-    {data:'costo', type: 'numeric', format: '$0,0.00', language: 'en'},
+    {data:'existencias', type: 'numeric', format: '0,0.000', language: 'en'},
+    {data:'costo', type: 'numeric', format: '$0,0.000', language: 'en'},
   ], 
   contextMenu: true,
   afterChange: function (changes, source) {

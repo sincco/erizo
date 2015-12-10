@@ -71,7 +71,7 @@ class Modelos_Almacenesproductos extends Sfphp_Modelo
 	{
 		$query = "SELECT 
 			exi.almacenProducto,pro.clave, pro.descripcionCorta, 
-			exi.existencias, exi.costo
+			FORMAT(exi.existencias,3) existencias, FORMAT(pro.costo,3) costo
 		FROM
 			almacenesProductos exi
 		INNER JOIN productos pro USING (producto)
