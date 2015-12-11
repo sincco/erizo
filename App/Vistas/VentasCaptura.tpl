@@ -231,9 +231,6 @@ hot = new Handsontable(grid, {
 })
 
 function actualizaCambio() {
-  if(parseFloat($('#monedero').val()) > 0 || parseFloat($('#tarjeta').val()) > 0) {
-    $("#efectivo").val(parseFloat($("#total").val()) - ( parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ))
-  }
   var total = parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val())
   var cambio = total - parseFloat($('#total').val())
   cambio = (Math.round(cambio * 100) / 100)
@@ -264,11 +261,11 @@ function cobrar() {
 }
 
 function guardar() {
-  var total = ( parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ) - parseFloat($('#cambio').html())
-  if(total < parseFloat($('#total').val())) {
+  var totalPago = ( parseFloat($('#efectivo').val()) + parseFloat($('#tarjeta').val()) + parseFloat($('#monedero').val()) ) - parseFloat($('#cambio').html())
+  if(totalPago < parseFloat($('#total').val())) {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>La suma de pagos no cubre el total</div>')
     return false
-  } 
+  }
   if(parseFloat($('#monedero').val()) > parseFloat($('#total').val())) {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>El monto del crédito no debe exceder el total</div>')
     return false
@@ -277,6 +274,9 @@ function guardar() {
     $("#errorCobro").html('<div class="alert alert-warning" role="alert"><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>El monto del pago en tarjeta no debe exceder el total</div>')
     return false
   }
+  if(totalPago > parseFloat($('#total').val()))
+    actualizaCambio()
+
   sincco.consumirAPI('POST','{BASE_URL}ventas/apiPost', {cliente: $("[name='cliente']").val(), vendedor: $("[name='vendedor']").val(), estatus: $("[name='estatus']").val(), pagos: {efectivo: parseFloat($("#efectivo").val()) - parseFloat($("#cambio").html()), tarjeta: $("#tarjeta").val(), monedero: $("#monedero").val()}, productos: hot.getData()} )
   .done(function(data) {
     if(data.respuesta.venta) {
