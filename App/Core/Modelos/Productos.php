@@ -35,7 +35,6 @@ class Modelos_Productos extends Sfphp_Modelo
 		INNER JOIN impuestos imp ON (imp.desde <= CURDATE() AND (imp.hasta <= CURDATE() OR imp.hasta IS NULL))
 		LEFT JOIN almacenes alm ON (alm.principal = 1)
 		LEFT JOIN almacenesProductos exi ON (exi.producto = pro.producto AND exi.almacen = alm.almacen)
-		WHERE pro.activo = 1
 		ORDER BY pro.descripcion;";
 		return $this->db->query($query);
 	}
