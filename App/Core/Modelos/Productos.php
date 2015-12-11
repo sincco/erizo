@@ -138,8 +138,7 @@ class Modelos_Productos extends Sfphp_Modelo
 			pro.clave Producto, pro.descripcionCorta Descripcion, 
 			ROUND(pro.precio*(1+(imp.ivaPorcentaje/100)),2) Precio, pro.costo Costo
 		FROM productos pro
-		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL))
-		WHERE pro.activo = 1;";
+		INNER JOIN impuestos imp ON (CURDATE() >= imp.desde AND (CURDATE() <= imp.hasta OR imp.hasta IS NULL));";
 		return $this->db->query($query);
 	}
 
