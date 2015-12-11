@@ -4,6 +4,13 @@
 	<h2>Tablero de información</h2>
 	<div class="jumbotron">
 		<div class="row">
+			<h3>Plan de ventas</h3>
+			<div id="planVentas" style="width: 100%"></div>
+		</div>
+	</div>
+
+	<div class="jumbotron">
+		<div class="row">
 			<h3>Ventas</h3>
 			<div class="col-lg-6 col-md-6 col-sm-12">
 				<h4>Últimas ventas</h4>
