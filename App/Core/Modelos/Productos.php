@@ -172,7 +172,8 @@ class Modelos_Productos extends Sfphp_Modelo
 		$query = "SELECT det.producto, pro.descripcionCorta, COUNT(distinct det.venta) ventas
 			FROM ventasProductos det
 			INNER JOIN productos pro USING (producto)
-			LIMIT 5;";
+			GROUP BY det.producto, pro.descripcionCorta
+			ORDER BY COUNT(distinct det.venta) DESC LIMIT 5;";
 		return $this->db->query($query);
 	}
 }
