@@ -40,6 +40,7 @@ class Controladores_Reportes extends Sfphp_Controlador
 			$this->_vista->comisiones = $this->modeloReportes->comisionesTotalesVendedor($data['desde'],$data['hasta'],$data['vendedor']);
 			$this->_vista->gastos = $this->modeloGastosdia->detalleVendedor($data['desde'],$data['hasta'],$data['vendedor']);
 			$this->_vista->totalGastos = $this->modeloGastosdia->totalVendedor($data['desde'],$data['hasta'],$data['vendedor']);
+			$this->_vista->creditos = $this->modeloReportes->ventasCreditos($data['desde'],$data['hasta']);
 			$this->vistaReporteDetalleVentasVendedorHTML;
 		} else {
 			$this->_vista->vendedores = $this->modeloVendedores->get();

@@ -40,6 +40,21 @@
   </table>
 </div>
 
+<div class="panel panel-success">
+  <div class="panel-heading">
+    <h3 class="panel-title">Créditos del periodo</h3>
+  </div>
+  <table class="table table-bordered">
+    <tr style="font-size:1.2em;">
+      <td>Fecha</td><td>Vigencia</td><td>Cliente</td><td style="text-align:right;">Saldo</td>
+    </tr>
+  <ciclo creditos>
+    <tr>
+      <td>{fecha}</td><td>{vigencia}</td><td>{razonSocial}</td><td style="text-align:right;">{saldo}</td>
+    </tr>
+  </ciclo creditos>
+  </table>
+</div>
 
 <div class="panel panel-success">
   <div class="panel-heading">
