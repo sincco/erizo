@@ -17,29 +17,15 @@
   </div>
   <table class="table">
     <tr style="font-size:1.2em;">
-      <td>Producto</td><td>Cantidad</td><td>Precio</td><td>IVA</td><td>Subtotal</td>
+      <td>Producto</td><td>Precio</td>
     </tr>
   <ciclo cotizacion>
     <tr>
-      <td>{descripcionCorta}</td><td style="text-align:right;">{cantidad}</td><td style="text-align:right;">{precio}</td><td style="text-align:right;">{iva}</td><td style="text-align:right;">{subtotal}</td>
+      <td>{descripcionCorta}</td><td style="text-align:right;">{precio}</td>
     </tr>
   </ciclo cotizacion>
   </table>
 </div><br>
-
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h3 class="panel-title">Totales</h3>
-  </div>
-  <table class="table">
-    <tr style="font-size:1.2em;">
-      <td>IVA</td><td>Total</td>
-    </tr>
-    <tr>
-      <td style="text-align:right;">{iva}</td><td style="text-align:right;">{total}</td>
-    </tr>
-  </table>
-</div>
 
 <div class="panel panel-warning">
   <div class="panel-heading">

@@ -218,8 +218,10 @@ hot = new Handsontable(grid, {
         hot.setDataAtCell(changes[0][0],10, ieps)
         hot.setDataAtCell(changes[0][0],5, subtotal + iva + ieps)
       }
-      $('#gridVenta td:nth-child(9),th:nth-child(9)').hide()
+      $('#gridVenta td:nth-child(6),th:nth-child(6)').hide()
+      $('#gridVenta td:nth-child(7),th:nth-child(7)').hide()
       $('#gridVenta td:nth-child(8),th:nth-child(8)').hide()
+      $('#gridVenta td:nth-child(9),th:nth-child(9)').hide()
       $('#gridVenta td:nth-child(10),th:nth-child(10)').hide()
       $('#gridVenta td:nth-child(11),th:nth-child(11)').hide()
       $('#gridVenta td:nth-child(12),th:nth-child(12)').hide()
