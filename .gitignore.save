@@ -1,7 +1,0 @@
-Etc/Sesiones/*
-Etc/Logs/*
-Etc/Config/config_local.xml
-App/Vistas/Login.tpl
-*.md
-*.md5
-
