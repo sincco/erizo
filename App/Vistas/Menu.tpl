@@ -31,6 +31,8 @@
                     <li><a href="{BASE_URL}impuestos">Impuestos</a></li>
                     <li><a href="{BASE_URL}gastos">Gastos</a></li>
                     <li><a href="{BASE_URL}vendedores">Vendedores</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{BASE_URL}config">Configuración</a></li>
                 </ul>
             </li>
 
