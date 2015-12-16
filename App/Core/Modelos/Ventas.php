@@ -201,7 +201,6 @@ class Modelos_Ventas extends Sfphp_Modelo
 		INNER JOIN ventasProductos det USING (venta)
 		INNER JOIN productos prd USING (producto)
 		WHERE vta.venta = {$id};";
-		echo $query;
 		return $this->db->query($query);
 	}
 
