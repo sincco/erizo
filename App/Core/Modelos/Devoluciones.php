@@ -27,6 +27,9 @@ class Modelos_Devoluciones extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
+		$query = "SELECT almacen FROM vendedores WHERE vendedor = '{$data['vendedor']}';";
+		$almacen = $this->db->query($query);
+		$almacen = $almacen[0];
 		$query = "INSERT INTO devoluciones
 		SET
 			vendedor = '{$data['vendedor']}',
@@ -34,7 +37,24 @@ class Modelos_Devoluciones extends Sfphp_Modelo
 			cliente = '{$data['cliente']}',
 			cantidad = '{$data['cantidad']}',
 			fecha = CURDATE();";
-		return $this->db->insert($query);
+		$id = $this->db->insert($query);
+		$query = "UPDATE almacenesProductos
+			SET
+				existencias = existencias - {$data['cantidad']}
+			WHERE almacen = {$almacen['almacen']} AND
+				producto = {$data['producto']};";
+		$this->db->query($query);
+		$query = "INSERT INTO kardex
+			SET producto = '{$data['producto']}',
+				fechaHora = CURRENT_TIMESTAMP,
+				movimiento = 'Entrada',
+				tabla = 'devoluciones',
+				idTabla = '{$id}',
+				cantidad = '{$data['cantidad']}',
+				precio = '0',
+				costo = '0';";
+		$this->db->insert($query);
+		return $id;
 	}
 
 	/**
