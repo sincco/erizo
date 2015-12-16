@@ -42,6 +42,22 @@
 
 <div class="panel panel-success">
   <div class="panel-heading">
+    <h3 class="panel-title">Resumen por unidades</h3>
+  </div>
+  <table class="table table-bordered">
+    <tr style="font-size:1.2em;">
+      <td>Unidad</td><td style="text-align:right;">Cantidad</td>
+    </tr>
+  <ciclo resumenUnidades>
+    <tr>
+      <td>{unidadMedida}</td><td style="text-align:right;">{cantidad}</td>
+    </tr>
+  </ciclo resumenUnidades>
+  </table>
+</div>
+
+<div class="panel panel-success">
+  <div class="panel-heading">
     <h3 class="panel-title">Créditos del periodo</h3>
   </div>
   <table class="table table-bordered">

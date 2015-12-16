@@ -93,6 +93,21 @@ class Modelos_Reportes extends Sfphp_Modelo
 		return $this->db->query($query);
 	}
 
+	public function ventasUnidades($desde, $hasta, $vendedor)
+	{
+		$query = "SELECT pro.unidadMedida, det.cantidad
+		FROM ventas vta
+		INNER JOIN ventasProductos det USING(venta)
+		INNER JOIN vendedores ven USING(vendedor)
+		INNER JOIN usuarios usr USING(usuario)
+		INNER JOIN productos pro USING(producto)
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}'";
+		if(intval($vendedor) != 0)
+			$query .= " AND vta.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY pro.unidadMedida;";
+		return $this->db->query($query);
+	}
+
 	public function ventasCreditos($desde, $hasta)
 	{
 		$query = "SELECT 
