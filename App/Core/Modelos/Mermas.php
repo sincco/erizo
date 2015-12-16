@@ -40,14 +40,14 @@ class Modelos_Mermas extends Sfphp_Modelo
 		id = $this->db->insert($query);
 		$query = "UPDATE almacenesProductos
 			SET
-				existencias = existencias + {$data['cantidad']}
+				existencias = existencias - {$data['cantidad']}
 			WHERE almacen = {$almacen['almacen']} AND
 				producto = {$data['producto']};";
 		$this->db->query($query);
 		$query = "INSERT INTO kardex
 			SET producto = '{$data['producto']}',
 				fechaHora = CURRENT_TIMESTAMP,
-				movimiento = 'Entrada',
+				movimiento = 'Salida',
 				tabla = 'mermas',
 				idTabla = '{$id}',
 				cantidad = '{$data['cantidad']}',
