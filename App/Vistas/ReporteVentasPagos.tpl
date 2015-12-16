@@ -13,7 +13,7 @@
       <label>Tipo</label>
         <select id="tipo" name="tipo" class="form-control">
           <option value="Efectivo">Efectivo</option>
-          <option value="Tarjeta">Efectivo</option>
+          <option value="Tarjeta">Tarjeta</option>
           <option value="Crédito">Crédito</option>
         </select>
     </form>
