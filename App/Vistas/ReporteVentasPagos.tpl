@@ -34,7 +34,7 @@ function genera() {
         {field:'fecha',title:'Fecha',sortable:true, visible:true},
         {field:'nombre',title:'Vendedor',sortable:false, visible:true},
         {field:'tipo',title:'Tipo',sortable:false, visible:true},
-        {field:'monto',title:'Monto',sortable:false, visible:true},
+        {field:'pago',title:'Monto',sortable:false, visible:true},
         {field:'venta',title:'Total Venta',sortable:false, visible:true},
       ],
       data:respuesta.respuesta
