@@ -14,7 +14,7 @@
   </div>
   <table class="table table-bordered">
     <tr style="font-size:1.2em;">
-      <td>Fecha</td><td>Producto</td><td>Cantidad</td><td>IVA</td><td>Subtotal</td>
+      <td>Fecha</td><td>Producto</td><td>Cantidad</td><td>Unidad</td><td>Subtotal</td>
     </tr>
   <ciclo detalle>
     <tr>
