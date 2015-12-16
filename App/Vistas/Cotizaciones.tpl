@@ -23,17 +23,18 @@
 
 <script type="text/javascript">
 function editarElemento(fila) {
-	sincco.consumirAPI('POST','{BASE_URL}ventas/apiDetalleVenta',{venta:fila.Venta})
+	sincco.consumirAPI('POST','{BASE_URL}cotizaciones/apiDetalleCotizacion',{venta:fila.Cotizacion})
 	.done(function(respuesta) {
 		if(fila.Estatus == "Solicitud") {
 			$("#acciones").html("<a href='#'>Cotizar</a>")
 		}
-		$("#titulo").html("Detalle de venta "+fila.Venta + ' - ' + fila.Cliente)
+		$("#titulo").html("Detalle de cotización "+fila.Cotizacion + ' - ' + fila.Cliente)
 		$("#detalle").bootstrapTable('destroy')	
 		$('#detalle').bootstrapTable({
 			columns:[
 				{field:'clave',title:'Clave',sortable:true, visible:true},
 				{field:'descripcionCorta',title:'Producto',sortable:false, visible:true},
+				{field:'unidadMedida',title:'Unidad',sortable:false, visible:true},
 				{field:'cantidad',title:'Cantidad',sortable:false, visible:true},
 				{field:'precio',title:'Precio',sortable:false, visible:true},
 				{field:'subtotal',title:'Subtotal',sortable:false, visible:true}	

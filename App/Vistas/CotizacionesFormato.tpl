@@ -17,11 +17,11 @@
   </div>
   <table class="table">
     <tr style="font-size:1.2em;">
-      <td>Producto</td><td>Precio</td>
+      <td>Clave</td><td>Producto</td><td>Unidad</td><td>Precio</td><td>Cantidad</td><td>Subtotal</td>
     </tr>
   <ciclo cotizacion>
     <tr>
-      <td>{descripcionCorta}</td><td style="text-align:right;">{precio}</td>
+      <td>{producto}</td><td>{descripcionCorta}</td><td>{unidadMedida}</td><td style="text-align:right;">{cantidad}</td><td style="text-align:right;">{precio}</td><td style="text-align:right;">{subtotal}</td>
     </tr>
   </ciclo cotizacion>
   </table>

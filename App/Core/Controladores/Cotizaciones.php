@@ -10,7 +10,7 @@ class Controladores_Cotizaciones extends Sfphp_Controlador
 	 */
 	public function inicio()
 	{
-		$this->_vista->cotizaciones = $this->modeloVentas->grid("Cotización");
+		$this->_vista->cotizaciones = $this->modeloVentas->gridCotizacion();
 		$this->vistaCotizaciones;
 	}
 
@@ -42,12 +42,6 @@ class Controladores_Cotizaciones extends Sfphp_Controlador
 	 * Regresa el grid con el detalle de venta
 	 * @return json
 	 */
-	public function apiDetalleVenta()
-	{
-		$data = Sfphp_Peticion::get('_parametros');
-		echo json_encode(array("respuesta"=>$this->modeloVentas->gridDetalle($data['venta'])));
-	}
-
 	public function apiDetalleCotizacion()
 	{
 		$data = Sfphp_Peticion::get('_parametros');

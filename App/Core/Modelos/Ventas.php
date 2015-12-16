@@ -26,7 +26,7 @@ class Modelos_Ventas extends Sfphp_Modelo
 		$query = "SELECT vta.venta, vta.fecha,
 			cli.razonSocial, con.correo, con.nombre contacto,
 			usr.nombre vendedor,
-			vta.estatus, prd.clave producto, prd.descripcionCorta,
+			vta.estatus, prd.clave producto, prd.descripcionCorta, prd.unidadMedida,
 			FORMAT(det.cantidad,3) cantidad, FORMAT(det.precio,3) precio, FORMAT(det.iva,3) iva, FORMAT(det.subtotal,3) subtotal
 		FROM ventas vta
 		INNER JOIN clientes cli USING (cliente)
@@ -177,6 +177,16 @@ class Modelos_Ventas extends Sfphp_Modelo
 		return $this->db->query($query);
 	}
 
+	public function gridCotizacion($estatus = "Cotización")
+	{
+		$query = "SELECT vta.venta Cotizacion, vta.fecha Fecha, cli.razonSocial Cliente
+		FROM ventas vta 
+		INNER JOIN clientes cli USING (cliente)
+		WHERE estatus = '{$estatus}'
+		ORDER BY vta.venta DESC;";
+		return $this->db->query($query);
+	}
+
 	/**
 	 * Devuelve el grid del detalle de ventas
 	 * @return array
@@ -185,20 +195,20 @@ class Modelos_Ventas extends Sfphp_Modelo
 	{
 		$query = "SELECT vta.venta, vta.fecha,
 			cli.razonSocial, vta.estatus, prd.clave, prd.descripcionCorta,
-			det.cantidad, pro.unidadMedida, FORMAT(det.precio,3) precio, FORMAT(det.subtotal,3) subtotal
+			det.cantidad, prd.unidadMedida, FORMAT(det.precio,3) precio, FORMAT(det.subtotal,3) subtotal
 		FROM ventas vta
 		INNER JOIN clientes cli USING (cliente)
 		INNER JOIN ventasProductos det USING (venta)
 		INNER JOIN productos prd USING (producto)
 		WHERE vta.venta = {$id};";
+		echo $query;
 		return $this->db->query($query);
 	}
 
 	public function gridDetalleCotizacion($id)
 	{
-		$query = "SELECT vta.venta, vta.fecha,
-			cli.razonSocial, vta.estatus, prd.clave, prd.descripcionCorta,
-			det.cantidad, FORMAT(det.precio,3) precio, FORMAT(det.iva,3) iva, det.ieps, FORMAT(det.subtotal,3) subtotal
+		$query = "SELECT prd.clave, prd.descripcionCorta, prd.unidadMedida,
+			FORMAT(det.precio,3) precio, det.cantidad, FORMAT(det.subtotal,3) subtotal
 		FROM ventas vta
 		INNER JOIN clientes cli USING (cliente)
 		INNER JOIN ventasProductos det USING (venta)
