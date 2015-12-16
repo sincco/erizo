@@ -18,7 +18,7 @@
     </tr>
   <ciclo detalle>
     <tr>
-      <td>{fecha}</td><td>{producto}</td><td style="text-align:right;">{cantidad}</td><td>{unidadMedida}</td><td style="text-align:right;">{iva}</td><td style="text-align:right;">{subtotal}</td>
+      <td>{fecha}</td><td>{producto}</td><td style="text-align:right;">{cantidad}</td><td>{unidadMedida}<td style="text-align:right;">{subtotal}</td>
     </tr>
   </ciclo detalle>
   </table>
