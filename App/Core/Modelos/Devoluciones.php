@@ -40,7 +40,7 @@ class Modelos_Devoluciones extends Sfphp_Modelo
 		$id = $this->db->insert($query);
 		$query = "UPDATE almacenesProductos
 			SET
-				existencias = existencias - {$data['cantidad']}
+				existencias = existencias + {$data['cantidad']}
 			WHERE almacen = {$almacen['almacen']} AND
 				producto = {$data['producto']};";
 		$this->db->query($query);
