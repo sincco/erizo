@@ -9,6 +9,12 @@
 	<input type="text" class="form-control" name="nombre">
 	<label>Password</label>
 	<input type="text" class="form-control" name="password">
+	<label>Perfil</label>
+	<select name="perfil" class="form-control">
+		<option value="1">Administrador</option>
+		<option value="2">Operativo</option>
+		<option value="3">Vendedor</option>
+	</select>
 
 </form>
 <br>

@@ -70,7 +70,10 @@ final class Sfphp_Vista {
 		preg_match_all ('/<.*?incluir(.*?)>/', $this->_html, $_etiquetas);
 		foreach ($_etiquetas[1] as $_clave => $_etiqueta) {
 			preg_match_all ('/archivo="([a-zA-Z0-9\-_]*?)"/', $_etiqueta, $_data);
-			$_incluir = $this->cargarArchivo($_data[1][0].".tpl");
+			if($_data[1][0] == "Menu")
+				$_incluir = $this->cargarArchivo($_data[1][0]."_".$_SESSION['acceso']['perfil'].".tpl");
+			else
+				$_incluir = $this->cargarArchivo($_data[1][0].".tpl");
 			$this->_html = str_replace('<incluir archivo="'.$_data[1][0].'">', $_incluir, $this->_html);
 		}
 	}
