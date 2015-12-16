@@ -35,6 +35,11 @@
 		</select>
 		<label>% utilidad</label>
 	<input type="text" class="form-control" name="utilidad" disabled>
+	<script type="text/javascript">
+	$(function() {
+		$('select option[value="{unidadMedida}"]').attr("selected",true)
+	})
+	</script>
 	</ciclo producto>
 </form>
 <br>
