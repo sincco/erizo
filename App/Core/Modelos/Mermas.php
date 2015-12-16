@@ -37,7 +37,7 @@ class Modelos_Mermas extends Sfphp_Modelo
 			motivo = '{$data['motivo']}',
 			cantidad = '{$data['cantidad']}',
 			fecha = CURDATE();";
-		id = $this->db->insert($query);
+		$id = $this->db->insert($query);
 		$query = "UPDATE almacenesProductos
 			SET
 				existencias = existencias - {$data['cantidad']}
