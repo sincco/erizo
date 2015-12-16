@@ -81,7 +81,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 
 	public function ventasPagos($desde, $hasta, $tipo)
 	{
-		$query = "SELECT vta.fecha, usr.nombre, pag.tipo, pag.monto pago, FORMAT(SUM(det.subtotal),3) venta
+		$query = "SELECT vta.fecha, usr.nombre, pag.tipo, FORMAT(SUM(pag.monto),3) pago, FORMAT(SUM(det.subtotal),3) venta
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
