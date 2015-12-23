@@ -8,7 +8,6 @@
 		<label>Clave</label>
 		<input type="text" class="form-control" name="clave1" disabled value="{clave}">
 		<input type="hidden" class="form-control" name="clave" value="{clave}">
-		<input type="hidden" class="form-control" name="unidadMedida" value="{unidadMedida}">
 		<input type="hidden" class="form-control" name="iva" value="{iva}">
 		<input type="hidden" class="form-control" name="lineaProducto" value="{lineaProducto}">
 		<label>Descripcion</label>
