@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-  <incluir archivo="Menu">
+  <menu>
 <div class="container">
 	<h3>Registro de compra</h3>
   <label>Descripción</label>

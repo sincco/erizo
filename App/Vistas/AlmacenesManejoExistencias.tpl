@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-  <incluir archivo="Menu">
+  <menu>
 <div class="container">
 	<h3>Existencia en rutas</h3>
 	<select id="almacen" class="form-control">

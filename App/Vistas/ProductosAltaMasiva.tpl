@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-  <incluir archivo="Menu">
+  <menu>
 <div class="container">
   <h3>Alta masiva de productos</h3>
   <span id="boton">

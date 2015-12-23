@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
 	<h2>Tablero de información</h2>
 	<div class="jumbotron">

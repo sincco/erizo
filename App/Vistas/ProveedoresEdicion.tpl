@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
 	<h3>Edición de Proveedores</h3>
 	<ciclo proveedores>
