@@ -58,7 +58,6 @@ final class Sfphp_Peticion
 			$_segmentos = array_filter(explode('/', urldecode($_GET['url'])));
 		# Si no existe el modulo específico, se quita para buscarlo a nivel
 		# general de la app
-			var_dump($_segmentos);
 			if(is_dir("./App/Local/".ucwords(array_shift(array_filter(explode('/', urldecode($_GET['url']))))))) {
 				$this->_modulo = array_shift($_segmentos);
 			} elseif(is_dir("./App/Core/".ucwords(array_shift(array_filter(explode('/', urldecode($_GET['url']))))))) {
