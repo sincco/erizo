@@ -58,11 +58,9 @@ final class Sfphp_Peticion
 			$_segmentos = array_filter(explode('/', urldecode($_GET['url'])));
 		# Si no existe el modulo específico, se quita para buscarlo a nivel
 		# general de la app
-			if(is_dir("./App/Local/".ucwords($_segmentos[0]))) {
-				#echo "./App/Local/".ucwords($_segmentos[0]);
+			if(is_dir("./App/Local/".ucwords(array_shift(array_filter(explode('/', urldecode($_GET['url']))))))) {
 				$this->_modulo = array_shift($_segmentos);
-			} elseif(is_dir("./App/Core/".ucwords($_segmentos[0]))) {
-				#echo "./App/Core/".ucwords($_segmentos[0]);
+			} elseif(is_dir("./App/Core/".ucwords(array_shift(array_filter(explode('/', urldecode($_GET['url']))))))) {
 				$this->_modulo = array_shift($_segmentos);
 			} else {
 				$this->_modulo = NULL;
@@ -126,7 +124,6 @@ final class Sfphp_Peticion
 		}
 		switch($_contenido_tipo) {
 			case "application/json":
-			case "application/json; charset=UTF-8":
 			if(trim($_contenido) != "") {
 				foreach (json_decode($_contenido, TRUE) as $key => $value) {
 					$_parametros[$key] = self::limpiarEntradaPOST($value);

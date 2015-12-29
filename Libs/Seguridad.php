@@ -25,6 +25,7 @@ class Seguridad extends Sfphp_Seguridad
 					else
 						return TRUE;
 				}
+				return TRUE;
 			} else 
 				return FALSE;
 		} else {
