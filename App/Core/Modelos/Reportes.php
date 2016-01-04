@@ -93,7 +93,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 		return $this->db->query($query);
 	}
 
-	public function ventasUnidades($desde, $hasta, $vendedor)
+	public function ventasUnidades($desde, $hasta, $vendedor = 0)
 	{
 		$query = "SELECT pro.unidadMedida, det.cantidad
 		FROM ventas vta
@@ -108,7 +108,7 @@ class Modelos_Reportes extends Sfphp_Modelo
 		return $this->db->query($query);
 	}
 
-	public function ventasCreditos($desde, $hasta)
+	public function ventasCreditos($desde, $hasta, $vendedor = 0)
 	{
 		$query = "SELECT 
 			vta.fecha, ADDDATE(vta.fecha, con.diasCredito) vigencia,
@@ -120,8 +120,10 @@ class Modelos_Reportes extends Sfphp_Modelo
 		INNER JOIN ventasPagos pag USING(venta)
 		INNER JOIN clientes cli USING(cliente)
 		INNER JOIN _configuracion con
-		WHERE vta.fecha between '{$desde}' AND '{$hasta}' AND pag.tipo='Crédito' AND pag.monto > 0
-		GROUP BY vta.venta, pag.tipo
+		WHERE vta.fecha between '{$desde}' AND '{$hasta}' AND pag.tipo='Crédito' AND pag.monto > 0";
+		if(intval($vendedor) != 0)
+			$query .= " AND vta.vendedor = '{$vendedor}'";
+		$query .= " GROUP BY vta.venta, pag.tipo
 		ORDER BY vta.fecha DESC, vta.venta DESC;";
 		return $this->db->query($query);
 	}
