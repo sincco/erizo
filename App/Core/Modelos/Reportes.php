@@ -125,4 +125,26 @@ class Modelos_Reportes extends Sfphp_Modelo
 		ORDER BY vta.fecha DESC, vta.venta DESC;";
 		return $this->db->query($query);
 	}
+
+	public function ventas($desde, $hasta) {
+		$query = "SELECT nombre, FORMAT(SUM(efectivo),3) efectivo, FORMAT(SUM(credito),3) credito, FORMAT(SUM(tarjeta),3) tarjeta, FORMAT(SUM(efectivo)+SUM(credito)+SUM(tarjeta), 3) venta
+			FROM (
+				SELECT nombre,
+					case when trim(tipo) = 'Efectivo' then monto else 0 end efectivo,
+					case when trim(tipo) = 'Crédito' then monto else 0 end credito,
+					case when trim(tipo) = 'Tarjeta' then monto else 0 end tarjeta
+				FROM (
+					SELECT usr.nombre, pag.tipo, SUM(pag.monto) monto
+					FROM ventas vta
+					INNER JOIN ventasPagos pag USING (venta)
+					INNER JOIN vendedores ven USING (vendedor)
+					INNER JOIN usuarios usr USING (usuario)
+					WHERE vta.fecha between '{$desde}' AND '{$hasta}'
+					GROUP BY usr.nombre, pag.tipo
+				) tmp
+				GROUP BY nombre, tipo
+			) tmp
+			GROUP BY nombre";
+		return $this->db->query($query);
+	}
 }

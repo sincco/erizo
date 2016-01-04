@@ -68,6 +68,7 @@
                     <li><a href="{BASE_URL}reportes/cxc">Cuentas por cobrar</a></li>
                     <li><a href="{BASE_URL}reportes/ventaspagos">Ventas por tipo pago</a></li>
                     <li><a href="{BASE_URL}reportes/comisionesvendedor">Comisiones</a></li>
+                    <li><a href="{BASE_URL}reportes/ventas">Ventas</a></li>
                 </ul>
             </li>
 

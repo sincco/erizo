@@ -82,4 +82,15 @@ class Controladores_Reportes extends Sfphp_Controlador
 			$this->vistaReporteVentasCreditos;
 		}
 	}
+
+	public function ventas()
+	{
+		$data = Sfphp_Peticion::get('_parametros');
+		if(isset($data['accion'])) {
+			$data = $this->modeloReportes->ventas($data['desde'],$data['hasta']);
+			echo json_encode(array("respuesta"=>$data));
+		} else {
+			$this->vistaReporteVentas;
+		}
+	}
 }
