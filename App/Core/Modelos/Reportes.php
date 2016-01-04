@@ -12,10 +12,10 @@ class Modelos_Reportes extends Sfphp_Modelo
 			FORMAT(IFNULL(MAX(gto.monto),0),3) gasto, 
 			FORMAT(SUM(pro.costo*det.cantidad),3) costo, 
 			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) utilidad,
-			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * con.porcentajeSocio1 socio1,
-			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * con.porcentajeSocio2 socio2,
-			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * con.porcentajeSocio3 socio3,
-			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * con.porcentajeSocio4 socio4
+			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * (con.porcentajeSocio1/100) socio1,
+			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * (con.porcentajeSocio2/100) socio2,
+			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * (con.porcentajeSocio3/100) socio3,
+			FORMAT(SUM(det.subtotal) - IFNULL(MAX(gto.monto),0) - SUM(pro.costo*det.cantidad),3) * (con.porcentajeSocio4/100) socio4
 		FROM ventas vta
 		INNER JOIN ventasProductos det USING(venta)
 		INNER JOIN vendedores ven USING(vendedor)
