@@ -26,7 +26,7 @@
 #
 # -----------------------
 # @author: Iván Miranda
-# @version: 1.0.0
+# @version: 1.0.1
 # -----------------------
 # Manejador principal de la base de datos
 # -----------------------
@@ -68,8 +68,8 @@ final class Sfphp_BaseDatos {
                         $base["user"], Sfphp::decrypt($base["password"]));
                     break;
             }
-        } catch (PDOException $e) { 
-            Sfphp_Logs::procesa($e);
+        } catch (PDOException $e) {
+            trigger_error($e->getMessage(), E_USER_ERROR);
         }
     }
     public static function get($base = "default")
@@ -93,14 +93,29 @@ final class Sfphp_BaseDatos {
         return self::$conexion->errorInfo();
     }
    #Ejecucion de querys, con soporte para pase de parametros en un arreglo
-    public function query($consulta, $valores = array()) {
+    public function query($consulta, $valores = array(), $cache = TRUE) {
         $resultado = false;
+        $_query = $consulta;
+        $cache = APP_CACHE;
+        if(APP_CACHE) {
+            $cache = FALSE;
+            if(strstr(strtoupper(trim($_query)), "JOIN"))
+                $cache = TRUE;
+            if(strstr(strtoupper(trim($_query)), "__SESIONES"))
+                $cache = FALSE;
+        }
         if($statement = self::$conexion->prepare($consulta)) {
             if(preg_match_all("/(:\w+)/", $consulta, $campo, PREG_PATTERN_ORDER)) {
                 $campo = array_pop($campo);
                 foreach($campo as $parametro){
                     $statement->bindValue($parametro, $valores[substr($parametro,1)]);
+                    $_query = str_replace($parametro, $valores[substr($parametro,1)], $_query);
                 }
+            }
+            if($cache) {
+                $_cached = Sfphp_Cache::get(md5($_query));
+                if($_cached)
+                    return $_cached;
             }
             try {
                 if (!$statement->execute())
@@ -109,9 +124,10 @@ final class Sfphp_BaseDatos {
                 $statement->closeCursor();
             }
             catch(PDOException $e) {
-                Sfphp_Logs::procesa($e);
-                return false;
+                trigger_error($e->getMessage(), E_USER_ERROR);
             }
+            if($cache)
+                Sfphp_Cache::set(md5($_query), $resultado);
             return $resultado;
         }
     }
@@ -134,8 +150,7 @@ final class Sfphp_BaseDatos {
                 $statement->closeCursor();
             }
             catch(PDOException $e) {
-                Sfphp_Logs::procesa($e);
-                return false;
+                trigger_error($e->getMessage(), E_USER_ERROR);
             }
             return $resultado;
         }
@@ -156,8 +171,7 @@ final class Sfphp_BaseDatos {
                 $resultado = self::$conexion->lastInsertId();
             }
             catch(PDOException $e) {
-                Sfphp_Logs::procesa($e);
-                return false;
+                trigger_error($e->getMessage(), E_USER_ERROR);
             }
             return $resultado;
         }

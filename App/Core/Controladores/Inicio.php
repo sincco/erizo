@@ -15,6 +15,7 @@ class Controladores_Inicio extends Sfphp_Controlador
 
 	public function salir()
 	{
+		Sfphp_Cache::clear();
 		unset($_SESSION['acceso']);
 		$this->inicio();
 	}
