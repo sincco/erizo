@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
 	<h3>Transferencias entre almacenes</h3>
 	<p><a class="btn btn-primary btn-md" href="{BASE_URL}transferencias/captura" role="button">Agregar</a></p>

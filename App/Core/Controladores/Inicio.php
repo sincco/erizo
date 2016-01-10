@@ -13,7 +13,9 @@ class Controladores_Inicio extends Sfphp_Controlador
 		$this->vistaLogin;
 	}
 
-	public function salir() {
+	public function salir()
+	{
+		Sfphp_Cache::clear();
 		unset($_SESSION['acceso']);
 		$this->inicio();
 	}

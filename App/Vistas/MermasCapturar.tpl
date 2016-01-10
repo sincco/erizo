@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-  <incluir archivo="Menu">
+  <menu>
 <div class="container">
   <h3>Capturar mermas del día</h3>
   <label>Vendedor</label>

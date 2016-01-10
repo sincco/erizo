@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="jumbotron">
   <div id='map' style="width:100%; height:400px;"></div>
 </div>

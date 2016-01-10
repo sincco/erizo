@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
 	<h3>Impuestos</h3>
 	<p><a class="btn btn-primary btn-md" href="{BASE_URL}impuestos/nuevo" role="button">Agregar</a></p>

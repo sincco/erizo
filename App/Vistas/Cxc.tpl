@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
 	<h3>Cuentas por cobrar</h3>
 	<tabla datos="catalogo" pagina="10" exportar="true" buscar="true" clic="editarElemento">

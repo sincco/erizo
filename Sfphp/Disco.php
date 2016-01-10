@@ -37,7 +37,7 @@ final class Sfphp_Disco {
 # Funciones de XML
 #------------------------------------
 	# Graba un XML desde un arreglo
-	public static function arregloXML ($arreglo, $root, $archivo) {
+	public static function grabaXML ($arreglo, $root, $archivo) {
 		$_xml = new SimpleXMLElement("<?xml version=\"1.0\"?><".$root."></".$root.">");
 		self::array_to_xml($arreglo,$_xml);
 		return $_xml->asXML($archivo);
@@ -49,6 +49,24 @@ final class Sfphp_Disco {
 		foreach ( (array) $xml as $indice => $nodo )
 			$resp[$indice] = ( is_object ( $nodo ) ) ? self::XMLArreglo($nodo) : $nodo;
 		return $resp;
+	}
+
+	public function arregloXML($array, $root) {
+		$_xml = new SimpleXMLElement("<?xml version=\"1.0\"?><".$root."></".$root.">");
+		foreach($array as $key => $value) {
+			if(is_array($value)) {
+				if(!is_numeric($key)){
+					$subnode = $_xml->addChild("$key");
+					self::array_to_xml($value, $subnode);
+				} else{
+					$subnode = $_xml->addChild("item$key");
+					self::array_to_xml($value, $subnode);
+				}
+			} else {
+				$_xml->addChild("$key",htmlspecialchars("$value"));
+			}
+		}
+		return $_xml;
 	}
 
 	private function array_to_xml($array, &$_xml) {

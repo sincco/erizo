@@ -32,7 +32,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-3 col-md-3 col-sm-6">
-            <img src="{BASE_URL}html/img/logo.jpg" width="100%">
+            <img src="{BASE_URL}html/img/erizo.jpg" width="100%">
         </div>
         <div class="col-lg-6 col-md-6 col-sm-12">
             <h1>{APP_NAME}</h1>

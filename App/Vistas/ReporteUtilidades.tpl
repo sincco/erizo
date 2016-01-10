@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
   <h3>Reporte de utlidades</h3>
   <form id="filtro">

@@ -13,8 +13,8 @@ class Modelos_Productos extends Sfphp_Modelo
 	{
 		$where = NULL;
 		$query = "SELECT 
-			producto, clave, descripcion, descripcionCorta, FORMAT(SUM(precio),3) precio, FORMAT(SUM(precio2),3) precio2, FORMAT(SUM(precio3),3) precio3, FORMAT(SUM(precio4),3) precio4,
-			unidadMedida, iva, FORMAT(SUM(costo),3) costo
+			producto, clave, descripcion, descripcionCorta, FORMAT(precio,2) precio,
+			unidadMedida, iva, FORMAT(costo,2) costo
 		FROM productos ";
 		if(trim($id) != "")
 			$where = " WHERE producto = {$id}";

@@ -12,8 +12,7 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	public function get($id = '')
 	{
 		$where = NULL;
-		$query = "
-		SELECT usuario, clave, nombre, activo
+		$query = "SELECT usuario, clave, nombre, activo
 		FROM usuarios ";
 		if(trim($id) != "")
 			$where = " WHERE usuario = {$id};";
@@ -40,8 +39,7 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	 */
 	public function post($data)
 	{
-		$query = "
-		INSERT INTO usuarios
+		$query = "INSERT INTO usuarios
 		SET
 			clave = '{$data['clave']}',
 			nombre = '{$data['nombre']}',
@@ -57,8 +55,7 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	 */
 	public function del($id)
 	{
-		$query = "
-		UPDATE usuarios
+		$query = "UPDATE usuarios
 		SET activo = 0 
 		WHERE producto = {$id};";
 		return $this->db->query($query.$where);
@@ -70,8 +67,7 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "
-		SELECT 
+		$query = "SELECT 
 			usuario Usuario, clave Clave, nombre Nombre, activo Activo
 		FROM
 			usuarios;";
@@ -85,12 +81,13 @@ class Modelos_Usuarios extends Sfphp_Modelo
 	 */
 	public function login($data)
 	{
-		$query = "
-		SELECT usuario, clave
-		FROM usuarios
+		$query = "SELECT usr.usuario, usr.clave, per.permisos
+		FROM usuarios usr
+		INNER JOIN usuariosPerfiles USING (usuario)
+		INNER JOIN perfiles per USING (perfil)
 		WHERE clave = '{$data['clave']}'
-			AND password = '".Sfphp::encrypt($data['password'],Sfphp_Config::get()['app']['key'])."'
-			AND activo = 1;";
+			AND usr.password = '".Sfphp::encrypt($data['password'],Sfphp_Config::get()['app']['key'])."'
+			AND usr.activo = 1;";
 		return $this->db->query($query);
 	}
 }

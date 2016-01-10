@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-  <incluir archivo="Menu">
+  <menu>
 <div class="container">
   <h3>Edicion masiva de productos</h3>
   <input type="hidden" id="almacen" value="{almacen}">

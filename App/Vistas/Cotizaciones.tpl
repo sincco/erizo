@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-<incluir archivo="Menu">
+<menu>
 <div class="container">
 	<h3>Cotizaciones</h3>
 	<p><a class="btn btn-primary btn-md" href="{BASE_URL}cotizaciones/nuevo" role="button">Agregar</a></p>

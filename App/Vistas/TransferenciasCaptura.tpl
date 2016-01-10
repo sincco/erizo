@@ -1,5 +1,5 @@
 <incluir archivo="Header">
-  <incluir archivo="Menu">
+  <menu>
 <div class="container">
 	<h3>Transferencia entre almacenes</h3>
   <label>Almacén Origen</label>
