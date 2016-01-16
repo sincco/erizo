@@ -34,17 +34,18 @@
 final class Sfphp_Logs {
 
 	public static function set($data, $ext = "txt") {
-		# Registro de logs
 		$_file = "./Etc/Logs/".date('YW').".".$ext;
 		if($log_file = fopen($_file, 'a+')) {
 			$_data = print_r($data, TRUE);
 			fwrite($log_file, date("mdGis")."\r\n");
-			fwrite($log_file, $_data);
+			fwrite($log_file, $_data."\r\n");
 			fwrite($log_file,"URL: http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI']."\r\n");
 			fwrite($log_file, "SESSION: "."\r\n-->id: ".session_id()."\r\n-->data: \r\n");
-			foreach ($_SESSION as $key => $value) {
-				if(!is_array($value))
-					fwrite($log_file, "-->-->{$key} = ".$value."\r\n");
+			if(isset($_SESSION)) {
+				foreach ($_SESSION as $key => $value) {
+					if(!is_array($value))
+						fwrite($log_file, "-->-->{$key} = ".$value."\r\n");
+				}
 			}
 			fwrite($log_file, "IP: ".Sfphp::obtenIP()." - PHP ".phpversion()." - ".PHP_OS."(".PHP_SYSCONFDIR." ".PHP_BINARY.")\r\n");
 			fwrite($log_file,"--------------------------------------------\r\n");

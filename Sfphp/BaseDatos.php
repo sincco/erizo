@@ -36,6 +36,7 @@ final class Sfphp_BaseDatos {
     static private $instancia;
    #Conexion a la BD desde la creación de la clase
     private function __construct($configuracion = "default") {
+        #Sfphp_Logs::set("Conexion a BD");
         $base = Sfphp_Config::get('bases');
         $base = $base[$configuracion];
         self::$origen = $base["type"];
@@ -43,24 +44,24 @@ final class Sfphp_BaseDatos {
             if(!isset($base["charset"]))
                 $base["charset"] = "utf8";
             $parametros = array();
-            if($base["type"] == "mysql")
-                $parametros = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES '. $base["charset"]);
-            else
-                $parametros = array();
             switch ($base["type"]) {
                 case 'sqlsrv':
                     self::$conexion = new PDO($base["type"].":Server=".$base["host"].";",
                         $base["user"], Sfphp::decrypt($base["password"]), $parametros);
                     break;
                 case 'mysql':
+                    array_push($parametros, array(
+                        PDO::MYSQL_ATTR_COMPRESS => TRUE,
+                        PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES '. $base["charset"]
+                    ));
                     self::$conexion = new PDO($base["type"].":host=".$base["host"].";dbname=".$base["dbname"],
                         $base["user"], Sfphp::decrypt($base["password"]), $parametros);
                     break;
                 case 'firebird':
-                    $parametros = array(
-                        PDO::FB_ATTR_TIMESTAMP_FORMAT,"%d-%m-%Y",
-                        PDO::FB_ATTR_DATE_FORMAT ,"%d-%m-%Y"
-                    );
+                    array_push($parametros, array(
+                        PDO::FB_ATTR_TIMESTAMP_FORMAT => "%d-%m-%Y",
+                        PDO::FB_ATTR_DATE_FORMAT => "%d-%m-%Y"
+                    ));
                     self::$conexion = new PDO($base["type"].":dbname=".$base["host"].$base["dbname"], $base["user"], Sfphp::decrypt($base["password"]), $parametros);
                     break;
                 default:
@@ -72,19 +73,22 @@ final class Sfphp_BaseDatos {
             trigger_error($e->getMessage(), E_USER_ERROR);
         }
     }
-    public static function get($base = "default")
-    {
+
+    public static function get($base = "default") {
     # Conectar a la base, sólo si es distinta a la actual
         if($base != self::$origen)
             self::$instancia = new self($base);
         return self::$instancia;
     }
+
     public function beginTransaction() {
         return self::$conexion->beginTransaction();
     }
+
     public function commit() {
         return self::$conexion->commit();
     }
+
     public function errorCode() {
         return self::$conexion->errorCode();
     }
@@ -92,30 +96,28 @@ final class Sfphp_BaseDatos {
     public function errorInfo() {
         return self::$conexion->errorInfo();
     }
+
    #Ejecucion de querys, con soporte para pase de parametros en un arreglo
     public function query($consulta, $valores = array(), $cache = TRUE) {
-        $resultado = false;
-        $_query = $consulta;
+        #Sfphp_Logs::set("query");
+        $resultado = FALSE;
+        $query = $consulta;
         $cache = APP_CACHE;
-        if(APP_CACHE) {
-            $cache = FALSE;
-            if(strstr(strtoupper(trim($_query)), "JOIN"))
-                $cache = TRUE;
-            if(strstr(strtoupper(trim($_query)), "__SESIONES"))
+        if(APP_CACHE)
+            if(strstr(strtoupper(trim($query)), "__SESIONES"))
                 $cache = FALSE;
-        }
         if($statement = self::$conexion->prepare($consulta)) {
             if(preg_match_all("/(:\w+)/", $consulta, $campo, PREG_PATTERN_ORDER)) {
                 $campo = array_pop($campo);
                 foreach($campo as $parametro){
                     $statement->bindValue($parametro, $valores[substr($parametro,1)]);
-                    $_query = str_replace($parametro, $valores[substr($parametro,1)], $_query);
+                    $query = str_replace($parametro, $valores[substr($parametro,1)], $query);
                 }
             }
             if($cache) {
-                $_cached = Sfphp_Cache::get(md5($_query));
-                if($_cached)
-                    return $_cached;
+                $cached = Sfphp_Cache::get("data_".md5($query));
+                if($cached)
+                    return $cached;
             }
             try {
                 if (!$statement->execute())
@@ -127,10 +129,11 @@ final class Sfphp_BaseDatos {
                 trigger_error($e->getMessage(), E_USER_ERROR);
             }
             if($cache)
-                Sfphp_Cache::set(md5($_query), $resultado);
+                Sfphp_Cache::set("data_".md5($query), $resultado);
             return $resultado;
         }
     }
+
     #Ejecucion de querys, para uso en el propio framework (construccion de modelos automaticos)
     public function raw_query($consulta, $valores = array()) {
         $resultado = false;
@@ -155,6 +158,7 @@ final class Sfphp_BaseDatos {
             return $resultado;
         }
     }
+
     #Ejecucion de INSERT
     public function insert($consulta, $valores = array()) {
         $resultado = false;

@@ -12,18 +12,20 @@ class Seguridad extends Sfphp_Seguridad
 			if(isset($_SESSION['acceso'])) {
 				$_accesos = $_SESSION['acceso'];
 				$_accesos = json_decode($_accesos['permisos'], TRUE);
-				foreach ($_accesos as $_acceso) {
-					if(1 == count(explode("/", $_acceso['url']))) {
-						$_acceso['url'] .= "/inicio";
+				if(is_array($_accesos)) {
+					foreach ($_accesos as $_acceso) {
+						if(1 == count(explode("/", $_acceso['url']))) {
+							$_acceso['url'] .= "/inicio";
+						}
+						if("" == trim($accion))
+							$accion = "inicio";
+					//Si la ruta solicitada está dentro de los permisos del perfil, implica que el usuario
+					//no tiene permisos para consultarla
+						if(strtolower($controlador."/".$accion) == strtolower($_acceso['url']))
+							return FALSE;
+						else
+							return TRUE;
 					}
-					if("" == trim($accion))
-						$accion = "inicio";
-				//Si la ruta solicitada está dentro de los permisos del perfil, implica que el usuario
-				//no tiene permisos para consultarla
-					if(strtolower($controlador."/".$accion) == strtolower($_acceso['url']))
-						return FALSE;
-					else
-						return TRUE;
 				}
 				return TRUE;
 			} else 
