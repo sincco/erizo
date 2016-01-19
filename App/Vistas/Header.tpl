@@ -42,6 +42,6 @@
 
     <script src="{BASE_URL}html/js/sincco.js"></script>
 
-    <link rel="shortcut icon" href="{BASE_URL}html/ico/favicon.png">
+    <link rel="shortcut icon" href="{BASE_URL}html/ico/favicon.ico">
 </head>
 <body>
