@@ -26,31 +26,37 @@
 #
 # -----------------------
 # @author: Iván Miranda
-# @version: 2.0.0
+# @version: 1.0.0
 # -----------------------
-# Grabado de logs de la APP
+# Vaciar cache del sistema
 # -----------------------
 
-final class Sfphp_Logs {
-
-	public static function set($data, $ext = "txt") {
-		$_file = "./Etc/Logs/".date('YW').".".$ext;
-		if($log_file = fopen($_file, 'a+')) {
-			$_data = print_r($data, TRUE);
-			fwrite($log_file, date("mdGis")."\r\n");
-			fwrite($log_file, $_data."\r\n");
-			fwrite($log_file,"URL: http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI']."\r\n");
-			fwrite($log_file, "SESSION: "."\r\n-->id: ".session_id()."\r\n-->data: \r\n");
-			if(isset($_SESSION)) {
-				foreach ($_SESSION as $key => $value) {
-					if(!is_array($value))
-						fwrite($log_file, "-->-->{$key} = ".$value."\r\n");
-				}
-			}
-			fwrite($log_file, "IP: ".Sfphp::obtenIP()." - PHP ".phpversion()." - ".PHP_OS."(".PHP_SYSCONFDIR." ".PHP_BINARY.")\r\n");
-			fwrite($log_file,"--------------------------------------------\r\n");
-			fclose($log_file);
-		} else
-			echo "No se puede escribir el log ".$_file;
-	}
-}
+require_once './Sfphp/__base.php';
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sfphp</title>
+     <!-- Bootstrap Table -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+        <?php 
+        	echo "<h2>Eliminando cache...</h2>"; 
+        	Sfphp_Cache::clear();
+        ?>
+        </div>
+        <?php echo "<h3>...terminado!</h3>"; ?>
+    </div>
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="javascript:window.history.back()"><span aria-hidden="true">&larr;</span> Regresar</a></li>
+        </ul>
+    </nav>
+</body>
+</html>

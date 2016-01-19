@@ -26,7 +26,7 @@
 #
 # -----------------------
 # @author: Iván Miranda
-# @version: 1.0.1
+# @version: 1.0.2
 # -----------------------
 # Manejador principal de la base de datos
 # -----------------------
@@ -34,12 +34,11 @@ final class Sfphp_BaseDatos {
     static private $origen;
     static private $conexion;
     static private $instancia;
-   #Conexion a la BD desde la creación de la clase
+    # Conexion a la BD desde la creación de la clase
     private function __construct($configuracion = "default") {
-        #Sfphp_Logs::set("Conexion a BD");
         $base = Sfphp_Config::get('bases');
         $base = $base[$configuracion];
-        self::$origen = $base["type"];
+        self::$origen = $configuracion;
         try {
             if(!isset($base["charset"]))
                 $base["charset"] = "utf8";
@@ -75,7 +74,7 @@ final class Sfphp_BaseDatos {
     }
 
     public static function get($base = "default") {
-    # Conectar a la base, sólo si es distinta a la actual
+    # Conectar a la base, sólo si es distinta a la actualmente establecida
         if($base != self::$origen)
             self::$instancia = new self($base);
         return self::$instancia;
@@ -97,9 +96,8 @@ final class Sfphp_BaseDatos {
         return self::$conexion->errorInfo();
     }
 
-   #Ejecucion de querys, con soporte para pase de parametros en un arreglo
+    # Ejecucion de querys, con soporte para pase de parametros en un arreglo
     public function query($consulta, $valores = array(), $cache = TRUE) {
-        #Sfphp_Logs::set("query");
         $resultado = FALSE;
         $query = $consulta;
         $cache = APP_CACHE;
@@ -130,11 +128,13 @@ final class Sfphp_BaseDatos {
             }
             if($cache)
                 Sfphp_Cache::set("data_".md5($query), $resultado);
+            if(DEV_QUERYLOG)
+                Sfphp_Log::query($query);
             return $resultado;
         }
     }
 
-    #Ejecucion de querys, para uso en el propio framework (construccion de modelos automaticos)
+    # Ejecucion de querys, para uso en el propio framework (construccion de modelos automaticos)
     public function raw_query($consulta, $valores = array()) {
         $resultado = false;
         if($statement = self::$conexion->prepare($consulta)) {
@@ -159,7 +159,7 @@ final class Sfphp_BaseDatos {
         }
     }
 
-    #Ejecucion de INSERT
+    # Ejecucion de INSERT
     public function insert($consulta, $valores = array()) {
         $resultado = false;
         if($statement = self::$conexion->prepare($consulta)) {

@@ -26,57 +26,45 @@
 #
 # -----------------------
 # @author: Iván Miranda
-# @version: 1.0.0
+# @version: 2.0.0
 # -----------------------
-# Funciones base para ejecutar el framework
+# Grabado de logs de la APP
 # -----------------------
 
-# Autocarga de clases
-spl_autoload_register(
-    function ($nombreClase) {
-        if($nombreClase == "Sfphp")
-            include_once "./Sfphp/Sfphp.php";
-        else {
-            $_archivo = str_replace(array('_', '\\'), DIRECTORY_SEPARATOR, $nombreClase)
-            . '.php';
-            if(file_exists($_archivo)) {
-                include_once $_archivo;
-            } else {
-                # Cuando la clase no se encuentra desde la carga directa
-                # es por que es una clase ya sea de la applicación
-                # o de una libreria en si
-                # Las clases de la aplicación pueden ser personalizadas (Local)
-                # o sobre la base del desarrollo (Core), para poder hacer
-                # adecuaciones sin modificar la ruta original del sistema e incluso
-                # poder realizar sobreescritura de clases básicas
-                if(file_exists("./App/Local/".$_archivo)) {
-                    include_once "./App/Local/".$_archivo;
-                }
-                elseif(file_exists("./App/Core/".$_archivo)) {
-                    include_once "./App/Core/".$_archivo;
-                }
-                elseif(file_exists("./Libs/".$_archivo)) {
-                    include_once "./Libs/".$_archivo;
-                }
-                else {
-                    trigger_error("La clase {$nombreClase} no existe :: {$_archivo}", E_USER_ERROR);
-                }
-            }
-        }
-    }
-);
+final class Sfphp_Log {
 
+	# Registra un log
+	public static function set($data, $ext = "txt") {
+		$_file = "./Etc/Logs/".date('YW').".".$ext;
+		if($log_file = fopen($_file, 'a+')) {
+			$_data = print_r($data, TRUE);
+			fwrite($log_file, date("mdGis")."\r\n");
+			fwrite($log_file, $_data."\r\n");
+			fwrite($log_file,"URL: http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI']."\r\n");
+			fwrite($log_file, "SESSION: "."\r\n-->id: ".session_id()."\r\n-->data: \r\n");
+			if(isset($_SESSION)) {
+				foreach ($_SESSION as $key => $value) {
+					if(!is_array($value))
+						fwrite($log_file, "-->-->{$key} = ".$value."\r\n");
+				}
+			}
+			fwrite($log_file, "IP: ".Sfphp::obtenIP()." - PHP ".phpversion()." - ".PHP_OS."(".PHP_SYSCONFDIR." ".PHP_BINARY.")\r\n");
+			fwrite($log_file,"--------------------------------------------\r\n");
+			fclose($log_file);
+		} else
+			echo "No se puede escribir el log ".$_file;
+	}
 
-# Se obtiene la configuración
-Sfphp_Config::get();
-
-# Se aplica el valor por default de la cache
-if(!defined('APP_CACHE'))
-    define('APP_CACHE', FALSE);
-
-# Se aplica el valor por default del log de querys
-if(!defined('DEV_QUERYLOG'))
-    define('DEV_QUERYLOG', FALSE);
-
-# La función que captura los errores del framework
-set_error_handler("Sfphp_Error::procesa");
+	# Privada para registro de querys (si la configuración está activa)
+	public static function query($query) {
+		$_file = "./Etc/Logs/".date('YW').".sql";
+		if($log_file = fopen($_file, 'a+')) {
+			fwrite($log_file, date("mdGis")."\r\n");
+			fwrite($log_file,"URL: http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI']."\r\n");
+			fwrite($log_file, $query."\r\n");
+			fwrite($log_file,"--------------------------------------------\r\n");
+			fclose($log_file);
+		} else
+			echo "No se puede escribir el log ".$_file;
+	}
+}
