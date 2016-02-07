@@ -33,6 +33,9 @@
 
 final class Sfphp_Disparador {
 	public function __construct() {
+		# Limpiar cache expirada
+		Sfphp_Cache::expirate();
+		# Aplicar la sesión
 		Sfphp_Sesion::get();
 		$peticion = Sfphp_Peticion::get();
 		$clase = NULL;
@@ -53,14 +56,7 @@ final class Sfphp_Disparador {
 				trigger_error("La accion {$peticion['_accion']} no esta definida en {$clase}", E_USER_ERROR);
 			}
 		} catch (Sfphp_Error $e) {
-			Sfphp_Logs::error($e);
+			Sfphp_Log::error($e);
 		}
-	}
-
-	public function all()
-	{
-		if(!self::$instancia instanceof self)
-			self::$instancia = new self();
-		return self::$instancia->config;
 	}
 }

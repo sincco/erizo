@@ -28,38 +28,37 @@
 # @author: Iván Miranda
 # @version: 1.0.0
 # -----------------------
-# Arma un menú automático con todas las funciones creadas en el sistema
+# Enviar por mail el actual log de errores
 # -----------------------
 
 require_once './Sfphp/_base.php';
-
-$menu = array();
-// foreach (scandir("App/Core/Controladores") as $_archivo) {
-// 	if("php" == pathinfo($_archivo, PATHINFO_EXTENSION)) {
-// 		$_clase = "Controladores_".str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo);
-// 		$_controlador = new $_clase;
-// 		foreach (get_class_methods($_controlador) as $_metodo) {
-// 			if("Inicio" != str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo)) {
-// 				if("api" != substr($_metodo, 0,3) && "_" != substr($_metodo, 0,1))
-// 					if("inicio" == $_metodo)
-// 						array_push($menu, array(
-// 							"texto"=>ucwords(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo)), 
-// 							"url"=>strtolower(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo))
-// 							)
-// 						);
-// 					else
-// 						array_push($menu, array(
-// 							"texto"=>ucwords(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo)." ".$_metodo), 
-// 							"url"=>strtolower(str_replace(".".pathinfo($_archivo, PATHINFO_EXTENSION), "", $_archivo))."/".$_metodo
-// 							)
-// 						);
-// 			}
-// 		};
-// 	}
-// }
-$_menu = array();
-array_push($_menu, array("texto"=>"Clientes","url"=>"clientes"));
-array_push($_menu, array("texto"=>"Proveedores","url"=>"proveedores"));
-array_push($menu, array("text"=>"Catalogos","menu"=>$_menu));
-var_dump($menu);
-Sfphp_Disco::grabaXML($menu,"menu","./Etc/Config/menu2.xml");
+$file = "./Etc/Logs/".date('YW').".err";
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sfphp</title>
+     <!-- Bootstrap Table -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="{BASE_URL}favicon.ico">
+</head>
+<body>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+        <?php 
+            Sfphp_Email::sendError("[".APP_NAME."] errores", file_get_contents($file));
+        ?>
+        <h2>Enviando log de errores</h2>
+        </div>
+        <?php echo "<h3>...terminado!</h3>"; ?>
+    </div>
+    <nav>
+        <ul class="pager">
+            <li class="previous"><a href="javascript:window.history.back()"><span aria-hidden="true">&larr;</span> Regresar</a></li>
+        </ul>
+    </nav>
+</body>
+</html>
