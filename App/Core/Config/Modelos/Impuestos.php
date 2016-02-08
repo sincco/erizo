@@ -2,7 +2,7 @@
 /**
  * Manejo de datos de impuestos
  */
-class Modelos_Impuestos extends Sfphp_Modelo 
+class Config_Modelos_Impuestos extends Sfphp_Modelo 
 {
 	/**
 	 * Obiene los datos del impuesto aplicable a la fecha
@@ -10,10 +10,11 @@ class Modelos_Impuestos extends Sfphp_Modelo
 	 */
 	public function getActual()
 	{
-		$query = "SELECT ivaPorcentaje, iepsPorcentaje
-		FROM impuestos
+		$query = "SELECT imp.impuesto, des.descripcion, imp.porcentaje, imp.desde, imp.hasta
+		FROM impuestos imp
+		INNER JOIN impuestosDefinicion des USING (impuesto)
 		WHERE CURDATE() >= desde AND (CURDATE() <= hasta OR hasta IS NULL);";
-		return $this->db->query($query);
+		return $this->query($query);
 	}
 
 	/**
@@ -36,7 +37,7 @@ class Modelos_Impuestos extends Sfphp_Modelo
 			iepsPorcentaje = '{$data['iepsPorcentaje']}',
 			desde = $desde,
 			hasta = $hasta";
-		return $this->db->insert($query);
+		return $this->insert($query);
 	}
 
 	/**
@@ -45,10 +46,14 @@ class Modelos_Impuestos extends Sfphp_Modelo
 	 */
 	public function grid()
 	{
-		$query = "SELECT 
-			desde Desde, hasta Hasta, ivaPorcentaje IVA, iepsPorcentaje IEPS
-		FROM
-			impuestos;";
-		return $this->db->query($query);
+		$query = "SELECT imp.impuesto, des.descripcion, imp.porcentaje, imp.desde, imp.hasta
+		FROM impuestos imp
+		INNER JOIN impuestosDefinicion des USING (impuesto);";
+		return $this->query($query);
+	}
+
+	public function getDefinitions() {
+		$query = "SELECT impuesto, descripcion FROM impuestosDefinicion;";
+		return $this->query($query);
 	}
 }

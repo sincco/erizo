@@ -1,3 +1,3 @@
 mysql_db
-	userp::82dbDyjjTLqGhPxf
+	erizo::82dbDyjjTLqGhPxf
 	host::localhost
