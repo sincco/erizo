@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: localhost
--- Tiempo de generación: 10-11-2015 a las 00:57:08
--- Versión del servidor: 5.5.46-0ubuntu0.14.04.2
+-- Tiempo de generación: 07-02-2016 a las 21:20:12
+-- Versión del servidor: 5.5.47-0ubuntu0.14.04.1
 -- Versión de PHP: 5.5.9-1ubuntu4.14
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de datos: `userp`
+-- Base de datos: `erizo`
 --
 
 -- --------------------------------------------------------
@@ -36,18 +36,15 @@ CREATE TABLE IF NOT EXISTS `almacenes` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `almacenesProductos`
+-- Estructura de tabla para la tabla `categorias`
 --
 
-CREATE TABLE IF NOT EXISTS `almacenesProductos` (
-  `almacenProducto` int(11) NOT NULL AUTO_INCREMENT,
-  `almacen` int(11) NOT NULL,
-  `producto` int(11) NOT NULL,
-  `existencias` int(11) NOT NULL,
-  `costo` int(11) NOT NULL,
-  PRIMARY KEY (`almacenProducto`),
-  UNIQUE KEY `almacenProducto` (`almacen`,`producto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Existencias en almacenes' AUTO_INCREMENT=21 ;
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `categoria` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` int(11) NOT NULL,
+  `categoriaPadre` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`categoria`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Catálogo de categorias' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -132,41 +129,16 @@ CREATE TABLE IF NOT EXISTS `comprasProductos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `gastos`
+-- Estructura de tabla para la tabla `existencias`
 --
 
-CREATE TABLE IF NOT EXISTS `gastos` (
-  `gasto` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(75) NOT NULL,
-  PRIMARY KEY (`gasto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='catalogo de gastos' AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `gastosRuta`
---
-
-CREATE TABLE IF NOT EXISTS `gastosRuta` (
-  `gastoRuta` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `vendedor` int(11) NOT NULL,
-  PRIMARY KEY (`gastoRuta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='gastos de venta por día' AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `gastosRutasDetalle`
---
-
-CREATE TABLE IF NOT EXISTS `gastosRutasDetalle` (
-  `gastoRutaDetalle` int(11) NOT NULL AUTO_INCREMENT,
-  `gastoRuta` int(11) NOT NULL,
-  `gasto` int(11) NOT NULL,
-  `monto` float NOT NULL,
-  PRIMARY KEY (`gastoRutaDetalle`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='detalle de gastos por ruta' AUTO_INCREMENT=5 ;
+CREATE TABLE IF NOT EXISTS `existencias` (
+  `almacen` int(11) NOT NULL,
+  `producto` int(11) NOT NULL,
+  `existencias` float NOT NULL,
+  `costo` float NOT NULL,
+  UNIQUE KEY `existencias` (`almacen`,`producto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Existencias de productos';
 
 -- --------------------------------------------------------
 
@@ -175,11 +147,31 @@ CREATE TABLE IF NOT EXISTS `gastosRutasDetalle` (
 --
 
 CREATE TABLE IF NOT EXISTS `impuestos` (
-  `ivaPorcentaje` int(11) NOT NULL,
+  `impuesto` int(11) NOT NULL,
+  `porcentaje` float NOT NULL,
   `desde` date NOT NULL,
-  `hasta` date DEFAULT NULL,
-  `iepsPorcentaje` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Control de impuestos';
+  `hasta` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `impuestosDefinicion`
+--
+
+CREATE TABLE IF NOT EXISTS `impuestosDefinicion` (
+  `impuesto` int(11) NOT NULL AUTO_INCREMENT,
+  `descripcion` varchar(25) NOT NULL,
+  PRIMARY KEY (`impuesto`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Definicion de impuestos' AUTO_INCREMENT=3 ;
+
+--
+-- Volcado de datos para la tabla `impuestosDefinicion`
+--
+
+INSERT INTO `impuestosDefinicion` (`impuesto`, `descripcion`) VALUES
+(1, 'IVA'),
+(2, 'IEPS');
 
 -- --------------------------------------------------------
 
@@ -188,75 +180,18 @@ CREATE TABLE IF NOT EXISTS `impuestos` (
 --
 
 CREATE TABLE IF NOT EXISTS `kardex` (
-  `kardex` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fecha` date NOT NULL,
   `producto` int(11) NOT NULL,
-  `fechaHora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `movimiento` enum('Entrada','Salida') NOT NULL,
-  `tabla` enum('compras','ordenesProduccion','ventas','transferencias') NOT NULL,
-  `idTabla` int(11) NOT NULL,
-  `cantidad` int(11) NOT NULL,
-  `precio` float NOT NULL DEFAULT '1',
-  `costo` float NOT NULL DEFAULT '1',
-  PRIMARY KEY (`kardex`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Kardex de inventario' AUTO_INCREMENT=55 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `lineasProductos`
---
-
-CREATE TABLE IF NOT EXISTS `lineasProductos` (
-  `lineaProducto` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(75) NOT NULL,
-  `activo` int(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`lineaProducto`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `logOperaciones`
---
-
-CREATE TABLE IF NOT EXISTS `logOperaciones` (
-  `logOperacion` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario` int(11) NOT NULL,
-  `fechaHora` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `accion` enum('Creacion','Lectura','Actualización','Baja') NOT NULL,
-  `tabla` varchar(15) NOT NULL,
-  `campo` varchar(15) NOT NULL,
-  `id` varchar(15) NOT NULL,
-  PRIMARY KEY (`logOperacion`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Log de operaciones en el sistema (CRUD)' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `perfiles`
---
-
-CREATE TABLE IF NOT EXISTS `perfiles` (
-  `perfil` int(11) NOT NULL AUTO_INCREMENT,
-  `descripcion` varchar(75) NOT NULL,
-  `permisos` varchar(250) NOT NULL,
-  `activo` int(11) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`perfil`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Perfiles de acceso al sistema' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `planVentas`
---
-
-CREATE TABLE IF NOT EXISTS `planVentas` (
-  `planVenta` int(11) NOT NULL AUTO_INCREMENT,
-  `desde` date NOT NULL,
-  `hasta` date NOT NULL,
-  `monto` float NOT NULL,
-  PRIMARY KEY (`planVenta`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Plan de ventas por periodo' AUTO_INCREMENT=3 ;
+  `almacen` int(11) NOT NULL,
+  `cantidad` float NOT NULL,
+  `precio` float NOT NULL,
+  `costo` float NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `movimientos` (`fecha`,`almacen`,`movimiento`),
+  UNIQUE KEY `productos` (`fecha`,`producto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tarjeta de movimientos' AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -266,18 +201,32 @@ CREATE TABLE IF NOT EXISTS `planVentas` (
 
 CREATE TABLE IF NOT EXISTS `productos` (
   `producto` int(11) NOT NULL AUTO_INCREMENT,
-  `clave` char(10) NOT NULL,
-  `lineaProducto` int(11) NOT NULL DEFAULT '0',
+  `sku` char(20) NOT NULL,
   `descripcion` varchar(150) NOT NULL,
-  `descripcionCorta` varchar(50) NOT NULL,
+  `descripcionCorta` varchar(25) NOT NULL,
+  `tipo` enum('Simple','Compuesto') NOT NULL,
+  `relacionados` varchar(250) NOT NULL,
+  `controlExistencias` int(11) NOT NULL,
+  `activo` int(11) NOT NULL,
+  `categoria` int(11) NOT NULL,
+  PRIMARY KEY (`producto`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Catálogo de productos' AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `productosPrecios`
+--
+
+CREATE TABLE IF NOT EXISTS `productosPrecios` (
+  `productoPrecio` int(11) NOT NULL AUTO_INCREMENT,
+  `producto` int(11) NOT NULL,
   `precio` float NOT NULL,
-  `unidadMedida` char(3) NOT NULL DEFAULT 'NA',
-  `iva` int(11) NOT NULL DEFAULT '1',
-  `costo` float NOT NULL DEFAULT '0',
-  `activo` int(1) NOT NULL,
-  PRIMARY KEY (`producto`),
-  UNIQUE KEY `clave` (`clave`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de productos' AUTO_INCREMENT=19 ;
+  `fechaDesde` date NOT NULL,
+  `fechaHasta` date NOT NULL,
+  `impuestos` varchar(50) NOT NULL,
+  PRIMARY KEY (`productoPrecio`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -313,21 +262,6 @@ CREATE TABLE IF NOT EXISTS `proveedoresContactos` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `transferencias`
---
-
-CREATE TABLE IF NOT EXISTS `transferencias` (
-  `transferencia` int(11) NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `almacenOrigen` int(11) NOT NULL,
-  `almacenDestino` int(11) NOT NULL,
-  `motivo` varchar(150) NOT NULL,
-  PRIMARY KEY (`transferencia`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Cabecera de transferencia entre almacenes' AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -354,19 +288,6 @@ CREATE TABLE IF NOT EXISTS `usuariosPerfiles` (
   PRIMARY KEY (`usuarioPerfil`),
   UNIQUE KEY `usuariosPerfiles` (`usuario`,`perfil`) COMMENT 'usuariosPerfiles'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Usuarios de perfiles' AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `vendedores`
---
-
-CREATE TABLE IF NOT EXISTS `vendedores` (
-  `vendedor` int(11) NOT NULL AUTO_INCREMENT,
-  `usuario` int(11) NOT NULL,
-  `almacen` int(11) NOT NULL,
-  PRIMARY KEY (`vendedor`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Catálogo de vendedores y relación con almacenes (Tiendas, Puntos de Venta)' AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
